@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --passWithNoTests",
-    "test:coverage": "jest --watchAll --collect-coverage --passWithNoTests"
+    "test:coverage": "jest --watchAll=false --collect-coverage --passWithNoTests"
   },
   "eslintConfig": {
     "extends": [
