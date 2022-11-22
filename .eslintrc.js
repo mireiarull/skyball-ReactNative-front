@@ -13,6 +13,14 @@ module.exports = {
     {
       extends: ["xo-typescript", "prettier"],
       files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/consistent-type-definitions": [
+          "error",
+          "interface",
+        ],
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-empty-function": "off",
+      },
     },
   ],
   parserOptions: {
@@ -22,6 +30,7 @@ module.exports = {
   plugins: ["react", "@typescript-eslint", "prettier", "jest"],
   rules: {
     "no-multi-spaces": ["error"],
+
     "no-multiple-empty-lines": ["error", { max: 1 }],
     "object-curly-spacing": ["error", "always"],
     "no-use-before-define": ["off"],

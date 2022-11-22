@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { REACT_APP_API_SOCIAL } from "@env";
+import { REACT_APP_API_SKYBALL } from "@env";
 import { useAppDispatch } from "../../redux/hooks";
 import { type UserRegisterCredentials } from "../../types";
 
@@ -11,7 +11,7 @@ const userRoutes = {
 const useUser = () => {
   const dispatch = useAppDispatch();
 
-  const url = REACT_APP_API_SOCIAL;
+  const url = REACT_APP_API_SKYBALL;
 
   const registerUser = async (userData: UserRegisterCredentials) => {
     try {

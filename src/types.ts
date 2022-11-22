@@ -7,4 +7,4 @@ export type UserRegisterCredentials = {
   name: string;
   level: number;
   gender: string;
-};
+} & UserCredentials;
