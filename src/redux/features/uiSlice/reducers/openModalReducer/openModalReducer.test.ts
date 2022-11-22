@@ -1,16 +1,31 @@
+import { type UiState } from "../../types";
 import { openModalActionCreator, uiReducer } from "../../uiSlice";
 
 describe("Given openModalReducer", () => {
-  describe("When it recieves an initial state and a payload with 'Register successful'", () => {
-    test("Then it should return a new state with the modal's value 'Register successful' ", () => {
-      const currentUiState = { modal: "" };
-      const modalText = "Register successful";
+  const mockUiState: UiState = {
+    isError: false,
+    modalText: "",
+    showModal: false,
+  };
 
-      const expectedUiState = { ...currentUiState, modal: modalText };
+  describe("When it recieves an initial state and a payload isError true and the text 'There was an error'", () => {
+    test("Then it should return a new state with the modal's isError true and modal text 'There was an error'", () => {
+      const actionPayload = {
+        isError: true,
+        modalText: "There was an error",
+      };
+      const initialUiState: UiState = {
+        ...mockUiState,
+      };
+      const expectedUiState: UiState = {
+        showModal: true,
+        modalText: actionPayload.modalText,
+        isError: actionPayload.isError,
+      };
 
       const newUiState = uiReducer(
-        currentUiState,
-        openModalActionCreator(modalText)
+        initialUiState,
+        openModalActionCreator(actionPayload)
       );
 
       expect(newUiState).toStrictEqual(expectedUiState);

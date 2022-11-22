@@ -1,11 +1,13 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type UiState } from "../types";
+import { createSlice } from "@reduxjs/toolkit";
+import { type UiState } from "./types";
 
 import closeModalReducer from "./reducers/closeModalReducer/closeModalReducer";
 import openModalReducer from "./reducers/openModalReducer/openModalReducer";
 
 const initialState: UiState = {
-  modal: "",
+  isError: false,
+  modalText: "",
+  showModal: false,
 };
 
 const uiSlice = createSlice({
