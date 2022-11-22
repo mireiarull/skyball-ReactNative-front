@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { REACT_APP_API_SKYBALL } from "@env";
 import { useAppDispatch } from "../../redux/hooks";
 import { type UserRegisterCredentials } from "../../types";
