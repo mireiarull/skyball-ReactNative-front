@@ -1,7 +1,8 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { REACT_APP_API_SKYBALL } from "@env";
 import { useAppDispatch } from "../../redux/hooks";
 import { type UserRegisterCredentials } from "../../types";
+import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
 
 const userRoutes = {
   usersRoute: "/users",
@@ -11,20 +12,15 @@ const userRoutes = {
 const useUser = () => {
   const dispatch = useAppDispatch();
 
-  const url = REACT_APP_API_SKYBALL;
-
   const registerUser = async (userData: UserRegisterCredentials) => {
     try {
       await axios.post(
-        `${url}${userRoutes.usersRoute}${userRoutes.registerRoute}`,
+        `${REACT_APP_API_SKYBALL}${userRoutes.usersRoute}${userRoutes.registerRoute}`,
         userData
       );
-
-      return true;
+      dispatch(openModalActionCreator("Registered successfylly! Go to login"));
     } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        throw new Error("Error in user register");
-      }
+      dispatch(openModalActionCreator("User already registered!"));
     }
   };
 
