@@ -7,8 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --passWithNoTests",
-    "test:coverage": "jest --watchAll=false --collect-coverage --passWithNoTests",
+    "test": "jest",
+    "test:dev": "jest --watchAll",
+    "test:coverage": "jest --watchAll=false --collect-coverage",
     "prepare": "husky install"
   },
   "eslintConfig": {
@@ -30,7 +31,7 @@
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.15.6",
     "jwt-decode": "^3.1.2",
-    "react": "18.1.0",
+    "react": "^18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
     "react-native-dotenv": "^3.4.2",
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@react-native-community/eslint-config": "^3.2.0",
+    "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
