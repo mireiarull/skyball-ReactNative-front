@@ -18,9 +18,19 @@ const useUser = () => {
         `${REACT_APP_API_SKYBALL}${userRoutes.usersRoute}${userRoutes.registerRoute}`,
         userData
       );
-      dispatch(openModalActionCreator("Registered successfylly! Go to login"));
+      dispatch(
+        openModalActionCreator({
+          isError: false,
+          modalText: "Registered successfylly! Go to login",
+        })
+      );
     } catch (error: unknown) {
-      dispatch(openModalActionCreator("User already registered!"));
+      dispatch(
+        openModalActionCreator({
+          isError: false,
+          modalText: "User already registered!",
+        })
+      );
     }
   };
 

@@ -1,13 +1,21 @@
+import { type UiState } from "../../types";
 import { closeModalActionCreator, uiReducer } from "../../uiSlice";
 
 describe("Given closeModalReducer", () => {
-  describe("When it recieves an initial state with 'Register successful'", () => {
-    test("Then it should return a new state with an empty modal", () => {
-      const currentUiState = { modal: "Register was successful" };
+  describe("When it recieves an initial state with showModal true and a hideMocad action creator'", () => {
+    test("Then it should return a new state with with showModal false", () => {
+      const mockUiState: UiState = {
+        isError: false,
+        modalText: "",
+        showModal: true,
+      };
 
-      const expectedUiState = { ...currentUiState, modal: "" };
+      const expectedUiState: UiState = {
+        ...mockUiState,
+        showModal: false,
+      };
 
-      const newUiState = uiReducer(currentUiState, closeModalActionCreator());
+      const newUiState = uiReducer(mockUiState, closeModalActionCreator());
 
       expect(newUiState).toStrictEqual(expectedUiState);
     });

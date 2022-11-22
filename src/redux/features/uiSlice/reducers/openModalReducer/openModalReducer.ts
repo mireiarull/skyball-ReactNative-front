@@ -1,12 +1,14 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { type UiState } from "../../../types";
+import { type ShowModalActionPayload, type UiState } from "../../types";
 
 const openModalReducer = (
   previousUi: UiState,
-  action: PayloadAction<string>
+  action: PayloadAction<ShowModalActionPayload>
 ) => ({
   ...previousUi,
-  modal: action.payload,
+  showModal: true,
+  isError: action.payload.isError,
+  modalText: action.payload.modalText,
 });
 
 export default openModalReducer;
