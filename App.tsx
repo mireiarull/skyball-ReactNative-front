@@ -12,19 +12,18 @@ import RegisterForm from "./src/components/RegisterForm/RegisterForm";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text> Hello world</Text>
+    <View>
       <RegisterForm />
       <StatusBar style="auto" />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    backgroundColor: "#fff",
-    flex: 1,
-    justifyContent: "center",
-  },
-});
+// Const styles = StyleSheet.create({
+//   container: {
+//     alignItems: "center",
+//     backgroundColor: "#fff",
+//     flex: 1,
+//     justifyContent: "center",
+//   },
+// });
