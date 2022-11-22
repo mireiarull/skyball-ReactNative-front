@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --passWithNoTests",
+    "test:dev": "jest --watchAll",
     "test:coverage": "jest --watchAll=false --collect-coverage --passWithNoTests",
     "prepare": "husky install"
   },
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@react-native-community/eslint-config": "^3.2.0",
+    "@testing-library/react-native": "^11.5.0",
     "@types/jest": "^29.2.3",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
