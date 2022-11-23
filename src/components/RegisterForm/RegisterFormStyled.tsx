@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     padding: 25,
   },
   input: {
@@ -40,12 +41,59 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     backgroundColor: "#5265FF",
     padding: 10,
-    marginTop: 300,
+    marginTop: 30,
   },
   buttonText: {
     color: "white",
     fontSize: 20,
     fontWeight: "600",
+  },
+  checkbox: {
+    width: 15,
+    borderWidth: 5,
+    borderColor: "grey",
+    height: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 100,
+    backgroundColor: "white",
+    padding: 10,
+    marginTop: 15,
+  },
+  checkboxActive: {
+    width: 15,
+    borderWidth: 5,
+    borderColor: "grey",
+    height: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 100,
+    backgroundColor: "#5265FF",
+    padding: 10,
+    marginTop: 15,
+  },
+  checkboxContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkboxLabel: {
+    marginLeft: 20,
+    fontSize: 18,
+    marginTop: 15,
+  },
+  checkboxLabelTitle: {
+    marginLeft: 20,
+    height: 30,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 20,
+    color: "black",
+  },
+  checkboxDescription: {
+    display: "flex",
+    fontSize: 18,
+    marginLeft: 50,
   },
 });
 
