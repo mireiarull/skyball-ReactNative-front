@@ -25,7 +25,7 @@ describe("Given the custom hook useUser", () => {
 
       const actionPayload = {
         isError: false,
-        modalText: "Registered successfylly! Go to login",
+        modalText: "Registered successfylly!",
       };
 
       await registerUser(registerDataMock);
@@ -54,7 +54,7 @@ describe("Given the custom hook useUser", () => {
       };
 
       const actionPayload = {
-        isError: false,
+        isError: true,
         modalText: "User already registered!",
       };
 

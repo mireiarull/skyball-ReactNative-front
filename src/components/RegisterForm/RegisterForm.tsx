@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import useUser from "../../hooks/useUser/useUser";
 import { type UserRegisterCredentials } from "../../types";
+import CustomModal from "../Modal/CustomModal";
 import styles from "./RegisterFormStyled";
 
 const RegisterForm = (): JSX.Element => {
@@ -44,8 +45,11 @@ const RegisterForm = (): JSX.Element => {
 
   return (
     <KeyboardAvoidingView behavior="padding" enabled={true}>
+      <CustomModal />
       <View style={styles.container}>
-        <Text style={styles.title}>Regístrate</Text>
+        <Text style={styles.title} testID={"title"}>
+          Regístrate
+        </Text>
         <View>
           <View>
             <Text style={styles.label}>Nombre y apellidos</Text>
@@ -198,7 +202,11 @@ const RegisterForm = (): JSX.Element => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+          <TouchableOpacity
+            onPress={handleSubmit}
+            style={styles.button}
+            testID={"submitButton"}
+          >
             <Text style={styles.buttonText}>Continuar</Text>
           </TouchableOpacity>
         </View>
