@@ -1,30 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  Alert,
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { View } from "react-native";
 import React from "react";
-import RegisterForm from "./src/components/RegisterForm/RegisterForm";
+import { Provider } from "react-redux";
+import { store } from "./src/redux/store";
+import RegisterScreen from "./src/screens/RegisterScreen";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text> Hello world</Text>
-      <RegisterForm />
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <View>
+        <RegisterScreen />
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    backgroundColor: "#fff",
-    flex: 1,
-    justifyContent: "center",
-  },
-});
