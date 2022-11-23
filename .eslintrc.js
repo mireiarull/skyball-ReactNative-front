@@ -20,6 +20,17 @@ module.exports = {
         ],
         "@typescript-eslint/indent": "off",
         "@typescript-eslint/no-empty-function": "off",
+        "no-unused-vars": [
+          "error",
+          {
+            vars: "all",
+            args: "after-used",
+            ignoreRestSiblings: true,
+            argsIgnorePattern: /^/.source,
+            caughtErrors: "all",
+            caughtErrorsIgnorePattern: /^$/.source,
+          },
+        ],
       },
     },
   ],
@@ -54,5 +65,16 @@ module.exports = {
     "react-native/no-unused-styles": ["warn"],
     "comma-dangle": ["error", "only-multiline"],
     quotes: ["error", "double", { allowTemplateLiterals: true }],
+    "no-unused-vars": [
+      "error",
+      {
+        vars: "all",
+        args: "after-used",
+        ignoreRestSiblings: true,
+        argsIgnorePattern: /^/.source,
+        caughtErrors: "all",
+        caughtErrorsIgnorePattern: /^$/.source,
+      },
+    ],
   },
 };

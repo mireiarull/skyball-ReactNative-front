@@ -21,13 +21,13 @@ const useUser = () => {
       dispatch(
         openModalActionCreator({
           isError: false,
-          modalText: "Registered successfylly! Go to login",
+          modalText: "Registered successfylly!",
         })
       );
-    } catch (error: unknown) {
+    } catch {
       dispatch(
         openModalActionCreator({
-          isError: false,
+          isError: true,
           modalText: "User already registered!",
         })
       );
