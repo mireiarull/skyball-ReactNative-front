@@ -10,6 +10,7 @@ import useUser from "../../hooks/useUser/useUser";
 import { type UserRegisterCredentials } from "../../types";
 import CustomModal from "../Modal/CustomModal";
 import styles from "./RegisterFormStyled";
+import { Checkbox } from "../Checkbox/Checkbox";
 
 const RegisterForm = (): JSX.Element => {
   const { registerUser } = useUser();
@@ -97,38 +98,29 @@ const RegisterForm = (): JSX.Element => {
           <View>
             <Text style={styles.label}>Genero</Text>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.gender === "F"
-                    ? styles.checkboxActive
-                    : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.gender === "F"}
                 onPress={() => {
                   setFormData({ ...formData, gender: "F" });
                 }}
+                testID="checkboxFemale"
               />
               <Text style={styles.checkboxLabel}>Femenino</Text>
             </View>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.gender === "M"
-                    ? styles.checkboxActive
-                    : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.gender === "M"}
                 onPress={() => {
                   setFormData({ ...formData, gender: "M" });
                 }}
+                testID="checkboxMale"
               />
               <Text style={styles.checkboxLabel}>Masculino</Text>
             </View>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.gender === "X"
-                    ? styles.checkboxActive
-                    : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.gender === "X"}
+                testID="checkboxNoGender"
                 onPress={() => {
                   setFormData({ ...formData, gender: "X" });
                 }}
@@ -139,10 +131,9 @@ const RegisterForm = (): JSX.Element => {
           <View>
             <Text style={styles.label}>Nivel</Text>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.level === 1 ? styles.checkboxActive : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.level === 1}
+                testID="checkboxLevel1"
                 onPress={() => {
                   setFormData({ ...formData, level: 1 });
                 }}
@@ -154,10 +145,9 @@ const RegisterForm = (): JSX.Element => {
               aprendiendo a moverse por la arena
             </Text>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.level === 2 ? styles.checkboxActive : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.level === 2}
+                testID="checkboxLevel2"
                 onPress={() => {
                   setFormData({ ...formData, level: 2 });
                 }}
@@ -170,10 +160,9 @@ const RegisterForm = (): JSX.Element => {
               de antebrazos y de algunos golpes de ataque
             </Text>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.level === 3 ? styles.checkboxActive : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.level === 3}
+                testID="checkboxLevel3"
                 onPress={() => {
                   setFormData({ ...formData, level: 3 });
                 }}
@@ -185,10 +174,9 @@ const RegisterForm = (): JSX.Element => {
               variedad de ataques y dominio de la técnica.
             </Text>
             <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={
-                  formData.level === 4 ? styles.checkboxActive : styles.checkbox
-                }
+              <Checkbox
+                selected={formData.level === 4}
+                testID="checkboxLevel4"
                 onPress={() => {
                   setFormData({ ...formData, level: 4 });
                 }}
