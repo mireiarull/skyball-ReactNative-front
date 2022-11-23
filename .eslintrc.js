@@ -38,7 +38,13 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "prettier", "jest"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "prettier",
+    "jest",
+    "testing-library",
+  ],
   rules: {
     "no-multi-spaces": ["error"],
 
