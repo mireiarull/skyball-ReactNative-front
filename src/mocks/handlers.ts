@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { REACT_APP_API_SKYBALL } from "@env";
-import { type UserRegisterCredentials } from "../types";
+import { type UserRegisterCredentials } from "../types/types";
 
 const handlers = [
   rest.post(

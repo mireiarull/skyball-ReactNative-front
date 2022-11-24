@@ -1,4 +1,4 @@
-import { type UserRegisterCredentials } from "../types";
+import { type UserRegisterCredentials } from "../types/types";
 
 export const registerDataMock: UserRegisterCredentials = {
   password: "1234",

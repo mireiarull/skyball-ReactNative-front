@@ -1,7 +1,7 @@
 import axios from "axios";
 import { REACT_APP_API_SKYBALL } from "@env";
 import { useAppDispatch } from "../../redux/hooks";
-import { type UserRegisterCredentials } from "../../types";
+import { type UserRegisterCredentials } from "../../types/types";
 import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
 
 const userRoutes = {

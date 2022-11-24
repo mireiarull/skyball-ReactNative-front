@@ -8,3 +8,8 @@ export interface UserRegisterCredentials extends UserCredentials {
   level: number;
   gender: string;
 }
+
+export interface JwtCustomPayload {
+  id: string;
+  email: string;
+}
