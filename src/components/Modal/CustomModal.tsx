@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { closeModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import styles from "./CustomModalStyled";
+import styles from "./CustomModalStyles";
 
 const CustomModal = () => {
   const { showModal, modalText, buttonText } = useAppSelector(({ ui }) => ui);
