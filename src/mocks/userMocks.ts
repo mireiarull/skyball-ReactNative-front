@@ -7,3 +7,17 @@ export const registerDataMock: UserRegisterCredentials = {
   level: 2,
   name: "Mireia",
 };
+
+export const loginUserMock = {
+  id: "1",
+  email: "mireia@gmail.com",
+  token: "",
+  isLogged: false,
+};
+
+export const emptyUserMock = {
+  id: "",
+  email: "",
+  token: "",
+  isLogged: false,
+};
