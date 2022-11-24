@@ -6,6 +6,7 @@ import openModalReducer from "./reducers/openModalReducer/openModalReducer";
 
 const initialState: UiState = {
   isError: false,
+  modalTitle: "",
   modalText: "",
   showModal: false,
   buttonText: "",

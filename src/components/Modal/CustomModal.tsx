@@ -5,7 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./CustomModalStyles";
 
 const CustomModal = () => {
-  const { showModal, modalText, buttonText } = useAppSelector(({ ui }) => ui);
+  const { showModal, modalText, buttonText, modalTitle, isError } =
+    useAppSelector(({ ui }) => ui);
   const dispatch = useAppDispatch();
 
   const closeModal = useCallback(() => {
@@ -17,6 +18,12 @@ const CustomModal = () => {
       {showModal && (
         <View style={styles.backgroundContainer}>
           <View style={styles.container}>
+            {isError && (
+              <View style={styles.alertSign}>
+                <Text style={styles.alertSignText}>!</Text>
+              </View>
+            )}
+            <Text style={styles.modalTitle}>{modalTitle}</Text>
             <Text style={styles.modalText}>{modalText}</Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity

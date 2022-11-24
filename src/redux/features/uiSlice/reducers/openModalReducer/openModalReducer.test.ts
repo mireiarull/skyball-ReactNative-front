@@ -5,6 +5,7 @@ describe("Given openModalReducer", () => {
   const mockUiState: UiState = {
     isError: false,
     modalText: "",
+    modalTitle: "",
     showModal: false,
     buttonText: "",
   };
@@ -13,6 +14,7 @@ describe("Given openModalReducer", () => {
     test("Then it should return a new state with the modal's isError true and modal text 'There was an error'", () => {
       const actionPayload = {
         isError: true,
+        modalTitle: "Oops",
         modalText: "There was an error",
         buttonText: "Continue",
       };
@@ -22,6 +24,7 @@ describe("Given openModalReducer", () => {
       const expectedUiState: UiState = {
         showModal: true,
         modalText: actionPayload.modalText,
+        modalTitle: actionPayload.modalTitle,
         isError: actionPayload.isError,
         buttonText: actionPayload.buttonText,
       };

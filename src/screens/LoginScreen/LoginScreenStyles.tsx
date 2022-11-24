@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-color-literals */
 import { Dimensions, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({

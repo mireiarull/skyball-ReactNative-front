@@ -1,12 +1,13 @@
 /* eslint-disable react-native/no-color-literals */
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+import colorStyles from "../../styles/colorStyles";
 
 const styles = StyleSheet.create({
   backgroundContainer: {
     position: "absolute",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    width: "100%",
-    height: "100%",
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width,
     zIndex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -16,15 +17,37 @@ const styles = StyleSheet.create({
     display: "flex",
     position: "absolute",
     borderRadius: 20,
-    backgroundColor: "white",
+    backgroundColor: colorStyles.white,
     width: "80%",
     height: 300,
     padding: 25,
     zIndex: 2,
     top: 200,
   },
-  modalText: {
+  alertSign: {
+    width: 40,
+    height: 40,
+    position: "absolute",
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: colorStyles.error,
+    justifyContent: "center",
+  },
+  alertSignText: {
+    fontSize: 30,
+    color: colorStyles.error,
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  modalTitle: {
+    marginTop: 50,
     fontSize: 20,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  modalText: {
+    marginTop: 15,
+    fontSize: 16,
     textAlign: "center",
   },
   label: {
@@ -44,14 +67,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 50,
     borderRadius: 90,
-    backgroundColor: "#5265FF",
+    backgroundColor: colorStyles.main,
     padding: 10,
-    color: "white",
+    color: colorStyles.white,
     marginTop: 30,
     marginBottom: 30,
   },
   buttonText: {
-    color: "white",
+    color: colorStyles.white,
     fontSize: 20,
     fontWeight: "600",
   },

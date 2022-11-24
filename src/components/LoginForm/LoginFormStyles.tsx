@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-color-literals */
 import { StyleSheet } from "react-native";
 import colorStyles from "../../styles/colorStyles";
 import inputStyles from "../../styles/inputStyles";
@@ -17,6 +16,7 @@ const loginFormStyles = StyleSheet.create({
   input: {
     ...inputStyles.input,
     borderColor: colorStyles.white,
+    color: colorStyles.white,
   },
 });
 
