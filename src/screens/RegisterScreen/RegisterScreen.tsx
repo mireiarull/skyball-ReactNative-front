@@ -5,7 +5,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
-import RegisterForm from "../components/RegisterForm/RegisterForm";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
 const RegisterScreen = () => (
   <KeyboardAvoidingView behavior="padding" enabled={true}>
