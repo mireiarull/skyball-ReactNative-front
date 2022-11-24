@@ -13,3 +13,7 @@ export interface JwtCustomPayload {
   id: string;
   email: string;
 }
+
+export interface LoginResponse {
+  token: string;
+}

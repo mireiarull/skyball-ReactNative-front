@@ -18,6 +18,16 @@ const handlers = [
       return res(ctx.status(201), ctx.json({ user }));
     }
   ),
+
+  rest.post(`${REACT_APP_API_SKYBALL}/users/login`, async (req, res, ctx) => {
+    const user = await req.json<UserRegisterCredentials>();
+
+    if (user.password === "mockPassword") {
+      return res(ctx.status(401), ctx.json({ error: "Invalid user" }));
+    }
+
+    return res(ctx.status(201), ctx.json({ token: "token" }));
+  }),
 ];
 
 export default handlers;

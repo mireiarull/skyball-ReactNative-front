@@ -11,7 +11,7 @@ export const registerDataMock: UserRegisterCredentials = {
 export const loginUserMock = {
   id: "1",
   email: "mireia@gmail.com",
-  token: "",
+  token: "token12345",
   isLogged: false,
 };
 
