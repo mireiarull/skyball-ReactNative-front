@@ -3,7 +3,7 @@ import { registerDataMock } from "../../mocks/userMocks";
 import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
 import { store } from "../../redux/store";
 import ProviderWrapper from "../../test-utils/providerWrapper";
-import { type UserRegisterCredentials } from "../../types";
+import { type UserRegisterCredentials } from "../../types/types";
 import useUser from "./useUser";
 
 beforeEach(() => {

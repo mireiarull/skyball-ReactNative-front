@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import useUser from "../../hooks/useUser/useUser";
-import { type UserRegisterCredentials } from "../../types";
+import { type UserRegisterCredentials } from "../../types/types";
 import CustomModal from "../Modal/CustomModal";
 import styles from "./RegisterFormStyled";
 import { Checkbox } from "../Checkbox/Checkbox";
