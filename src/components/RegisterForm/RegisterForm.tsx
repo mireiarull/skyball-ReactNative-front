@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Text,
@@ -7,10 +7,13 @@ import {
   View,
 } from "react-native";
 import useUser from "../../hooks/useUser/useUser";
-import { type UserRegisterCredentials } from "../../types/types";
+
 import CustomModal from "../Modal/CustomModal";
-import styles from "./RegisterFormStyled";
+import styles from "./RegisterFormStyles";
 import { Checkbox } from "../Checkbox/Checkbox";
+import { type UserRegisterCredentials } from "../../types/types";
+import inputStyles from "../../styles/inputStyles";
+import buttonStyles from "../../styles/buttonStyles";
 
 const RegisterForm = (): JSX.Element => {
   const { registerUser } = useUser();
@@ -24,6 +27,23 @@ const RegisterForm = (): JSX.Element => {
   };
 
   const [formData, setFormData] = useState(intialFormData);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    setButtonDisabled(
+      formData.name.length < 1 ||
+        formData.email.length < 1 ||
+        formData.password.length < 1 ||
+        formData.gender.length < 1 ||
+        formData.level < 0
+    );
+  }, [
+    formData.name,
+    formData.email,
+    formData.password,
+    formData.gender,
+    formData.level,
+  ]);
 
   const handleFormChange = (text: string, identify: string) => {
     setFormData({
@@ -53,9 +73,9 @@ const RegisterForm = (): JSX.Element => {
         </Text>
         <View>
           <View>
-            <Text style={styles.label}>Nombre y apellidos</Text>
+            <Text style={inputStyles.label}>Nombre y apellidos</Text>
             <TextInput
-              style={styles.input}
+              style={inputStyles.input}
               testID="name"
               maxLength={20}
               value={formData.name}
@@ -67,9 +87,9 @@ const RegisterForm = (): JSX.Element => {
             />
           </View>
           <View>
-            <Text style={styles.label}>Email</Text>
+            <Text style={inputStyles.label}>Email</Text>
             <TextInput
-              style={styles.input}
+              style={inputStyles.input}
               testID="email"
               maxLength={32}
               value={formData.email}
@@ -81,10 +101,10 @@ const RegisterForm = (): JSX.Element => {
             />
           </View>
           <View>
-            <Text style={styles.label}>Contraseña</Text>
+            <Text style={inputStyles.label}>Contraseña</Text>
             <TextInput
               secureTextEntry={true}
-              style={styles.input}
+              style={inputStyles.input}
               testID="password"
               maxLength={32}
               value={formData.password}
@@ -96,7 +116,7 @@ const RegisterForm = (): JSX.Element => {
             />
           </View>
           <View>
-            <Text style={styles.label}>Genero</Text>
+            <Text style={inputStyles.label}>Genero</Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
                 selected={formData.gender === "F"}
@@ -129,7 +149,7 @@ const RegisterForm = (): JSX.Element => {
             </View>
           </View>
           <View>
-            <Text style={styles.label}>Nivel</Text>
+            <Text style={inputStyles.label}>Nivel</Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
                 selected={formData.level === 1}
@@ -191,11 +211,12 @@ const RegisterForm = (): JSX.Element => {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
+            disabled={buttonDisabled}
             onPress={handleSubmit}
-            style={styles.button}
+            style={buttonStyles.button}
             testID={"submitButton"}
           >
-            <Text style={styles.buttonText}>Continuar</Text>
+            <Text style={buttonStyles.buttonText}>Continuar</Text>
           </TouchableOpacity>
         </View>
       </View>

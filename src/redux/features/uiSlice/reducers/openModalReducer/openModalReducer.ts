@@ -8,6 +8,7 @@ const openModalReducer = (
   ...previousUi,
   showModal: true,
   isError: action.payload.isError,
+  modalTitle: action.payload.modalTitle,
   modalText: action.payload.modalText,
   buttonText: action.payload.buttonText,
 });

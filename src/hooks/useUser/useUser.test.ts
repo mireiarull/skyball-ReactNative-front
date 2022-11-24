@@ -43,7 +43,8 @@ describe("Given the custom hook useUser", () => {
 
       const actionPayload = {
         isError: false,
-        modalText: "Registrado!",
+        modalTitle: "Registrado!",
+        modalText: "",
         buttonText: "Continuar",
       };
 
@@ -74,6 +75,7 @@ describe("Given the custom hook useUser", () => {
 
       const actionPayload = {
         isError: true,
+        modalTitle: "¡Ups!",
         modalText: "Este usuario ya está registrado",
         buttonText: "Volver",
       };
@@ -132,7 +134,8 @@ describe("Given the custom hook useUser", () => {
 
       const modalError = {
         isError: true,
-        modalText: "Ha habido un error!",
+        modalTitle: "Ha habido un error!",
+        modalText: "Parece que ha habido un problema con el login",
         buttonText: "Volver",
       };
 

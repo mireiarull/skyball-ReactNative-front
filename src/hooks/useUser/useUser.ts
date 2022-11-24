@@ -28,7 +28,8 @@ const useUser = () => {
       dispatch(
         openModalActionCreator({
           isError: false,
-          modalText: "Registrado!",
+          modalText: "",
+          modalTitle: "Registrado!",
           buttonText: "Continuar",
         })
       );
@@ -37,6 +38,7 @@ const useUser = () => {
         openModalActionCreator({
           isError: true,
           modalText: "Este usuario ya está registrado",
+          modalTitle: "¡Ups!",
           buttonText: "Volver",
         })
       );
@@ -54,6 +56,7 @@ const useUser = () => {
         openModalActionCreator({
           isError: true,
           modalText: "La informacion es incorrecta!",
+          modalTitle: "¡Ups!",
           buttonText: "Volver",
         });
       }
@@ -67,13 +70,22 @@ const useUser = () => {
           token,
         })
       );
+      dispatch(
+        openModalActionCreator({
+          isError: false,
+          modalTitle: "¡Listo para jugar!",
+          modalText: "Ya puedes empezar a jugar todos los partidos nivelados",
+          buttonText: "¡A jugar!",
+        })
+      );
       await AsyncStorage.setItem("token", token);
       return;
     } catch {
       dispatch(
         openModalActionCreator({
           isError: true,
-          modalText: "Ha habido un error!",
+          modalTitle: "Ha habido un error!",
+          modalText: "Parece que ha habido un problema con el login",
           buttonText: "Volver",
         })
       );
