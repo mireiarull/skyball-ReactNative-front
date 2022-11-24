@@ -1,8 +1,15 @@
 import axios from "axios";
 import { REACT_APP_API_SKYBALL } from "@env";
 import { useAppDispatch } from "../../redux/hooks";
-import { type UserRegisterCredentials } from "../../types/types";
+import {
+  type LoginResponse,
+  type UserCredentials,
+  type UserRegisterCredentials,
+} from "../../types/types";
 import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
+import decodeToken from "../../test-utils/decodeToken";
+import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const userRoutes = {
   usersRoute: "/users",
@@ -36,7 +43,44 @@ const useUser = () => {
     }
   };
 
-  return { registerUser };
+  const loginUser = async (userData: UserCredentials) => {
+    try {
+      const responseData = await axios.post<LoginResponse>(
+        `${REACT_APP_API_SKYBALL}/users/login`,
+        userData
+      );
+
+      if (responseData.status === 401) {
+        openModalActionCreator({
+          isError: true,
+          modalText: "La informacion es incorrecta!",
+          buttonText: "Volver",
+        });
+      }
+
+      const { token } = responseData.data;
+      const userLogged = decodeToken(token);
+
+      dispatch(
+        loginUserActionCreator({
+          ...userLogged,
+          token,
+        })
+      );
+      await AsyncStorage.setItem("token", token);
+      return;
+    } catch {
+      dispatch(
+        openModalActionCreator({
+          isError: true,
+          modalText: "Ha habido un error!",
+          buttonText: "Volver",
+        })
+      );
+    }
+  };
+
+  return { registerUser, loginUser };
 };
 
 export default useUser;
