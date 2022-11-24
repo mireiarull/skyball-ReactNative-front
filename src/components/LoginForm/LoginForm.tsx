@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Text,
@@ -8,10 +8,7 @@ import {
 } from "react-native";
 import useUser from "../../hooks/useUser/useUser";
 import buttonStyles from "../../styles/buttonStyles";
-import {
-  type UserCredentials,
-  type UserRegisterCredentials,
-} from "../../types/types";
+import { type UserCredentials } from "../../types/types";
 import CustomModal from "../Modal/CustomModal";
 import styles from "../RegisterForm/RegisterFormStyles";
 import loginFormStyles from "./LoginFormStyles";
@@ -19,15 +16,19 @@ import loginFormStyles from "./LoginFormStyles";
 const LoginForm = (): JSX.Element => {
   const { loginUser } = useUser();
 
-  const intialFormData: UserRegisterCredentials = {
+  const intialFormData: UserCredentials = {
     password: "",
     email: "",
-    name: "",
-    gender: "",
-    level: 0,
   };
 
   const [formData, setFormData] = useState(intialFormData);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    setButtonDisabled(
+      formData.email.length < 1 && formData.password.length < 1
+    );
+  }, [formData.email, formData.password]);
 
   const handleFormChange = (text: string, identify: string) => {
     setFormData({
@@ -83,6 +84,7 @@ const LoginForm = (): JSX.Element => {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
+            disabled={buttonDisabled}
             onPress={handleSubmit}
             style={buttonStyles.button}
             testID={"submitButton"}

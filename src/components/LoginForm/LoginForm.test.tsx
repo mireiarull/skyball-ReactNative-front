@@ -29,10 +29,11 @@ describe("Given a LoginForm component", () => {
     });
   });
 
-  describe("And the user fills in the form", () => {
-    test("Then the written text should show on the input", async () => {
+  describe("And the user fills in the form and clicks on the submit button", () => {
+    test("Then the written text should show on the input and it should call registerUser with the information", async () => {
       const emailId = "email";
       const passwordId = "password";
+      const submitButtonText = "Iniciar sesión";
 
       render(
         <Provider store={store}>
@@ -42,30 +43,16 @@ describe("Given a LoginForm component", () => {
 
       const emailField = await screen.getByTestId(emailId);
       const passwordField = await screen.getByTestId(passwordId);
+      const submitButton = await screen.getByText(submitButtonText);
       fireEvent.changeText(emailField, "mireia@gmail.com");
       fireEvent.changeText(passwordField, "security");
+      fireEvent.press(submitButton);
 
       expect(emailField.props.value).toBe("mireia@gmail.com");
       expect(passwordField.props.value).toBe("security");
-    });
-  });
-
-  describe("And the user clicks on the submit button", () => {
-    test("Then it should call registerUser with the form information", async () => {
-      const submitButtonText = "Iniciar sesión";
-
-      render(
-        <Provider store={store}>
-          <LoginForm />
-        </Provider>
-      );
-
-      const submitButton = await screen.getByText(submitButtonText);
-      fireEvent.press(submitButton);
-
       expect(mockLoginUser).toHaveBeenCalledWith({
-        email: "",
-        password: "",
+        email: "mireia@gmail.com",
+        password: "security",
       });
     });
   });

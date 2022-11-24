@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Text,
@@ -27,6 +27,23 @@ const RegisterForm = (): JSX.Element => {
   };
 
   const [formData, setFormData] = useState(intialFormData);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    setButtonDisabled(
+      formData.name.length < 1 ||
+        formData.email.length < 1 ||
+        formData.password.length < 1 ||
+        formData.gender.length < 1 ||
+        formData.level < 0
+    );
+  }, [
+    formData.name,
+    formData.email,
+    formData.password,
+    formData.gender,
+    formData.level,
+  ]);
 
   const handleFormChange = (text: string, identify: string) => {
     setFormData({
@@ -194,6 +211,7 @@ const RegisterForm = (): JSX.Element => {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
+            disabled={buttonDisabled}
             onPress={handleSubmit}
             style={buttonStyles.button}
             testID={"submitButton"}

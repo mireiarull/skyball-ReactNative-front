@@ -13,6 +13,20 @@ jest.mock("../../hooks/useUser/useUser", () => () => ({
 }));
 
 describe("Given a RegisterForm component", () => {
+  const checkboxIds = [
+    "checkboxFemale",
+    "checkboxMale",
+    "checkboxNoGender",
+    "checkboxLevel1",
+    "checkboxLevel2",
+    "checkboxLevel3",
+    "checkboxLevel4",
+  ];
+
+  const nameId = "name";
+  const emailId = "email";
+  const passwordId = "password";
+
   describe("When it's rendererd", () => {
     test("Then it should show a title with text 'Regístrate'", async () => {
       const expectedText = "Regístrate";
@@ -31,10 +45,6 @@ describe("Given a RegisterForm component", () => {
 
   describe("And the user fills in the form", () => {
     test("Then the written text should show on the input", async () => {
-      const nameId = "name";
-      const emailId = "email";
-      const passwordId = "password";
-
       render(
         <Provider store={store}>
           <RegisterForm />
@@ -56,16 +66,6 @@ describe("Given a RegisterForm component", () => {
 
   describe("And the user clicks on the checkboxes", () => {
     test("Then it should set the form state", async () => {
-      const checkboxIds = [
-        "checkboxFemale",
-        "checkboxMale",
-        "checkboxNoGender",
-        "checkboxLevel1",
-        "checkboxLevel2",
-        "checkboxLevel3",
-        "checkboxLevel4",
-      ];
-
       render(
         <Provider store={store}>
           <RegisterForm />
@@ -90,15 +90,27 @@ describe("Given a RegisterForm component", () => {
         </Provider>
       );
 
+      const nameField = await screen.getByTestId(nameId);
+      const emailField = await screen.getByTestId(emailId);
+      const passwordField = await screen.getByTestId(passwordId);
+      fireEvent.changeText(nameField, "mireia");
+      fireEvent.changeText(emailField, "mireia@gmail.com");
+      fireEvent.changeText(passwordField, "security");
+
+      checkboxIds.forEach((id) => {
+        const checkbox = screen.getByTestId(id);
+        fireEvent.press(checkbox);
+      });
+
       const submitButton = await screen.getByText(submitButtonText);
       fireEvent.press(submitButton);
 
       expect(mockRegisterUser).toHaveBeenCalledWith({
-        email: "",
-        gender: "",
-        level: 0,
-        name: "",
-        password: "",
+        email: "mireia@gmail.com",
+        gender: "X",
+        level: 4,
+        name: "mireia",
+        password: "security",
       });
     });
   });
