@@ -8,6 +8,7 @@ const initialState: UiState = {
   isError: false,
   modalText: "",
   showModal: false,
+  buttonText: "",
 };
 
 const uiSlice = createSlice({
