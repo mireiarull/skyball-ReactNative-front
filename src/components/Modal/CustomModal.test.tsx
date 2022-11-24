@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
-import { mockInitialStore, mockInitialUiState } from "../../mocks/uiMocks";
+import {
+  mockInitialStore,
+  mockInitialUiState,
+  mockInitialUserState,
+} from "../../mocks/uiMocks";
 import { screen, fireEvent, render } from "@testing-library/react-native";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
 import CustomModal from "./CustomModal";
@@ -17,6 +21,7 @@ describe("Given a CustomModal component", () => {
       renderWithProviders(<CustomModal />, {
         preloadedState: {
           ui: mockInitialUiState,
+          user: mockInitialUserState,
         },
       });
 
