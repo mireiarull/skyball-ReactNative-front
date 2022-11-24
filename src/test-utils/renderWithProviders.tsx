@@ -6,6 +6,7 @@ import type { PreloadedState } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { type store, type RootState } from "../redux/store";
 import { uiReducer } from "../redux/features/uiSlice/uiSlice";
+import { userReducer } from "../redux/features/userSlice/userSlice";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>;
@@ -17,7 +18,7 @@ export const renderWithProviders = (
   {
     preloadedState,
     store = configureStore({
-      reducer: { ui: uiReducer },
+      reducer: { ui: uiReducer, user: userReducer },
       preloadedState,
     }),
     ...renderOptions

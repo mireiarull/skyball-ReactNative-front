@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { renderHook } from "@testing-library/react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import makeWrapper from "../../mocks/makeWrapper";
 import useToken from "./useToken";
 import { loginUserMock } from "../../mocks/userMocks";
+import { type User } from "../../redux/features/userSlice/types";
+import { type JwtCustomPayload } from "../../types/types";
+import { store } from "../../redux/store";
 
 const { token } = loginUserMock;
 
@@ -15,6 +19,24 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
   getItem: jest.fn().mockReturnValue("token12345"),
   removeItem: jest.fn(),
 }));
+
+jest.mock("../../test-utils/decodeToken", () => () => ({
+  id: "12345",
+  email: "mireia@gmail.com",
+}));
+
+const mockUser: User = {
+  email: "mireia@gmail.com",
+  id: "12345",
+  token: "token",
+};
+
+jest.mock(
+  "jwt-decode",
+  () => () => ({ id: mockUser.id, email: mockUser.email } as JwtCustomPayload)
+);
+
+const dispatchSpy = jest.spyOn(store, "dispatch");
 
 describe("Given the hook useToken", () => {
   describe("When it's method checkToken is invoked and there is a token in AsyncStorage", () => {
@@ -50,6 +72,24 @@ describe("Given the hook useToken", () => {
       await removeToken();
 
       expect(AsyncStorage.removeItem).toHaveBeenCalledWith("token");
+    });
+  });
+
+  describe("When it's method checkToken is invoked and there is a token", () => {
+    test("Then the dispatch should be called with loginUserActionCreator and the user data", async () => {
+      const {
+        result: {
+          current: { checkToken },
+        },
+      } = renderHook(() => useToken(), {
+        wrapper: makeWrapper,
+      });
+
+      AsyncStorage.removeItem = jest.fn().mockReturnValue(token);
+
+      await checkToken();
+
+      expect(dispatchSpy).toHaveBeenCalled();
     });
   });
 });
