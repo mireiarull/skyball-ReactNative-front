@@ -5,7 +5,6 @@ import { render, screen, fireEvent } from "@testing-library/react-native";
 import RegisterForm from "./RegisterForm";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
-// Import { registerUser } from "../../hooks/useUser/useUser";
 
 const mockRegisterUser = jest.fn();
 

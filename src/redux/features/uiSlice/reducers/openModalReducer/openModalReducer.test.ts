@@ -6,6 +6,7 @@ describe("Given openModalReducer", () => {
     isError: false,
     modalText: "",
     showModal: false,
+    buttonText: "",
   };
 
   describe("When it recieves an initial state and a payload isError true and the text 'There was an error'", () => {
@@ -13,6 +14,7 @@ describe("Given openModalReducer", () => {
       const actionPayload = {
         isError: true,
         modalText: "There was an error",
+        buttonText: "Continue",
       };
       const initialUiState: UiState = {
         ...mockUiState,
@@ -21,6 +23,7 @@ describe("Given openModalReducer", () => {
         showModal: true,
         modalText: actionPayload.modalText,
         isError: actionPayload.isError,
+        buttonText: actionPayload.buttonText,
       };
 
       const newUiState = uiReducer(

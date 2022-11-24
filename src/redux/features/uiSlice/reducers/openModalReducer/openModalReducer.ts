@@ -9,6 +9,7 @@ const openModalReducer = (
   showModal: true,
   isError: action.payload.isError,
   modalText: action.payload.modalText,
+  buttonText: action.payload.buttonText,
 });
 
 export default openModalReducer;
