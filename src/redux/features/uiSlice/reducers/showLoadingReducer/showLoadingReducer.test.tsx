@@ -1,13 +1,9 @@
 import { type UiState } from "../../types";
-import {
-  closeModalActionCreator,
-  showLoadingActionCreator,
-  uiReducer,
-} from "../../uiSlice";
+import { showLoadingActionCreator, uiReducer } from "../../uiSlice";
 
 describe("Given a showLoadingReducer", () => {
-  describe("When it recieves an initial state with showLoading false and a showLoading action creator'", () => {
-    test("Then it should return a new state with with showLoading true", () => {
+  describe("When it recieves an initial state with isLoading false and a showLoading action creator'", () => {
+    test("Then it should return a new state with with isLoading true", () => {
       const mockUiState: UiState = {
         buttonText: "",
         modalTitle: "",
