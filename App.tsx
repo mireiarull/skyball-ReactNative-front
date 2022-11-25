@@ -7,6 +7,7 @@ import LoginScreen from "./src/screens/LoginScreen/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import RegisterScreen from "./src/screens/RegisterScreen/RegisterScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen/WelcomeScreen";
+import Loading from "./src/components/Loading/Loading";
 
 export default function App() {
   return (
@@ -14,7 +15,8 @@ export default function App() {
       <NavigationContainer>
         <View>
           {/* <LoginScreen /> */}
-          <WelcomeScreen />
+          {/* <WelcomeScreen /> */}
+          <Loading />
           {/* <RegisterScreen /> */}
           <StatusBar style="auto" />
         </View>
