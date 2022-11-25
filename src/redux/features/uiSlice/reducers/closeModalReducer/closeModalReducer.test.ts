@@ -8,6 +8,9 @@ describe("Given closeModalReducer", () => {
         isError: false,
         modalText: "",
         showModal: true,
+        buttonText: "",
+        isLoading: false,
+        modalTitle: "",
       };
 
       const expectedUiState: UiState = {
