@@ -1,4 +1,5 @@
 export interface UiState {
+  isLoading: boolean;
   showModal: boolean;
   isError: boolean;
   modalTitle: string;
