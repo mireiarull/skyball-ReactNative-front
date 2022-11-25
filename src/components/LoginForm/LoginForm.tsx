@@ -61,7 +61,6 @@ const LoginForm = (): JSX.Element => {
               testID="email"
               maxLength={20}
               value={formData.email}
-              accessibilityLabel="email"
               onChangeText={(data) => {
                 handleFormChange(data, "email");
               }}
@@ -75,7 +74,6 @@ const LoginForm = (): JSX.Element => {
               maxLength={32}
               value={formData.password}
               textContentType="password"
-              accessibilityLabel="password"
               onChangeText={(data) => {
                 handleFormChange(data, "password");
               }}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import {
@@ -14,39 +15,54 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import buttonStyles from "../../styles/buttonStyles";
 import styles from "./WelcomeScreenStyles";
 import welcomeScreenStyles from "./WelcomeScreenStyles";
+import { useNavigation } from "@react-navigation/native";
+import { type LoginScreenNavigationProp } from "../../types/navigation.types";
+import RoutesEnum from "../../navigation/routes";
 
-const WelcomeScreen = () => (
-  <KeyboardAvoidingView behavior="padding" enabled={true}>
-    <ImageBackground
-      source={backgroundImage}
-      resizeMode="cover"
-      style={welcomeScreenStyles.image}
-      testID="backgroundImage"
-    ></ImageBackground>
-    <SafeAreaView>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.logo} source={logo}></Image>
+const WelcomeScreen = () => {
+  const navigation = useNavigation<LoginScreenNavigationProp>();
+
+  return (
+    <KeyboardAvoidingView behavior="padding" enabled={true}>
+      <ImageBackground
+        source={backgroundImage}
+        resizeMode="cover"
+        style={welcomeScreenStyles.image}
+        testID="backgroundImage"
+      ></ImageBackground>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image source={logo}></Image>
+          </View>
+
+          <TouchableOpacity
+            style={welcomeScreenStyles.button}
+            testID={"submitButton"}
+            onPress={() => {
+              navigation.navigate(RoutesEnum.register);
+            }}
+          >
+            <Text style={buttonStyles.buttonText}>Registrarme</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={welcomeScreenStyles.button}
+            testID={"submitButton"}
+            onPress={() => {
+              navigation.navigate(RoutesEnum.login);
+            }}
+          >
+            <Text style={buttonStyles.buttonText}>Iniciar sesión</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={welcomeScreenStyles.link}>
+              Continuar como invitado
+            </Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={welcomeScreenStyles.button}
-          testID={"submitButton"}
-        >
-          <Text style={buttonStyles.buttonText}>Registrarme</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={welcomeScreenStyles.button}
-          testID={"submitButton"}
-        >
-          <Text style={buttonStyles.buttonText}>Iniciar sesión</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={welcomeScreenStyles.link}>Continuar como invitado</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  </KeyboardAvoidingView>
-);
+      </SafeAreaView>
+    </KeyboardAvoidingView>
+  );
+};
 
 export default WelcomeScreen;

@@ -5,6 +5,7 @@
 import "@testing-library/react";
 import "@testing-library/react-native";
 import "@testing-library/jest-dom/extend-expect";
+import "react-native-reanimated/mock";
 import server from "./mocks/server";
 
 beforeAll(() => {
@@ -19,3 +20,13 @@ afterEach(() => {
 afterAll(() => {
   server.close();
 });
+
+import "react-native-gesture-handler/jestSetup";
+
+jest.mock("react-native-reanimated", () => {
+  const Reanimated = require("react-native-reanimated/mock");
+  Reanimated.default.call = () => {};
+  return Reanimated;
+});
+
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");

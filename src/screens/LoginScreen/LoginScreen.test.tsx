@@ -5,6 +5,7 @@ import { render, screen } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
 import LoginScreen from "./LoginScreen";
+import { NavigationContainer } from "@react-navigation/native";
 
 const mockLoginUser = jest.fn();
 
@@ -19,7 +20,9 @@ describe("Given a LoginScreen page", () => {
 
       render(
         <Provider store={store}>
-          <LoginScreen />
+          <NavigationContainer>
+            <LoginScreen />
+          </NavigationContainer>
         </Provider>
       );
 
