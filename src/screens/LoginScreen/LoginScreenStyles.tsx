@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import colorStyles from "../../styles/colorStyles";
 
 const styles = StyleSheet.create({
   image: {
@@ -7,6 +8,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
+  },
+  arrow: {
+    // Position: "absolute",
+    color: colorStyles.white,
   },
 });
 
