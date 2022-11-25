@@ -8,7 +8,16 @@ const welcomeScreenStyles = StyleSheet.create({
     height: Dimensions.get("window").height,
     padding: 25,
     justifyContent: "flex-end",
+    paddingBottom: 100,
   },
+  imageContainer: {
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "flex-start",
+    paddingBottom: 410,
+  },
+
   button: {
     ...buttonStyles.button,
     marginTop: 10,
