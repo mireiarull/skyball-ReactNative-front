@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useCallback } from "react";
 import { REACT_APP_API_SKYBALL } from "@env";
 import {
