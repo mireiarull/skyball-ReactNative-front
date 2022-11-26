@@ -6,6 +6,13 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
     backgroundColor: colorStyles.white,
+    padding: 25,
+  },
+  title: {
+    marginTop: 20,
+    marginBottom: 20,
+    fontSize: 25,
+    fontWeight: "600",
   },
 });
 

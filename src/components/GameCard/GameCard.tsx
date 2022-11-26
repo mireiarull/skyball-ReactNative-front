@@ -9,18 +9,7 @@ interface GameCardProps {
 }
 
 const GameCard = ({
-  game: {
-    date,
-    description,
-    format,
-    gender,
-    image,
-    level,
-    location,
-    players,
-    spots,
-    beachName,
-  },
+  game: { date, format, gender, level, players, spots, beachName },
 }: GameCardProps) => (
   <View style={gameCardStyles.container}>
     <Image
@@ -29,23 +18,25 @@ const GameCard = ({
       resizeMode="cover"
     ></Image>
     <View style={gameCardStyles.information}>
-      <Text>{beachName}</Text>
-      <Text>
+      <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
+      <Text style={gameCardStyles.informationFormat}>
         {format} vs {format}
       </Text>
-      <Text>
+      <Text style={gameCardStyles.informationText}>
         Nivel{" "}
         {(level === 1 && "principiante") ||
           (level === 2 && "intermedio") ||
           (level === 3 && "intermedio alto") ||
           (level === 4 && "avanzado")}
       </Text>
-      <Text>
+      <Text style={gameCardStyles.informationText}>
         {(gender === "F" && "Femenino") ||
           (gender === "M" && "Masculino") ||
           (gender === "X" && "Mixto")}
       </Text>
-      <Text>{spots - players.length} plazas libres</Text>
+      <Text style={gameCardStyles.informationSpots}>
+        {spots - players.length} plazas libres
+      </Text>
     </View>
   </View>
 );

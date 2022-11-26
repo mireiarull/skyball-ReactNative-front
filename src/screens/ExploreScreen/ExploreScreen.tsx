@@ -20,7 +20,7 @@ const ExploreScreen = () => {
       <View style={styles.screen}>
         {isLoading && <Loading />}
         <SafeAreaView>
-          <Text>Partidos</Text>
+          <Text style={styles.title}>Partidos</Text>
           <GameList />
         </SafeAreaView>
       </View>
