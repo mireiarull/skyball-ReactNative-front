@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import { REACT_APP_API_SKYBALL } from "@env";
 import { type UserRegisterCredentials } from "../types/types";
+import { mockLoadGamesResponse } from "./gamesMocks";
 
 const handlers = [
   rest.post(
@@ -28,6 +29,17 @@ const handlers = [
 
     return res(ctx.status(201), ctx.json({ token: "token" }));
   }),
+
+  rest.get(`${REACT_APP_API_SKYBALL}/games/list`, (req, res, ctx) =>
+    res.once(
+      ctx.status(404),
+      ctx.json({ error: "There was an error on the server" })
+    )
+  ),
+
+  rest.get(`${REACT_APP_API_SKYBALL}/games/list`, async (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(mockLoadGamesResponse))
+  ),
 ];
 
 export default handlers;

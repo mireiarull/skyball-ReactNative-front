@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-color-literals */
 import { StyleSheet } from "react-native";
+import colorStyles from "../../styles/colorStyles";
 
 const styles = StyleSheet.create({
   checkbox: {
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
-    backgroundColor: "white",
+    backgroundColor: colorStyles.white,
     padding: 10,
     marginTop: 15,
   },
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
-    backgroundColor: "#5265FF",
+    backgroundColor: colorStyles.main,
     padding: 10,
     marginTop: 15,
   },

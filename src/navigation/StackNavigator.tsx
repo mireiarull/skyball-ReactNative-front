@@ -5,6 +5,7 @@ import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import WelcomeScreen from "../screens/WelcomeScreen/WelcomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import RoutesEnum from "./routes";
+import ExploreScreen from "../screens/ExploreScreen/ExploreScreen";
 
 const StackNavigatorExplorer = () => {
   const Stack = createNativeStackNavigator();
@@ -25,6 +26,11 @@ const StackNavigatorExplorer = () => {
         <Stack.Screen
           name={RoutesEnum.login}
           component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={RoutesEnum.explore}
+          component={ExploreScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

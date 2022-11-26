@@ -3,7 +3,7 @@ import { type UserRegisterCredentials } from "../types/types";
 export const registerDataMock: UserRegisterCredentials = {
   password: "1234",
   email: "mireia@gmail.com",
-  gender: "f",
+  gender: "F",
   level: 2,
   name: "Mireia",
 };
