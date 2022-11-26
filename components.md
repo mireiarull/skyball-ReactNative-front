@@ -17,8 +17,7 @@
 ## Games (Array de objects)
 
 - Id
-- Time
-- Day
+- Date (date and time)
 - Location
 - Level
 - Gender

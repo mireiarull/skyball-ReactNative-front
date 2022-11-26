@@ -6,7 +6,7 @@ export interface UserCredentials {
 export interface UserRegisterCredentials extends UserCredentials {
   name: string;
   level: number;
-  gender: string;
+  gender: "F" | "M" | "X";
 }
 
 export interface JwtCustomPayload {

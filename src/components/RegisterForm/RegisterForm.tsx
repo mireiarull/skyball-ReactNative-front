@@ -22,7 +22,7 @@ const RegisterForm = (): JSX.Element => {
     password: "",
     email: "",
     name: "",
-    gender: "",
+    gender: "X",
     level: 0,
   };
 
