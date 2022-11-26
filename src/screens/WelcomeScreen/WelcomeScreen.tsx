@@ -53,7 +53,11 @@ const WelcomeScreen = () => {
           >
             <Text style={buttonStyles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(RoutesEnum.explore);
+            }}
+          >
             <Text style={welcomeScreenStyles.link}>
               Continuar como invitado
             </Text>
