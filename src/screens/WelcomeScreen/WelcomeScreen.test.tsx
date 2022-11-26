@@ -84,5 +84,24 @@ describe("Given a WelcomeScreen page", () => {
         expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.login);
       });
     });
+
+    describe("And the user clicks the 'Continuar como invitado' button", () => {
+      test("Then the useNavigation should be called with the explore page reference", async () => {
+        const continueButtonText = "Continuar como invitado";
+
+        render(
+          <Provider store={store}>
+            <NavigationContainer>
+              <WelcomeScreen />
+            </NavigationContainer>
+          </Provider>
+        );
+
+        const loginButton = await screen.getByText(continueButtonText);
+        fireEvent(loginButton, "press");
+
+        expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.explore);
+      });
+    });
   });
 });

@@ -30,19 +30,17 @@ const useGames = () => {
 
       dispatch(loadAllGamesActionCreator(games));
       dispatch(hideLoadingActionCreator());
-    } catch (error: unknown) {
+    } catch {
       dispatch(hideLoadingActionCreator());
 
-      if (error instanceof AxiosError) {
-        dispatch(
-          openModalActionCreator({
-            isError: true,
-            modalTitle: "Ha habido un error!",
-            modalText: "Parece que ha habido un problema cargando los partidos",
-            buttonText: "Volver",
-          })
-        );
-      }
+      dispatch(
+        openModalActionCreator({
+          isError: true,
+          modalTitle: "Ha habido un error!",
+          modalText: "Parece que ha habido un problema cargando los partidos",
+          buttonText: "Volver",
+        })
+      );
     }
   }, [dispatch]);
 
