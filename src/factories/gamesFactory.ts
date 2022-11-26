@@ -3,8 +3,8 @@ import { faker } from "@faker-js/faker";
 import { type GameStructure } from "../redux/features/gamesSlice/types";
 
 const gamesFactory = Factory.define<GameStructure>(() => ({
-  date: faker.datatype.datetime(),
-  format: faker.random.word(),
+  date: faker.random.alphaNumeric(),
+  format: faker.datatype.number({ min: 2, max: 6 }),
   gender: "M",
   level: faker.datatype.number(),
   spots: faker.datatype.number(),
@@ -13,6 +13,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
     type: "Point",
     coordinates: [11.111111111111111, 11.111111111111111],
   },
+  beachName: faker.address.cityName(),
   players: [
     {
       id: faker.random.alphaNumeric(),
@@ -20,6 +21,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
       material: [faker.random.word()],
     },
   ],
+  image: faker.random.alphaNumeric(),
 }));
 
 export const getRandomGameList = (number: number) =>
