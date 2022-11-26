@@ -31,6 +31,23 @@ describe("Given a CustomModal component", () => {
     });
   });
 
+  describe("When it's rendered with isError true", () => {
+    test("Then it should show an alert sign wit '!'", async () => {
+      const expectedErrorText = "!";
+
+      renderWithProviders(<CustomModal />, {
+        preloadedState: {
+          ui: { ...mockInitialUiState, isError: true },
+          user: mockInitialUserState,
+        },
+      });
+
+      const modalErrorText = await screen.getByText(expectedErrorText);
+
+      expect(modalErrorText).toBeDefined();
+    });
+  });
+
   describe("And the user clicks on the button with text 'Continue'", () => {
     test("Then it should call dispatch with closeModalActionCreator", async () => {
       const buttonId = "modalButton";
