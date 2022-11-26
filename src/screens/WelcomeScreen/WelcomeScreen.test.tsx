@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
@@ -5,15 +6,19 @@ import { Provider } from "react-redux";
 import { store } from "../../redux/store";
 import WelcomeScreen from "./WelcomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
+import RoutesEnum from "../../navigation/routes";
 
-const mockLoginUser = jest.fn();
+const mockedNavigate = jest.fn();
 
-jest.mock("../../hooks/useUser/useUser", () => () => ({
-  loginUser: mockLoginUser,
-}));
-
-// Jest.mock("react-native/Libraries/Animated/src/NativeAnimatedHelper");
-jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 
 describe("Given a WelcomeScreen page", () => {
   describe("When it's rendered", () => {
@@ -42,26 +47,42 @@ describe("Given a WelcomeScreen page", () => {
       expect(guestButton).toBeDefined();
     });
 
-    // Describe("And the user clicks the 'Registrarme' button", () => {
-    //   test("Then it should redirect to the Welcome page and show a title 'Regístrate'", async () => {
-    //     const registerButtonText = "Registrarme";
-    //     const welcomePageText = "Regístrate";
+    describe("And the user clicks the 'Registrarme' button", () => {
+      test("Then the useNavigation should be called with the register page reference", async () => {
+        const registerButtonText = "Registrarme";
 
-    //     render(
-    //       <Provider store={store}>
-    //         <NavigationContainer>
-    //           <WelcomeScreen />
-    //         </NavigationContainer>
-    //       </Provider>
-    //     );
+        render(
+          <Provider store={store}>
+            <NavigationContainer>
+              <WelcomeScreen />
+            </NavigationContainer>
+          </Provider>
+        );
 
-    //     const registerButton = await screen.getByText(registerButtonText);
-    //     fireEvent(registerButton, "press");
+        const registerButton = await screen.getByText(registerButtonText);
+        fireEvent(registerButton, "press");
 
-    //     const expectedWelcomePageText = await screen.getByText(welcomePageText);
+        expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.register);
+      });
+    });
 
-    //     expect(expectedWelcomePageText).toBeTruthy();
-    //   });
-    // });
+    describe("And the user clicks the 'Iniciar sesión' button", () => {
+      test("Then the useNavigation should be called with the login page reference", async () => {
+        const loginButtonText = "Iniciar sesión";
+
+        render(
+          <Provider store={store}>
+            <NavigationContainer>
+              <WelcomeScreen />
+            </NavigationContainer>
+          </Provider>
+        );
+
+        const loginButton = await screen.getByText(loginButtonText);
+        fireEvent(loginButton, "press");
+
+        expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.login);
+      });
+    });
   });
 });

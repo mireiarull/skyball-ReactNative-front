@@ -28,6 +28,7 @@ const LoginScreen = () => {
       <SafeAreaView>
         <View>
           <TouchableOpacity
+            testID="backArrow"
             onPress={() => {
               navigation.goBack();
             }}

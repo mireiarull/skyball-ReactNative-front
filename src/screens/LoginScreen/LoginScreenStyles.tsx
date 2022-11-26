@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   arrow: {
-    // Position: "absolute",
+    margin: 20,
     color: colorStyles.white,
   },
 });

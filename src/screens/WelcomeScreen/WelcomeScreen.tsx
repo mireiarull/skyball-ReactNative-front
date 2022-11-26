@@ -13,7 +13,6 @@ import backgroundImage from "./../../../assets/background-image.jpg";
 import logo from "./../../../assets/skyball-logo-white.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import buttonStyles from "../../styles/buttonStyles";
-import styles from "./WelcomeScreenStyles";
 import welcomeScreenStyles from "./WelcomeScreenStyles";
 import { useNavigation } from "@react-navigation/native";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
@@ -31,8 +30,8 @@ const WelcomeScreen = () => {
         testID="backgroundImage"
       ></ImageBackground>
       <SafeAreaView>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
+        <View style={welcomeScreenStyles.container}>
+          <View style={welcomeScreenStyles.imageContainer}>
             <Image source={logo}></Image>
           </View>
 
