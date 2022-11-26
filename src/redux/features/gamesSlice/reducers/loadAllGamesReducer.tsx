@@ -1,12 +1,12 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { type GameStructure } from "../types";
+import { type GamesState, type GameStructure } from "../types";
 
-const loadAllGames = (
-  currentGamesState: GameStructure[],
+const loadAllGamesReducer = (
+  currentGamesState: GamesState,
   action: PayloadAction<GameStructure[]>
 ) => ({
   ...currentGamesState,
   games: action.payload,
 });
 
-export default loadAllGames;
+export default loadAllGamesReducer;
