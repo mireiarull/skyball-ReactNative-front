@@ -1,4 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { getRandomGameList } from "../factories/gamesFactory";
+import { gamesReducer } from "../redux/features/gamesSlice/gamesSlice";
+import { type GamesState } from "../redux/features/gamesSlice/types";
 import { type UiState } from "../redux/features/uiSlice/types";
 import { uiReducer } from "../redux/features/uiSlice/uiSlice";
 import { type UserState } from "../redux/features/userSlice/types";
@@ -21,13 +24,19 @@ export const mockInitialUserState: UserState = {
   token: "",
 };
 
+export const mockInitialGamesState: GamesState = {
+  games: getRandomGameList(3),
+};
+
 export const mockInitialStore: typeof store = configureStore({
   reducer: {
     ui: uiReducer,
     user: userReducer,
+    games: gamesReducer,
   },
   preloadedState: {
     ui: mockInitialUiState,
     user: mockInitialUserState,
+    games: mockInitialGamesState,
   },
 });

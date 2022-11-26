@@ -68,7 +68,7 @@ describe("Given the custom hook useUser", () => {
       const newMockUser: UserRegisterCredentials = {
         email: "mock@gmail.com",
         password: "1234",
-        gender: "f",
+        gender: "F",
         level: 2,
         name: "Mireia",
       };

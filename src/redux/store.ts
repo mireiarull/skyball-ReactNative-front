@@ -3,6 +3,7 @@ import {
   type ThunkAction,
   type Action,
 } from "@reduxjs/toolkit";
+import { gamesReducer } from "./features/gamesSlice/gamesSlice";
 import { uiReducer } from "./features/uiSlice/uiSlice";
 import { userReducer } from "./features/userSlice/userSlice";
 
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     ui: uiReducer,
     user: userReducer,
+    games: gamesReducer,
   },
 });
 
