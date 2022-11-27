@@ -10,6 +10,9 @@ import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
 import decodeToken from "../../test-utils/decodeToken";
 import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { type LoginScreenNavigationProp } from "../../types/navigation.types";
+import RoutesEnum from "../../navigation/routes";
 
 const userRoutes = {
   usersRoute: "/users",
@@ -18,6 +21,7 @@ const userRoutes = {
 
 const useUser = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const registerUser = async (userData: UserRegisterCredentials) => {
     try {
@@ -70,6 +74,9 @@ const useUser = () => {
           token,
         })
       );
+      await AsyncStorage.setItem("token", token);
+      navigation.navigate(RoutesEnum.home);
+
       dispatch(
         openModalActionCreator({
           isError: false,
@@ -78,7 +85,6 @@ const useUser = () => {
           buttonText: "¡A jugar!",
         })
       );
-      await AsyncStorage.setItem("token", token);
       return;
     } catch {
       dispatch(

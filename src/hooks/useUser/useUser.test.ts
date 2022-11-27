@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { renderHook } from "@testing-library/react";
 import makeWrapper from "../../mocks/makeWrapper";
 import { registerDataMock } from "../../mocks/userMocks";
@@ -29,6 +31,18 @@ jest.mock("../../test-utils/decodeToken", () => () => ({
   id: "testid",
   email: "mireia@gmail.com",
 }));
+
+const mockedNavigate = jest.fn();
+
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 
 describe("Given the custom hook useUser", () => {
   describe("When registerUser is invoked with email 'mireia@gmail.com' and password '1234'", () => {
