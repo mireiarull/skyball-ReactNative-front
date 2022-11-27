@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import { type store, type RootState } from "../redux/store";
 import { uiReducer } from "../redux/features/uiSlice/uiSlice";
 import { userReducer } from "../redux/features/userSlice/userSlice";
+import { gamesReducer } from "../redux/features/gamesSlice/gamesSlice";
+import { NavigationContainer } from "@react-navigation/native";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>;
@@ -18,7 +20,7 @@ export const renderWithProviders = (
   {
     preloadedState,
     store = configureStore({
-      reducer: { ui: uiReducer, user: userReducer },
+      reducer: { ui: uiReducer, user: userReducer, games: gamesReducer },
       preloadedState,
     }),
     ...renderOptions
@@ -28,7 +30,9 @@ export const renderWithProviders = (
     children,
   }: PropsWithChildren<Record<string, unknown>>): JSX.Element => (
     <>
-      <Provider store={store}>{children}</Provider>
+      <Provider store={store}>
+        <NavigationContainer>{children}</NavigationContainer>
+      </Provider>
     </>
   );
 

@@ -1,16 +1,21 @@
 import React from "react";
-import { View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { View, FlatList } from "react-native";
+import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import GameCard from "../GameCard/GameCard";
 import styles from "./GameListStyles";
-import { games } from "./temporaryGameList";
 
-const GameList = () => (
+interface GamesListProps {
+  games: GameStructure[];
+}
+
+const GameList = ({ games }: GamesListProps) => (
   <View style={styles.container}>
     <FlatList
       data={games}
-      renderItem={({ item }) => <GameCard game={item}></GameCard>}
-    ></FlatList>
+      renderItem={({ item }) => <GameCard game={item} />}
+      ListFooterComponent={<View />}
+    />
   </View>
 );
+
 export default GameList;

@@ -1,30 +1,26 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useEffect } from "react";
-import { SafeAreaView, KeyboardAvoidingView, Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import GameList from "../../components/GameList/GameList";
-import Loading from "../../components/Loading/Loading";
 import useGames from "../../hooks/useGames/useGames";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "./ExploreScreenStyles";
 
-const ExploreScreen = () => {
+const ExploreScreen = (): JSX.Element => {
   const { loadAllGames } = useGames();
-  const { isLoading } = useAppSelector((state) => state.ui);
 
   useEffect(() => {
     loadAllGames();
   }, [loadAllGames]);
 
+  const games = useAppSelector(({ games }) => games.games);
+
   return (
-    <KeyboardAvoidingView behavior="padding" enabled={true}>
-      <View style={styles.screen}>
-        {isLoading && <Loading />}
-        <SafeAreaView>
-          <Text style={styles.title}>Partidos</Text>
-          <GameList />
-        </SafeAreaView>
-      </View>
-    </KeyboardAvoidingView>
+    <View style={styles.screen}>
+      <SafeAreaView>
+        <Text style={styles.title}>Partidos</Text>
+        <GameList games={games} />
+      </SafeAreaView>
+    </View>
   );
 };
 

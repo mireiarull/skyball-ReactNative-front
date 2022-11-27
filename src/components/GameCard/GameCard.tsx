@@ -11,7 +11,7 @@ interface GameCardProps {
 const GameCard = ({
   game: { date, format, gender, level, players, spots, beachName },
 }: GameCardProps) => (
-  <View style={gameCardStyles.container}>
+  <View style={gameCardStyles.container} testID="gameCard">
     <Image
       source={beachImage}
       style={gameCardStyles.image}
