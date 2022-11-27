@@ -27,5 +27,22 @@ describe("Given an ExploreScreen page", () => {
 
       expect(displayedText).toBeDefined();
     });
+
+    test("Then it should show a bottom navigation bar with the links 'Explorar' y 'Login'", () => {
+      const tabNavigationExplore = "Explorar";
+
+      renderWithProviders(<ExploreScreen />, {
+        preloadedState: {
+          ui: emptyModalMock,
+          user: mockInitialUserState,
+          games: mockInitialGamesState,
+        },
+      });
+
+      const displayedtabNavigationExplore =
+        screen.queryByText(tabNavigationExplore);
+
+      expect(displayedtabNavigationExplore).toBeDefined();
+    });
   });
 });

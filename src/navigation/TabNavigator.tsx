@@ -12,6 +12,7 @@ import {
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import WelcomeScreen from "../screens/WelcomeScreen/WelcomeScreen";
 import ExploreScreen from "../screens/ExploreScreen/ExploreScreen";
+import CreateScreen from "../screens/CreateScreen/CreateScreen";
 
 const TabNavigator = (): JSX.Element => {
   const Tab = createBottomTabNavigator();
@@ -40,7 +41,7 @@ const TabNavigator = (): JSX.Element => {
         <>
           <Tab.Screen
             name={RoutesEnum.create}
-            component={WelcomeScreen}
+            component={CreateScreen}
             options={{
               title: "Create",
               tabBarIcon: ({ color, size }) => (

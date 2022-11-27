@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
-import {
-  View,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  ImageBackground,
-  Text,
-  Image,
-} from "react-native";
+import { View, SafeAreaView, ImageBackground, Text, Image } from "react-native";
 import backgroundImage from "./../../../assets/background-image.jpg";
 import logo from "./../../../assets/skyball-logo-white.png";
 import { TouchableOpacity } from "react-native-gesture-handler";

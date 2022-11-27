@@ -100,7 +100,7 @@ describe("Given a WelcomeScreen page", () => {
         const loginButton = await screen.getByText(continueButtonText);
         fireEvent(loginButton, "press");
 
-        expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.explore);
+        expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.home);
       });
     });
   });
