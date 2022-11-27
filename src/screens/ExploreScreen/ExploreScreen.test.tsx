@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { screen } from "@testing-library/react-native";
-
 import ExploreScreen from "./ExploreScreen";
 import {
   emptyMocalMock as emptyModalMock,
@@ -26,6 +25,23 @@ describe("Given an ExploreScreen page", () => {
       const displayedText = screen.queryByText(titleText);
 
       expect(displayedText).toBeDefined();
+    });
+
+    test("Then it should show a bottom navigation bar with the links 'Explorar' y 'Login'", () => {
+      const tabNavigationExplore = "Explorar";
+
+      renderWithProviders(<ExploreScreen />, {
+        preloadedState: {
+          ui: emptyModalMock,
+          user: mockInitialUserState,
+          games: mockInitialGamesState,
+        },
+      });
+
+      const displayedtabNavigationExplore =
+        screen.queryByText(tabNavigationExplore);
+
+      expect(displayedtabNavigationExplore).toBeDefined();
     });
   });
 });

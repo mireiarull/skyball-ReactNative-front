@@ -1,14 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
-import {
-  View,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  ImageBackground,
-  Text,
-  Image,
-} from "react-native";
+import { View, SafeAreaView, ImageBackground, Text, Image } from "react-native";
 import backgroundImage from "./../../../assets/background-image.jpg";
 import logo from "./../../../assets/skyball-logo-white.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -22,10 +14,10 @@ const WelcomeScreen = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   return (
-    <KeyboardAvoidingView behavior="padding" enabled={true}>
+    <>
       <ImageBackground
         source={backgroundImage}
-        resizeMode="cover"
+        // ResizeMode="cover"
         style={welcomeScreenStyles.image}
         testID="backgroundImage"
       ></ImageBackground>
@@ -34,7 +26,6 @@ const WelcomeScreen = () => {
           <View style={welcomeScreenStyles.imageContainer}>
             <Image source={logo}></Image>
           </View>
-
           <TouchableOpacity
             style={welcomeScreenStyles.button}
             testID={"submitButton"}
@@ -55,7 +46,7 @@ const WelcomeScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(RoutesEnum.explore);
+              navigation.navigate(RoutesEnum.home);
             }}
           >
             <Text style={welcomeScreenStyles.link}>
@@ -64,7 +55,7 @@ const WelcomeScreen = () => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    </>
   );
 };
 
