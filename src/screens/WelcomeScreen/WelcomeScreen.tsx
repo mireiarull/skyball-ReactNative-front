@@ -17,7 +17,7 @@ const WelcomeScreen = () => {
     <>
       <ImageBackground
         source={backgroundImage}
-        // ResizeMode="cover"
+        resizeMode="cover"
         style={welcomeScreenStyles.image}
         testID="backgroundImage"
       ></ImageBackground>

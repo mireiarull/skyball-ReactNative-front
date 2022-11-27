@@ -1,11 +1,15 @@
 export interface PlayerStructure {
   id: string;
-  rol: "owner" | "guest";
-  material: string[];
+  role: "owner" | "guest";
+  material: {
+    net: boolean;
+    ball: boolean;
+    rods: boolean;
+  };
 }
 
 export interface GameStructure {
-  date: string;
+  dateTime: Date;
   location: {
     type: string;
     coordinates: number[];

@@ -1,11 +1,13 @@
 import React from "react";
-import { View, SafeAreaView, KeyboardAvoidingView, Text } from "react-native";
+import { View, SafeAreaView, KeyboardAvoidingView } from "react-native";
+import CreateForm from "../../components/CreateForm/CreateForm";
+import styles from "./CreateScreenStyles";
 
 const CreateScreen = () => (
-  <KeyboardAvoidingView behavior="padding" enabled={true}>
-    <SafeAreaView>
+  <KeyboardAvoidingView behavior="padding" enabled={false}>
+    <SafeAreaView style={styles.container}>
       <View>
-        <Text>Crear nuevo partido</Text>
+        <CreateForm />
       </View>
     </SafeAreaView>
   </KeyboardAvoidingView>
