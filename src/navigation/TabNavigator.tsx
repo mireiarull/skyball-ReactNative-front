@@ -10,7 +10,6 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
-import WelcomeScreen from "../screens/WelcomeScreen/WelcomeScreen";
 import ExploreScreen from "../screens/ExploreScreen/ExploreScreen";
 import CreateScreen from "../screens/CreateScreen/CreateScreen";
 
