@@ -2,7 +2,7 @@
 import { StyleSheet } from "react-native";
 import colorStyles from "../../styles/colorStyles";
 
-const styles = StyleSheet.create({
+const checkboxStyles = StyleSheet.create({
   checkbox: {
     width: 15,
     borderWidth: 5,
@@ -32,6 +32,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  button: {
+    width: 110,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 20,
+    backgroundColor: colorStyles.lightGrey,
+    padding: 10,
+    marginTop: 15,
+  },
+  buttonActive: {
+    width: 110,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 20,
+    backgroundColor: colorStyles.main,
+    padding: 10,
+    marginTop: 15,
+  },
+  text: {
+    color: colorStyles.black,
+    fontSize: 17,
+    fontWeight: "600",
+  },
 });
 
-export default styles;
+export default checkboxStyles;

@@ -5,7 +5,7 @@ export const games: GameStructure[] = [
     players: [
       {
         id: "637f7cb25d194a522132e02d",
-        rol: "owner",
+        role: "owner",
         material: ["net"],
       },
     ],
@@ -26,7 +26,7 @@ export const games: GameStructure[] = [
     players: [
       {
         id: "637f7cb25d194a522132e02d",
-        rol: "owner",
+        role: "owner",
         material: ["net"],
       },
     ],

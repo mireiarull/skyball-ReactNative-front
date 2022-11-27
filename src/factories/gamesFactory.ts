@@ -17,7 +17,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
   players: [
     {
       id: faker.random.alphaNumeric(),
-      rol: "owner",
+      role: "owner",
       material: [faker.random.word()],
     },
   ],

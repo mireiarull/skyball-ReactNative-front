@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import useUser from "../../hooks/useUser/useUser";
-
 import CustomModal from "../Modal/CustomModal";
 import { Checkbox } from "../Checkbox/Checkbox";
-import { type UserRegisterCredentials } from "../../types/types";
 import inputStyles from "../../styles/inputStyles";
 import buttonStyles from "../../styles/buttonStyles";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import styles from "../RegisterForm/RegisterFormStyles";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useAppSelector } from "../../redux/hooks";
+import createFormStyles from "./CreateFormStyles";
 
 const CreateForm = (): JSX.Element => {
-  const { registerUser } = useUser();
+  const { id } = useAppSelector((state) => state.user);
 
   const intialFormData: GameStructure = {
     beachName: "",
@@ -37,9 +35,13 @@ const CreateForm = (): JSX.Element => {
     spots: 0,
     players: [
       {
-        id: "",
-        material: [""],
-        rol: "owner",
+        id,
+        material: {
+          ball: false,
+          net: false,
+          rods: false,
+        },
+        role: "owner",
       },
     ],
   };
@@ -54,14 +56,28 @@ const CreateForm = (): JSX.Element => {
   };
 
   const handleSubmit = async () => {
-    // Const formDataToSubmit: UserRegisterCredentials = {
-    //   password: formData.password,
-    //   email: formData.email,
-    //   name: formData.name,
-    //   gender: formData.gender,
-    //   level: formData.level,
-    // };
-    // await registerUser(formDataToSubmit);
+    const formDataToSubmit: GameStructure = {
+      beachName: formData.beachName,
+      dateTime: formData.dateTime,
+      description: formData.description,
+      format: formData.format,
+      image: "",
+      location: {
+        coordinates: [0, 0],
+        type: "Point",
+      },
+      gender: formData.gender,
+      level: formData.level,
+      spots: formData.spots,
+      players: [
+        {
+          id,
+          material: [""],
+          role: "owner",
+        },
+      ],
+    };
+    // Await registerUser(formDataToSubmit);
   };
 
   const onChangeDateTime = (event, selectedDate?: Date) => {
@@ -71,13 +87,24 @@ const CreateForm = (): JSX.Element => {
     });
   };
 
+  const toggleMaterial = (item: "net" | "ball" | "rods") => {
+    const newMaterial = {
+      ...formData.players[0].material,
+      [item]: !formData.players[0].material[item],
+    };
+    setFormData({
+      ...formData,
+      players: [{ ...formData.players[0], material: newMaterial }],
+    });
+  };
+
   return (
     <KeyboardAvoidingView behavior="padding" enabled={true}>
       <ScrollView>
         <CustomModal />
         <View style={styles.container}>
           <Text style={styles.title} testID={"title"}>
-            Regístrate
+            Crear nuevo partido
           </Text>
           <View>
             <View>
@@ -120,6 +147,7 @@ const CreateForm = (): JSX.Element => {
               <Text style={inputStyles.label}>Categoría</Text>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.gender === "F"}
                   onPress={() => {
                     setFormData({ ...formData, gender: "F" });
@@ -130,6 +158,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.gender === "M"}
                   onPress={() => {
                     setFormData({ ...formData, gender: "M" });
@@ -140,6 +169,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.gender === "X"}
                   testID="checkboxNoGender"
                   onPress={() => {
@@ -153,6 +183,7 @@ const CreateForm = (): JSX.Element => {
               <Text style={inputStyles.label}>Nivel de juego</Text>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.level === 1}
                   testID="checkboxLevel1"
                   onPress={() => {
@@ -163,6 +194,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.level === 2}
                   testID="checkboxLevel2"
                   onPress={() => {
@@ -173,6 +205,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.level === 3}
                   testID="checkboxLevel3"
                   onPress={() => {
@@ -183,6 +216,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  type="radio"
                   selected={formData.level === 4}
                   testID="checkboxLevel4"
                   onPress={() => {
@@ -192,15 +226,112 @@ const CreateForm = (): JSX.Element => {
                 <Text style={styles.checkboxLabel}>Avanzado</Text>
               </View>
             </View>
-          </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              onPress={handleSubmit}
-              style={buttonStyles.button}
-              testID={"submitButton"}
-            >
-              <Text style={buttonStyles.buttonText}>Continuar</Text>
-            </TouchableOpacity>
+            <View>
+              <Text style={inputStyles.label}>Numero de jugadores</Text>
+              <TextInput
+                style={inputStyles.input}
+                testID="spots"
+                maxLength={20}
+                placeholder="6 (tu incluido)"
+                value={formData.spots}
+                accessibilityLabel="spots"
+                keyboardType={"numeric"}
+                onChangeText={(data) => {
+                  handleFormChange(data, "spots");
+                }}
+              />
+            </View>
+            <View>
+              <Text style={inputStyles.label}>Modalidad</Text>
+              <View style={styles.checkboxContainer}>
+                <Checkbox
+                  type="radio"
+                  selected={formData.format === 2}
+                  onPress={() => {
+                    setFormData({ ...formData, format: 2 });
+                  }}
+                  testID="checkboxFormat2"
+                />
+                <Text style={styles.checkboxLabel}>2 vs 2</Text>
+              </View>
+              <View style={styles.checkboxContainer}>
+                <Checkbox
+                  type="radio"
+                  selected={formData.format === 3}
+                  onPress={() => {
+                    setFormData({ ...formData, format: 3 });
+                  }}
+                  testID="checkboxFormat3"
+                />
+                <Text style={styles.checkboxLabel}>3 vs 3</Text>
+              </View>
+              <View style={styles.checkboxContainer}>
+                <Checkbox
+                  type="radio"
+                  selected={formData.format === 4}
+                  testID="checkboxFormat4"
+                  onPress={() => {
+                    setFormData({ ...formData, format: 4 });
+                  }}
+                />
+                <Text style={styles.checkboxLabel}>4 vs 4</Text>
+              </View>
+            </View>
+            <View>
+              <Text style={inputStyles.label}>Material que vas a traer</Text>
+              <View style={createFormStyles.materialCheckboxContainer}>
+                <Checkbox
+                  text="RED"
+                  type="button"
+                  testID="checkboxNet"
+                  selected={formData.players[0].material.net}
+                  onPress={() => {
+                    toggleMaterial("net");
+                  }}
+                />
+                <Checkbox
+                  text="PELOTA"
+                  type="button"
+                  testID="checkboxBall"
+                  selected={formData.players[0].material.ball}
+                  onPress={() => {
+                    toggleMaterial("ball");
+                  }}
+                />
+                <Checkbox
+                  text="BARILLAS"
+                  type="button"
+                  testID="checkboxRods"
+                  selected={formData.players[0].material.rods}
+                  onPress={() => {
+                    toggleMaterial("rods");
+                  }}
+                />
+              </View>
+              <View>
+                <Text style={inputStyles.label}>Comentarios</Text>
+                <TextInput
+                  style={inputStyles.inputTextArea}
+                  multiline={true}
+                  numberOfLines={4}
+                  testID="description"
+                  value={formData.description}
+                  accessibilityLabel="description"
+                  onChangeText={(data) => {
+                    handleFormChange(data, "description");
+                  }}
+                />
+              </View>
+            </View>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={buttonStyles.button}
+                testID={"submitButton"}
+              >
+                <Text style={buttonStyles.buttonText}>Continuar</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
