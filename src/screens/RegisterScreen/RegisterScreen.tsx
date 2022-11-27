@@ -17,7 +17,11 @@ const RegisterScreen = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   return (
-    <KeyboardAvoidingView behavior="padding" enabled={true}>
+    <KeyboardAvoidingView
+      behavior="padding"
+      enabled={true}
+      style={styles.container}
+    >
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <SafeAreaView>
           <View>

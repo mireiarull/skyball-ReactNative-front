@@ -119,6 +119,7 @@ const RegisterForm = (): JSX.Element => {
             <Text style={inputStyles.label}>Genero</Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.gender === "F"}
                 onPress={() => {
                   setFormData({ ...formData, gender: "F" });
@@ -129,6 +130,7 @@ const RegisterForm = (): JSX.Element => {
             </View>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.gender === "M"}
                 onPress={() => {
                   setFormData({ ...formData, gender: "M" });
@@ -139,6 +141,7 @@ const RegisterForm = (): JSX.Element => {
             </View>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.gender === "X"}
                 testID="checkboxNoGender"
                 onPress={() => {
@@ -152,6 +155,7 @@ const RegisterForm = (): JSX.Element => {
             <Text style={inputStyles.label}>Nivel</Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.level === 1}
                 testID="checkboxLevel1"
                 onPress={() => {
@@ -166,6 +170,7 @@ const RegisterForm = (): JSX.Element => {
             </Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.level === 2}
                 testID="checkboxLevel2"
                 onPress={() => {
@@ -181,6 +186,7 @@ const RegisterForm = (): JSX.Element => {
             </Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.level === 3}
                 testID="checkboxLevel3"
                 onPress={() => {
@@ -195,6 +201,7 @@ const RegisterForm = (): JSX.Element => {
             </Text>
             <View style={styles.checkboxContainer}>
               <Checkbox
+                type="radio"
                 selected={formData.level === 4}
                 testID="checkboxLevel4"
                 onPress={() => {
@@ -213,7 +220,9 @@ const RegisterForm = (): JSX.Element => {
           <TouchableOpacity
             disabled={buttonDisabled}
             onPress={handleSubmit}
-            style={buttonStyles.button}
+            style={
+              buttonDisabled ? buttonStyles.buttonDisabled : buttonStyles.button
+            }
             testID={"submitButton"}
           >
             <Text style={buttonStyles.buttonText}>Continuar</Text>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -47,6 +47,23 @@ const CreateForm = (): JSX.Element => {
   };
 
   const [formData, setFormData] = useState(intialFormData);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    setButtonDisabled(
+      formData.beachName.length < 1 ||
+        formData.format < 0 ||
+        formData.gender.length < 1 ||
+        formData.level < 0 ||
+        formData.spots < 0
+    );
+  }, [
+    formData.beachName,
+    formData.format,
+    formData.gender,
+    formData.level,
+    formData.spots,
+  ]);
 
   const handleFormChange = (text: string, identify: string) => {
     setFormData({
@@ -55,7 +72,7 @@ const CreateForm = (): JSX.Element => {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const formDataToSubmit: GameStructure = {
       beachName: formData.beachName,
       dateTime: formData.dateTime,
@@ -72,12 +89,15 @@ const CreateForm = (): JSX.Element => {
       players: [
         {
           id,
-          material: [""],
+          material: {
+            ball: formData.players[0].material.ball,
+            net: formData.players[0].material.net,
+            rods: formData.players[0].material.rods,
+          },
           role: "owner",
         },
       ],
     };
-    // Await registerUser(formDataToSubmit);
   };
 
   const onChangeDateTime = (event, selectedDate?: Date) => {
@@ -325,8 +345,13 @@ const CreateForm = (): JSX.Element => {
             </View>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
+                disabled={buttonDisabled}
                 onPress={handleSubmit}
-                style={buttonStyles.button}
+                style={
+                  buttonDisabled
+                    ? buttonStyles.buttonDisabled
+                    : buttonStyles.button
+                }
                 testID={"submitButton"}
               >
                 <Text style={buttonStyles.buttonText}>Continuar</Text>

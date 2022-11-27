@@ -26,7 +26,7 @@ const LoginForm = (): JSX.Element => {
 
   useEffect(() => {
     setButtonDisabled(
-      formData.email.length < 1 && formData.password.length < 1
+      formData.email.length < 1 || formData.password.length < 1
     );
   }, [formData.email, formData.password]);
 
@@ -84,8 +84,10 @@ const LoginForm = (): JSX.Element => {
           <TouchableOpacity
             disabled={buttonDisabled}
             onPress={handleSubmit}
-            style={buttonStyles.button}
             testID={"submitButton"}
+            style={
+              buttonDisabled ? buttonStyles.buttonDisabled : buttonStyles.button
+            }
           >
             <Text style={buttonStyles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>

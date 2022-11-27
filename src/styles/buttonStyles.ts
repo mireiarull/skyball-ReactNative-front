@@ -17,6 +17,16 @@ const buttonStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
+  buttonDisabled: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    borderRadius: 90,
+    backgroundColor: colorStyles.lightMain,
+    padding: 10,
+    marginTop: 30,
+  },
 });
 
 export default buttonStyles;
