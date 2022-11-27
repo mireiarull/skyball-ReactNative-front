@@ -1,4 +1,4 @@
-import { type GameStructure } from "../../redux/features/gamesSlice/types";
+import { type GameStructure } from "./redux/features/gamesSlice/types";
 
 export const games: GameStructure[] = [
   {

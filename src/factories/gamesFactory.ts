@@ -24,5 +24,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
   image: faker.random.alphaNumeric(),
 }));
 
+export const getRandomGame = gamesFactory.build();
+
 export const getRandomGameList = (number: number) =>
   gamesFactory.buildList(number);
