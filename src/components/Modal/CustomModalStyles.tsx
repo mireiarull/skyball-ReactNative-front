@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     position: "absolute",
+    left: 10,
+    top: 10,
     borderWidth: 3,
     borderRadius: 20,
     borderColor: colorStyles.error,

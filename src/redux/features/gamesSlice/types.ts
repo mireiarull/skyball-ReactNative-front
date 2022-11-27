@@ -5,17 +5,19 @@ export interface PlayerStructure {
 }
 
 export interface GameStructure {
-  date: Date;
+  date: string;
   location: {
     type: string;
     coordinates: number[];
   };
+  beachName: string;
   level: number;
   gender: "M" | "F" | "X";
-  format: string;
+  format: number;
   spots: number;
   description: string;
   players: PlayerStructure[];
+  image: string;
 }
 
 export interface GamesState {

@@ -10,7 +10,8 @@
     "test": "jest",
     "test:dev": "jest --watchAll",
     "test:coverage": "jest --watchAll=false --collect-coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clear_jest": "jest --clearCache"
   },
   "eslintConfig": {
     "extends": [

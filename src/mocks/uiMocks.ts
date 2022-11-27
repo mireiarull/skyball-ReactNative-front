@@ -17,6 +17,15 @@ export const mockInitialUiState: UiState = {
   modalTitle: "",
 };
 
+export const emptyMocalMock: UiState = {
+  showModal: false,
+  isError: false,
+  modalText: "",
+  buttonText: "",
+  isLoading: false,
+  modalTitle: "",
+};
+
 export const mockInitialUserState: UserState = {
   id: "",
   email: "",
