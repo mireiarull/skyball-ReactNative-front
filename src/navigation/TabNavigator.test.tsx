@@ -15,9 +15,9 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
   removeItem: jest.fn(),
 }));
 
-describe("Given an ExploreScreen page", () => {
-  describe("When it's rendered", () => {
-    test("Then it should show a title with the text 'Partidos'", () => {
+describe("Given a TabNavigator component", () => {
+  describe("When it's rendered for an un unlogged user", () => {
+    test("Then it should show a navigation bar with the text 'Explorar' and 'Login'", () => {
       const tabNavigationExplore = "Explorar";
       const tabNavigationLogin = "Login";
 
@@ -32,21 +32,23 @@ describe("Given an ExploreScreen page", () => {
       expect(displayedtabNavigationLogin).toBeDefined();
     });
 
-    test("Then it should show a title with the text 'Partidos'", () => {
-      const tabNavigationCreate = "Crear";
+    describe("When it's rendered for a logged user", () => {
+      test("Then it should show a navigation bar with the text 'Crear'", () => {
+        const tabNavigationCreate = "Crear";
 
-      renderWithProviders(<TabNavigator />, {
-        preloadedState: {
-          ui: mockInitialUiState,
-          user: { ...mockInitialUserState, isLogged: true },
-          games: mockInitialGamesState,
-        },
+        renderWithProviders(<TabNavigator />, {
+          preloadedState: {
+            ui: mockInitialUiState,
+            user: { ...mockInitialUserState, isLogged: true },
+            games: mockInitialGamesState,
+          },
+        });
+
+        const displayedtabNavigationCreate =
+          screen.queryByText(tabNavigationCreate);
+
+        expect(displayedtabNavigationCreate).toBeDefined();
       });
-
-      const displayedtabNavigationCreate =
-        screen.queryByText(tabNavigationCreate);
-
-      expect(displayedtabNavigationCreate).toBeDefined();
     });
   });
 });
