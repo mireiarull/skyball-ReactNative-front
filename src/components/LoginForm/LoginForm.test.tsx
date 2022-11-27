@@ -5,6 +5,7 @@ import { render, screen, fireEvent } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import { store } from "../../redux/store";
 import LoginForm from "./LoginForm";
+import { renderWithProviders } from "../../test-utils/renderWithProviders";
 
 const mockLoginUser = jest.fn();
 
@@ -17,11 +18,7 @@ describe("Given a LoginForm component", () => {
     test("Then it should show a title with text 'Identifícate'", async () => {
       const expectedText = "Identifícate";
 
-      render(
-        <Provider store={store}>
-          <LoginForm />
-        </Provider>
-      );
+      renderWithProviders(<LoginForm />);
 
       const title = await screen.getByText(expectedText);
 

@@ -18,7 +18,7 @@ const RegisterScreen = () => {
 
   return (
     <KeyboardAvoidingView behavior="padding" enabled={true}>
-      <ScrollView>
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
         <SafeAreaView>
           <View>
             <TouchableOpacity

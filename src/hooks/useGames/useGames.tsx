@@ -9,7 +9,7 @@ import {
 import { useAppDispatch } from "../../redux/hooks";
 import { loadAllGamesActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 import { type LoadGamesResponse } from "./types";
-// Import { games } from "../../temporaryGameList";
+import { games } from "../../temporaryGameList";
 
 const gamesRoutes = {
   gamesRoute: "/games",
@@ -33,7 +33,7 @@ const useGames = () => {
       dispatch(hideLoadingActionCreator());
     } catch {
       dispatch(hideLoadingActionCreator());
-      // Dispatch(loadAllGamesActionCreator(games));
+      dispatch(loadAllGamesActionCreator(games));
 
       dispatch(
         openModalActionCreator({
