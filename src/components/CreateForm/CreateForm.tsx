@@ -9,14 +9,12 @@ import {
   TouchableOpacity,
   View,
   Image,
-  type ImageURISource,
 } from "react-native";
 import CustomModal from "../Modal/CustomModal";
 import { Checkbox } from "../Checkbox/Checkbox";
 import inputStyles from "../../styles/inputStyles";
 import buttonStyles from "../../styles/buttonStyles";
 import * as ImagePicker from "expo-image-picker";
-
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import styles from "../RegisterForm/RegisterFormStyles";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -24,7 +22,6 @@ import { useAppSelector } from "../../redux/hooks";
 import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import beachImage from "../../../assets/images/barceloneta.jpg";
 
 const CreateForm = (): JSX.Element => {
   const { id } = useAppSelector((state) => state.user);
@@ -87,7 +84,7 @@ const CreateForm = (): JSX.Element => {
       dateTime: formData.dateTime,
       description: formData.description,
       format: formData.format,
-      image: "",
+      image: formData.image,
       location: {
         coordinates: [0, 0],
         type: "Point",
@@ -141,16 +138,13 @@ const CreateForm = (): JSX.Element => {
       });
       if (!result.canceled) {
         setImageSelected(result.assets[0].uri);
-        console.log(imageSelected);
         const localUri = result.assets[0].uri;
         const filename: any = localUri.split("/").pop();
         setImageName(filename);
-        setFormData({ ...formData, image: filename });
-        // Console.log(filename);
+        setFormData({ ...formData, image: imageSelected });
         const match = /\.(\w+)$/.exec(filename);
         const type: any = match ? `image/${match[1]}` : `image`;
         setImageType(type);
-        // Console.log(type);
       }
     } catch (catchError: unknown) {
       return catchError;
@@ -388,7 +382,7 @@ const CreateForm = (): JSX.Element => {
               </Text>
               <View>
                 <View>
-                  <TouchableOpacity onPress={chooseFile}>
+                  <TouchableOpacity onPress={chooseFile} testID="image-picker">
                     <FontAwesomeIcon icon={faCamera} size={40} />
                   </TouchableOpacity>
                 </View>
