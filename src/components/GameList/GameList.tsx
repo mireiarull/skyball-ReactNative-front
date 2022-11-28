@@ -13,7 +13,8 @@ const GameList = ({ games }: GamesListProps) => (
     <FlatList
       data={games}
       renderItem={({ item }) => <GameCard game={item} />}
-      ListFooterComponent={<View />}
+      ListFooterComponent={<View style={styles.footer} />}
+      showsVerticalScrollIndicator={false}
     />
   </View>
 );

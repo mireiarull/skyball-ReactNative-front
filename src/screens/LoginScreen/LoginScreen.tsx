@@ -5,13 +5,13 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import image from "../../../assets/skyball_splash.webp";
 import styles from "./LoginScreenStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 

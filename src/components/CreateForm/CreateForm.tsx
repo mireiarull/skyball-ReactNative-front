@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -6,16 +8,21 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import CustomModal from "../Modal/CustomModal";
 import { Checkbox } from "../Checkbox/Checkbox";
 import inputStyles from "../../styles/inputStyles";
 import buttonStyles from "../../styles/buttonStyles";
+import * as ImagePicker from "expo-image-picker";
+
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import styles from "../RegisterForm/RegisterFormStyles";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useAppSelector } from "../../redux/hooks";
 import createFormStyles from "./CreateFormStyles";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const CreateForm = (): JSX.Element => {
   const { id } = useAppSelector((state) => state.user);
@@ -116,6 +123,35 @@ const CreateForm = (): JSX.Element => {
       ...formData,
       players: [{ ...formData.players[0], material: newMaterial }],
     });
+  };
+
+  const [imageSelected, setImageSelected] = useState("");
+  const [imageType, setImageType] = useState("");
+  const [imageName, setImageName] = useState("");
+
+  const chooseFile = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0,
+      });
+      if (!result.canceled) {
+        setImageSelected(result.assets[0].uri);
+        const localUri = result.assets[0].uri;
+        const filename: any = localUri.split("/").pop();
+        setImageName(filename);
+        setFormData({ ...formData, image: filename });
+        // Console.log(filename);
+        const match = /\.(\w+)$/.exec(filename);
+        const type: any = match ? `image/${match[1]}` : `image`;
+        setImageType(type);
+        // Console.log(type);
+      }
+    } catch (catchError: unknown) {
+      return catchError;
+    }
   };
 
   return (
@@ -341,6 +377,19 @@ const CreateForm = (): JSX.Element => {
                     handleFormChange(data, "description");
                   }}
                 />
+              </View>
+            </View>
+            <View>
+              <Text style={inputStyles.label}>
+                Sube tu foto preferida de la playa!
+              </Text>
+              <View>
+                <View>
+                  <TouchableOpacity onPress={chooseFile}>
+                    <FontAwesomeIcon icon={faCamera} size={40} />
+                    <Text>Abrir galeria</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
             <View style={styles.buttonContainer}>
