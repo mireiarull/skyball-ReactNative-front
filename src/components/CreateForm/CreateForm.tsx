@@ -26,13 +26,17 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 const CreateForm = (): JSX.Element => {
   const { id } = useAppSelector((state) => state.user);
 
-  const intialFormData: GameStructure = {
+  const intialFormData = {
     beachName: "",
     dateTime: new Date(),
     description: "",
     format: 0,
     gender: "X",
-    image: "",
+    image: {
+      type: "",
+      uri: "",
+      name: "",
+    },
     level: 0,
     location: {
       coordinates: [0, 0],
@@ -79,7 +83,7 @@ const CreateForm = (): JSX.Element => {
   };
 
   const handleSubmit = () => {
-    const formDataToSubmit: GameStructure = {
+    const formDataToSubmit = {
       beachName: formData.beachName,
       dateTime: formData.dateTime,
       description: formData.description,
@@ -141,7 +145,14 @@ const CreateForm = (): JSX.Element => {
         const localUri = result.assets[0].uri;
         const filename: any = localUri.split("/").pop();
         setImageName(filename);
-        setFormData({ ...formData, image: imageSelected });
+        setFormData({
+          ...formData,
+          image: {
+            type: imageType,
+            uri: imageSelected,
+            name: imageName,
+          },
+        });
         const match = /\.(\w+)$/.exec(filename);
         const type: any = match ? `image/${match[1]}` : `image`;
         setImageType(type);
@@ -386,11 +397,13 @@ const CreateForm = (): JSX.Element => {
                     <FontAwesomeIcon icon={faCamera} size={40} />
                   </TouchableOpacity>
                 </View>
-                {imageSelected && (
+                {imageSelected ? (
                   <Image
                     source={{ uri: imageSelected }}
                     style={createFormStyles.image}
                   />
+                ) : (
+                  ""
                 )}
               </View>
             </View>
