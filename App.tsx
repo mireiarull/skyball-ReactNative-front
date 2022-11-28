@@ -10,7 +10,6 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <StackNavigatorExplorer />
-        {/* <TabNavigator /> */}
       </NavigationContainer>
     </Provider>
   );

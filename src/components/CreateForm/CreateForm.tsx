@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -6,27 +8,35 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import CustomModal from "../Modal/CustomModal";
 import { Checkbox } from "../Checkbox/Checkbox";
 import inputStyles from "../../styles/inputStyles";
 import buttonStyles from "../../styles/buttonStyles";
+import * as ImagePicker from "expo-image-picker";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import styles from "../RegisterForm/RegisterFormStyles";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useAppSelector } from "../../redux/hooks";
 import createFormStyles from "./CreateFormStyles";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const CreateForm = (): JSX.Element => {
   const { id } = useAppSelector((state) => state.user);
 
-  const intialFormData: GameStructure = {
+  const intialFormData = {
     beachName: "",
     dateTime: new Date(),
     description: "",
     format: 0,
     gender: "X",
-    image: "",
+    image: {
+      type: "",
+      uri: "",
+      name: "",
+    },
     level: 0,
     location: {
       coordinates: [0, 0],
@@ -73,12 +83,12 @@ const CreateForm = (): JSX.Element => {
   };
 
   const handleSubmit = () => {
-    const formDataToSubmit: GameStructure = {
+    const formDataToSubmit = {
       beachName: formData.beachName,
       dateTime: formData.dateTime,
       description: formData.description,
       format: formData.format,
-      image: "",
+      image: formData.image,
       location: {
         coordinates: [0, 0],
         type: "Point",
@@ -116,6 +126,40 @@ const CreateForm = (): JSX.Element => {
       ...formData,
       players: [{ ...formData.players[0], material: newMaterial }],
     });
+  };
+
+  const [imageSelected, setImageSelected] = useState("");
+  const [imageType, setImageType] = useState("");
+  const [imageName, setImageName] = useState("");
+
+  const chooseFile = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0,
+      });
+      if (!result.canceled) {
+        setImageSelected(result.assets[0].uri);
+        const localUri = result.assets[0].uri;
+        const filename: any = localUri.split("/").pop();
+        setImageName(filename);
+        setFormData({
+          ...formData,
+          image: {
+            type: imageType,
+            uri: imageSelected,
+            name: imageName,
+          },
+        });
+        const match = /\.(\w+)$/.exec(filename);
+        const type: any = match ? `image/${match[1]}` : `image`;
+        setImageType(type);
+      }
+    } catch (catchError: unknown) {
+      return catchError;
+    }
   };
 
   return (
@@ -341,6 +385,26 @@ const CreateForm = (): JSX.Element => {
                     handleFormChange(data, "description");
                   }}
                 />
+              </View>
+            </View>
+            <View>
+              <Text style={inputStyles.label}>
+                Sube tu foto preferida de la playa!
+              </Text>
+              <View>
+                <View>
+                  <TouchableOpacity onPress={chooseFile} testID="image-picker">
+                    <FontAwesomeIcon icon={faCamera} size={40} />
+                  </TouchableOpacity>
+                </View>
+                {imageSelected ? (
+                  <Image
+                    source={{ uri: imageSelected }}
+                    style={createFormStyles.image}
+                  />
+                ) : (
+                  ""
+                )}
               </View>
             </View>
             <View style={styles.buttonContainer}>

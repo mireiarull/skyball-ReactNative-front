@@ -6,6 +6,12 @@ const createFormStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  image: {
+    width: "100%",
+    height: 250,
+    alignItems: "center",
+    marginTop: 20,
+  },
 });
 
 export default createFormStyles;
