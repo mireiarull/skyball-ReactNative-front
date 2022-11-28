@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  type ImageURISource,
 } from "react-native";
 import CustomModal from "../Modal/CustomModal";
 import { Checkbox } from "../Checkbox/Checkbox";
@@ -23,6 +24,7 @@ import { useAppSelector } from "../../redux/hooks";
 import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import beachImage from "../../../assets/images/barceloneta.jpg";
 
 const CreateForm = (): JSX.Element => {
   const { id } = useAppSelector((state) => state.user);
@@ -139,6 +141,7 @@ const CreateForm = (): JSX.Element => {
       });
       if (!result.canceled) {
         setImageSelected(result.assets[0].uri);
+        console.log(imageSelected);
         const localUri = result.assets[0].uri;
         const filename: any = localUri.split("/").pop();
         setImageName(filename);
@@ -387,9 +390,14 @@ const CreateForm = (): JSX.Element => {
                 <View>
                   <TouchableOpacity onPress={chooseFile}>
                     <FontAwesomeIcon icon={faCamera} size={40} />
-                    <Text>Abrir galeria</Text>
                   </TouchableOpacity>
                 </View>
+                {imageSelected && (
+                  <Image
+                    source={{ uri: imageSelected }}
+                    style={createFormStyles.image}
+                  />
+                )}
               </View>
             </View>
             <View style={styles.buttonContainer}>
