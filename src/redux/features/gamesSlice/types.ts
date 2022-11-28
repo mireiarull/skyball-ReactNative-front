@@ -9,7 +9,7 @@ export interface PlayerStructure {
 }
 
 export interface GameStructure {
-  dateTime: Date;
+  dateTime: string;
   location: {
     type: string;
     coordinates: number[];
