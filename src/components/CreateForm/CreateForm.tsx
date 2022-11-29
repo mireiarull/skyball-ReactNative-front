@@ -365,14 +365,6 @@ const CreateForm = (): JSX.Element => {
                     <FontAwesomeIcon icon={faCamera} size={40} />
                   </TouchableOpacity>
                 </View>
-                {/* {formData.image.uri ? (
-                  <Image
-                    source={{ uri: imageSelected }}
-                    style={createFormStyles.image}
-                  />
-                ) : (
-                  ""
-                )} */}
                 {imageSelected ? (
                   <Image
                     source={{ uri: imageSelected }}

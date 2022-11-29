@@ -1,5 +1,3 @@
-import { type PlayerStructure } from "../redux/features/gamesSlice/types";
-
 export interface UserCredentials {
   email: string;
   password: string;
