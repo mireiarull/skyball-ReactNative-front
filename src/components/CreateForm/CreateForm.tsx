@@ -20,26 +20,58 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import useGames from "../../hooks/useGames/useGames";
 import { type GameFormData } from "../../types/types";
+import { useAppSelector } from "../../redux/hooks";
 
 const CreateForm = (): JSX.Element => {
-  const { addOneGame } = useGames();
+  const { addOneGame, loadAllGames } = useGames();
+  const { id } = useAppSelector((state) => state.user);
 
-  const intialFormData: GameFormData = {
+  // Const intialFormData: GameFormData = {
+  //   beachName: "",
+  //   dateTime: new Date(),
+  //   description: "",
+  //   format: 0,
+  //   gender: "X",
+  //   image: "",
+  //   level: 0,
+  //   location: {
+  //     coordinates: [0, 0],
+  //     type: "Point",
+  //   },
+  //   spots: 0,
+  //   ball: false,
+  //   net: false,
+  //   rods: false,
+  // };
+
+  const intialFormData = {
     beachName: "",
     dateTime: new Date(),
     description: "",
     format: 0,
     gender: "X",
-    image: "",
+    image: {
+      type: "",
+      uri: "",
+      name: "",
+    },
     level: 0,
     location: {
       coordinates: [0, 0],
       type: "Point",
     },
     spots: 0,
-    ball: false,
-    net: false,
-    rods: false,
+    players: [
+      {
+        id,
+        material: {
+          ball: false,
+          net: false,
+          rods: false,
+        },
+        role: "owner",
+      },
+    ],
   };
 
   const [formData, setFormData] = useState(intialFormData);
@@ -73,6 +105,7 @@ const CreateForm = (): JSX.Element => {
     newGame.append("net", formData.net);
     newGame.append("ball", formData.ball);
     newGame.append("rods", formData.rods);
+    // NewGame.append("players", JSON.stringify(formData.players));
     newGame.append("image", {
       type: imageType,
       uri: imageSelected,
@@ -80,6 +113,7 @@ const CreateForm = (): JSX.Element => {
     });
 
     await addOneGame(newGame);
+    await loadAllGames();
   };
 
   const onChangeDateTime = (event, selectedDate?: Date) => {
@@ -95,6 +129,17 @@ const CreateForm = (): JSX.Element => {
       [item]: !formData[item],
     });
   };
+
+  // Const toggleMaterial = (item: "net" | "ball" | "rods") => {
+  //   const newMaterial = {
+  //     ...formData.players[0].material,
+  //     [item]: !formData.players[0].material[item],
+  //   };
+  //   setFormData({
+  //     ...formData,
+  //     players: [{ ...formData.players[0], material: newMaterial }],
+  //   });
+  // };
 
   const [imageSelected, setImageSelected] = useState("");
   const [imageType, setImageType] = useState("");
@@ -144,7 +189,7 @@ const CreateForm = (): JSX.Element => {
                 style={inputStyles.input}
                 testID="beachName"
                 nativeID="beachName"
-                maxLength={20}
+                maxLength={40}
                 placeholder="Playa del Bogatell"
                 value={formData.beachName}
                 accessibilityLabel="beach name"
@@ -190,6 +235,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  key={"checkboxGenderFemale"}
                   type="radio"
                   selected={formData.gender === "M"}
                   onPress={() => {
@@ -201,6 +247,7 @@ const CreateForm = (): JSX.Element => {
               </View>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  key={"checkboxGenderMale"}
                   type="radio"
                   selected={formData.gender === "X"}
                   testID="checkboxNoGender"
@@ -215,6 +262,7 @@ const CreateForm = (): JSX.Element => {
               <Text style={inputStyles.label}>Nivel de juego</Text>
               <View style={styles.checkboxContainer}>
                 <Checkbox
+                  key={"checkboxGenderMixt"}
                   type="radio"
                   selected={formData.level === 1}
                   testID="checkboxLevel1"
@@ -339,6 +387,33 @@ const CreateForm = (): JSX.Element => {
                     toggleMaterial("rods");
                   }}
                 />
+                {/* <Checkbox
+                  text="RED"
+                  type="button"
+                  testID="checkboxNet"
+                  selected={formData.players[0].material.net}
+                  onPress={() => {
+                    toggleMaterial("net");
+                  }}
+                />
+                <Checkbox
+                  text="PELOTA"
+                  type="button"
+                  testID="checkboxBall"
+                  selected={formData.players[0].material.ball}
+                  onPress={() => {
+                    toggleMaterial("ball");
+                  }}
+                />
+                <Checkbox
+                  text="BARILLAS"
+                  type="button"
+                  testID="checkboxRods"
+                  selected={formData.players[0].material.rods}
+                  onPress={() => {
+                    toggleMaterial("rods");
+                  }}
+                /> */}
               </View>
               <View>
                 <Text style={inputStyles.label}>Comentarios</Text>
