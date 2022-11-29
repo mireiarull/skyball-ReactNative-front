@@ -6,11 +6,14 @@ import {
   openModalActionCreator,
   showLoadingActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";
+import { useNavigation } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loadAllGamesActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 import { type LoadGamesResponse } from "./types";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { type GameFormData } from "../../types/types";
+import { type LoginScreenNavigationProp } from "../../types/navigation.types";
+import RoutesEnum from "../../navigation/routes";
 
 const gamesRoutes = {
   gamesRoute: "/games",
@@ -21,6 +24,7 @@ const gamesRoutes = {
 const useGames = () => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.user);
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const loadAllGames = useCallback(async () => {
     try {
@@ -70,6 +74,8 @@ const useGames = () => {
             "Tu partido ya esta publicado y otros jugadores pueden apuntarse!",
         })
       );
+
+      navigation.navigate(RoutesEnum.explore);
     } catch {
       dispatch(
         openModalActionCreator({
