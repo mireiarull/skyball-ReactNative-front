@@ -26,6 +26,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
     },
   ],
   image: faker.random.alphaNumeric(),
+  backupImage: faker.random.alphaNumeric(),
 }));
 
 export const getRandomGame = gamesFactory.build();
