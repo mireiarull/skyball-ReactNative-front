@@ -61,33 +61,6 @@ const CreateForm = (): JSX.Element => {
     formData.spots,
   ]);
 
-  // Const handleSubmit = async () => {
-  //   const formDataToSubmit: GameFormData = {
-  //     beachName: formData.beachName,
-  //     dateTime: formData.dateTime,
-  //     description: formData.description,
-  //     format: formData.format,
-  //     image: formData.image,
-  //     location: {
-  //       coordinates: [0, 0],
-  //       type: "Point",
-  //     },
-  //     gender: formData.gender,
-  //     level: formData.level,
-  //     spots: formData.spots,
-  //     players: [
-  //       {
-  //         id,
-  //         material: {
-  //           ball: formData.players[0].material.ball,
-  //           net: formData.players[0].material.net,
-  //           rods: formData.players[0].material.rods,
-  //         },
-  //         role: "owner",
-  //       },
-  //     ],
-  //   };
-
   const handleSubmit = async () => {
     const newGame = new FormData();
     newGame.append("beachName", formData.beachName);
