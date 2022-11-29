@@ -7,6 +7,8 @@ import {
 import ProviderWrapper from "../../test-utils/providerWrapper";
 import useGames from "./useGames";
 import { store } from "../../redux/store";
+import { getRandomGame } from "../../factories/gamesFactory";
+import { type GameStructure } from "../../redux/features/gamesSlice/types";
 
 const dispatchSpy = jest.spyOn(store, "dispatch");
 
@@ -56,6 +58,50 @@ describe("Given the useGames custom hook", () => {
       await loadAllGames();
 
       expect(dispatchSpy).toHaveBeenCalledTimes(6);
+    });
+  });
+
+  describe("When its method addOneGames is invoked with one game and the server responds with 500 status", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal with one error", async () => {
+      const {
+        result: {
+          current: { addOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const newRandomGame = getRandomGame;
+
+      const newGame: GameStructure = {
+        ...newRandomGame,
+      };
+
+      await addOneGame(newGame);
+
+      expect(dispatchSpy).toHaveBeenCalledTimes(7);
+    });
+  });
+
+  describe("When its method addOneGames is invoked with one game and the server responds with 201 status", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
+      const {
+        result: {
+          current: { addOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: ProviderWrapper,
+      });
+
+      const newRandomGame = getRandomGame;
+
+      const newGame: GameStructure = {
+        ...newRandomGame,
+      };
+
+      await addOneGame(newGame);
+
+      expect(dispatchSpy).toHaveBeenCalledTimes(8);
     });
   });
 });

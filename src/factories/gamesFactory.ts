@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { type GameStructure } from "../redux/features/gamesSlice/types";
 
 const gamesFactory = Factory.define<GameStructure>(() => ({
-  date: faker.random.alphaNumeric(),
+  dateTime: faker.date.future(),
   format: faker.datatype.number({ min: 2, max: 6 }),
   gender: "M",
   level: faker.datatype.number(),
@@ -18,7 +18,11 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
     {
       id: faker.random.alphaNumeric(),
       role: "owner",
-      material: [faker.random.word()],
+      material: {
+        ball: true,
+        net: true,
+        rods: false,
+      },
     },
   ],
   image: faker.random.alphaNumeric(),

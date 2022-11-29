@@ -10,6 +10,12 @@ import {
   mockInitialUserState,
 } from "../../mocks/uiMocks";
 
+const mockCreateGame = jest.fn();
+
+jest.mock("../../hooks/useGames/useGames", () => () => ({
+  addOneGame: mockCreateGame,
+}));
+
 describe("Given a CreateForm component", () => {
   const checkboxIds = [
     "checkboxFemale",
@@ -30,12 +36,6 @@ describe("Given a CreateForm component", () => {
   const beachNameId = "beachName";
   const spotsId = "spots";
   const descriptionId = "description";
-
-  const mockLoginUser = jest.fn();
-
-  jest.mock("../../hooks/useUser/useUser", () => () => ({
-    login: mockLoginUser,
-  }));
 
   describe("When it's rendererd", () => {
     test("Then it should show a title with text 'Crear nuevo partido'", async () => {
@@ -78,32 +78,32 @@ describe("Given a CreateForm component", () => {
     });
   });
 
-  // Describe("And the user clicks on the submit button", () => {
-  //   test("Then it should call registerUser with the form information", async () => {
-  //     const submitButtonText = "Continuar";
+  describe("And the user clicks on the submit button", () => {
+    test("Then it should call addOne with the form information", async () => {
+      const submitButtonText = "Continuar";
 
-  //     renderWithProviders(<CreateForm />, {
-  //       preloadedState: {
-  //         ui: mockInitialUiState,
-  //         user: mockInitialUserState,
-  //         games: mockInitialGamesState,
-  //       },
-  //     });
+      renderWithProviders(<CreateForm />, {
+        preloadedState: {
+          ui: { ...mockInitialUiState, showModal: false, isLoading: false },
+          user: mockInitialUserState,
+          games: mockInitialGamesState,
+        },
+      });
 
-  //     const beachNameField = await screen.getByTestId(beachNameId);
-  //     const spotsField = await screen.getByTestId(spotsId);
-  //     fireEvent.changeText(beachNameField, "test beach");
-  //     fireEvent.changeText(spotsField, 5);
+      const beachNameField = await screen.getByTestId(beachNameId);
+      const spotsField = await screen.getByTestId(spotsId);
+      fireEvent.changeText(beachNameField, "test beach");
+      fireEvent.changeText(spotsField, 5);
 
-  //     checkboxIds.forEach((id) => {
-  //       const checkbox = screen.getByTestId(id);
-  //       fireEvent.press(checkbox);
-  //     });
+      checkboxIds.forEach((id) => {
+        const checkbox = screen.getByTestId(id);
+        fireEvent.press(checkbox);
+      });
 
-  //     const submitButton = await screen.getByText(submitButtonText);
-  //     fireEvent.press(submitButton);
+      const submitButton = await screen.getByText(submitButtonText);
+      fireEvent.press(submitButton);
 
-  //     expect(mockLoginUser).toHaveBeenCalled();
-  //   });
-  // });
+      expect(mockCreateGame).toHaveBeenCalled();
+    });
+  });
 });

@@ -36,7 +36,7 @@ const TabNavigator = (): JSX.Element => {
           ),
         }}
       />
-      {!isLogged ? (
+      {isLogged ? (
         <>
           <Tab.Screen
             name={RoutesEnum.create}

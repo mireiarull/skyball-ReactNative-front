@@ -9,14 +9,32 @@ interface GameCardProps {
 }
 
 const GameCard = ({
-  game: { date, format, gender, level, players, spots, beachName },
+  game: {
+    dateTime,
+    format,
+    gender,
+    level,
+    players,
+    spots,
+    beachName,
+    backupImage,
+  },
 }: GameCardProps) => (
   <View style={gameCardStyles.container} testID="gameCard">
-    <Image
-      source={beachImage}
-      style={gameCardStyles.image}
-      resizeMode="cover"
-    ></Image>
+    {backupImage ? (
+      <Image
+        source={{ uri: backupImage }}
+        style={gameCardStyles.image}
+        resizeMode="cover"
+      ></Image>
+    ) : (
+      <Image
+        source={beachImage}
+        style={gameCardStyles.image}
+        resizeMode="cover"
+      ></Image>
+    )}
+
     <View style={gameCardStyles.information}>
       <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
       <Text style={gameCardStyles.informationFormat}>

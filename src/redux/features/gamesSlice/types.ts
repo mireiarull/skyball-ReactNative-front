@@ -22,6 +22,7 @@ export interface GameStructure {
   description: string;
   players: PlayerStructure[];
   image: string;
+  backupImage?: string;
 }
 
 export interface GamesState {
