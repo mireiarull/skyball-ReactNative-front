@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { loadAllGamesActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 import { type LoadGamesResponse } from "./types";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
+import { type GameFormData } from "../../types/types";
 
 const gamesRoutes = {
   gamesRoute: "/games",
@@ -47,7 +48,7 @@ const useGames = () => {
     }
   }, [dispatch]);
 
-  const addOneGame = async (gameFormData: GameStructure) => {
+  const addOneGame = async (gameFormData: GameFormData) => {
     try {
       await axios.post<GameStructure>(
         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.addOneGame}`,

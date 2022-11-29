@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { type GameStructure } from "../redux/features/gamesSlice/types";
 
 const gamesFactory = Factory.define<GameStructure>(() => ({
-  dateTime: faker.random.word(),
+  dateTime: faker.date.future(),
   format: faker.datatype.number({ min: 2, max: 6 }),
   gender: "M",
   level: faker.datatype.number(),

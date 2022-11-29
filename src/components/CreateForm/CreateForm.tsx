@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -15,45 +13,33 @@ import { Checkbox } from "../Checkbox/Checkbox";
 import inputStyles from "../../styles/inputStyles";
 import buttonStyles from "../../styles/buttonStyles";
 import * as ImagePicker from "expo-image-picker";
-import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import styles from "../RegisterForm/RegisterFormStyles";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useAppSelector } from "../../redux/hooks";
 import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import useGames from "../../hooks/useGames/useGames";
+import { type GameFormData } from "../../types/types";
 
 const CreateForm = (): JSX.Element => {
-  const { id } = useAppSelector((state) => state.user);
+  const { addOneGame } = useGames();
 
-  const intialFormData = {
+  const intialFormData: GameFormData = {
     beachName: "",
     dateTime: new Date(),
     description: "",
     format: 0,
     gender: "X",
-    image: {
-      type: "",
-      uri: "",
-      name: "",
-    },
+    image: "",
     level: 0,
     location: {
       coordinates: [0, 0],
       type: "Point",
     },
     spots: 0,
-    players: [
-      {
-        id,
-        material: {
-          ball: false,
-          net: false,
-          rods: false,
-        },
-        role: "owner",
-      },
-    ],
+    ball: false,
+    net: false,
+    rods: false,
   };
 
   const [formData, setFormData] = useState(intialFormData);
@@ -75,39 +61,52 @@ const CreateForm = (): JSX.Element => {
     formData.spots,
   ]);
 
-  const handleFormChange = (text: string, identify: string) => {
-    setFormData({
-      ...formData,
-      [identify]: text,
-    });
-  };
+  // Const handleSubmit = async () => {
+  //   const formDataToSubmit: GameFormData = {
+  //     beachName: formData.beachName,
+  //     dateTime: formData.dateTime,
+  //     description: formData.description,
+  //     format: formData.format,
+  //     image: formData.image,
+  //     location: {
+  //       coordinates: [0, 0],
+  //       type: "Point",
+  //     },
+  //     gender: formData.gender,
+  //     level: formData.level,
+  //     spots: formData.spots,
+  //     players: [
+  //       {
+  //         id,
+  //         material: {
+  //           ball: formData.players[0].material.ball,
+  //           net: formData.players[0].material.net,
+  //           rods: formData.players[0].material.rods,
+  //         },
+  //         role: "owner",
+  //       },
+  //     ],
+  //   };
 
-  const handleSubmit = () => {
-    const formDataToSubmit = {
-      beachName: formData.beachName,
-      dateTime: formData.dateTime,
-      description: formData.description,
-      format: formData.format,
-      image: formData.image,
-      location: {
-        coordinates: [0, 0],
-        type: "Point",
-      },
-      gender: formData.gender,
-      level: formData.level,
-      spots: formData.spots,
-      players: [
-        {
-          id,
-          material: {
-            ball: formData.players[0].material.ball,
-            net: formData.players[0].material.net,
-            rods: formData.players[0].material.rods,
-          },
-          role: "owner",
-        },
-      ],
-    };
+  const handleSubmit = async () => {
+    const newGame = new FormData();
+    newGame.append("beachName", formData.beachName);
+    newGame.append("dateTime", formData.dateTime.toISOString());
+    newGame.append("description", formData.description);
+    newGame.append("format", formData.format);
+    newGame.append("gender", formData.gender);
+    newGame.append("level", formData.level);
+    newGame.append("spots", formData.spots);
+    newGame.append("net", formData.net);
+    newGame.append("ball", formData.ball);
+    newGame.append("rods", formData.rods);
+    newGame.append("image", {
+      type: imageType,
+      uri: imageSelected,
+      name: imageName,
+    });
+
+    await addOneGame(newGame);
   };
 
   const onChangeDateTime = (event, selectedDate?: Date) => {
@@ -118,19 +117,22 @@ const CreateForm = (): JSX.Element => {
   };
 
   const toggleMaterial = (item: "net" | "ball" | "rods") => {
-    const newMaterial = {
-      ...formData.players[0].material,
-      [item]: !formData.players[0].material[item],
-    };
     setFormData({
       ...formData,
-      players: [{ ...formData.players[0], material: newMaterial }],
+      [item]: !formData[item],
     });
   };
 
   const [imageSelected, setImageSelected] = useState("");
   const [imageType, setImageType] = useState("");
   const [imageName, setImageName] = useState("");
+
+  const handleFormChange = (text: string, identify: string) => {
+    setFormData({
+      ...formData,
+      [identify]: text,
+    });
+  };
 
   const chooseFile = async () => {
     try {
@@ -141,20 +143,12 @@ const CreateForm = (): JSX.Element => {
         quality: 0,
       });
       if (!result.canceled) {
-        setImageSelected(result.assets[0].uri);
         const localUri = result.assets[0].uri;
-        const filename: any = localUri.split("/").pop();
-        setImageName(filename);
-        setFormData({
-          ...formData,
-          image: {
-            type: imageType,
-            uri: imageSelected,
-            name: imageName,
-          },
-        });
-        const match = /\.(\w+)$/.exec(filename);
-        const type: any = match ? `image/${match[1]}` : `image`;
+        setImageSelected(localUri);
+        const filename = localUri.split("/").pop();
+        setImageName(filename!);
+        const match = /\.(\w+)$/.exec(filename!);
+        const type = match ? `image/${match[1]}` : `image`;
         setImageType(type);
       }
     } catch (catchError: unknown) {
@@ -176,6 +170,7 @@ const CreateForm = (): JSX.Element => {
               <TextInput
                 style={inputStyles.input}
                 testID="beachName"
+                nativeID="beachName"
                 maxLength={20}
                 placeholder="Playa del Bogatell"
                 value={formData.beachName}
@@ -348,7 +343,7 @@ const CreateForm = (): JSX.Element => {
                   text="RED"
                   type="button"
                   testID="checkboxNet"
-                  selected={formData.players[0].material.net}
+                  selected={formData.net}
                   onPress={() => {
                     toggleMaterial("net");
                   }}
@@ -357,7 +352,7 @@ const CreateForm = (): JSX.Element => {
                   text="PELOTA"
                   type="button"
                   testID="checkboxBall"
-                  selected={formData.players[0].material.ball}
+                  selected={formData.ball}
                   onPress={() => {
                     toggleMaterial("ball");
                   }}
@@ -366,7 +361,7 @@ const CreateForm = (): JSX.Element => {
                   text="BARILLAS"
                   type="button"
                   testID="checkboxRods"
-                  selected={formData.players[0].material.rods}
+                  selected={formData.rods}
                   onPress={() => {
                     toggleMaterial("rods");
                   }}
@@ -397,6 +392,14 @@ const CreateForm = (): JSX.Element => {
                     <FontAwesomeIcon icon={faCamera} size={40} />
                   </TouchableOpacity>
                 </View>
+                {/* {formData.image.uri ? (
+                  <Image
+                    source={{ uri: imageSelected }}
+                    style={createFormStyles.image}
+                  />
+                ) : (
+                  ""
+                )} */}
                 {imageSelected ? (
                   <Image
                     source={{ uri: imageSelected }}
