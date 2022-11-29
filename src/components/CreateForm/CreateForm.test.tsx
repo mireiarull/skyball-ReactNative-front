@@ -18,6 +18,21 @@ jest.mock("../../hooks/useGames/useGames", () => () => ({
   loadAllGames: mockLoadAllGames,
 }));
 
+// Const mocklaunchImageLibraryAsync = jest.fn().mockResolvedValue({
+//   cancelled: false,
+//   type: "image",
+//   uri: "abc.jpeg",
+//   width: "200",
+//   height: "200",
+// });
+
+// const mockMediaTypeOptions = { All: undefined };
+
+// jest.mock("expo-image-picker", () => () => ({
+//   launchImageLibraryAsync: mocklaunchImageLibraryAsync,
+//   MediaTypeOptions: mockMediaTypeOptions,
+// }));
+
 describe("Given a CreateForm component", () => {
   const checkboxIds = [
     "checkboxFemale",
@@ -108,4 +123,16 @@ describe("Given a CreateForm component", () => {
       expect(mockCreateGame).toHaveBeenCalled();
     });
   });
+
+  // Describe("And the user clicks on the load image icon", () => {
+  //   test("Then it should set the image form state", async () => {
+  //     renderWithProviders(<CreateForm />);
+
+  //     const pickImageButton = screen.getByTestId("image-picker");
+
+  //     fireEvent.press(pickImageButton);
+
+  //     expect(mocklaunchImageLibraryAsync).toBeCalledTimes(1);
+  //   });
+  // });
 });

@@ -160,4 +160,25 @@ describe("Given the custom hook useUser", () => {
       );
     });
   });
+
+  describe("When loginUser is invoked with the email 'mireia@gmail.com' and the wrong password '654321'", () => {
+    test("Then it should call the dispatch with openModalActionCreator and an error message", async () => {
+      const {
+        result: {
+          current: { loginUser },
+        },
+      } = renderHook(() => useUser(), {
+        wrapper: makeWrapper,
+      });
+
+      const user: UserCredentials = {
+        email: "mireia@gmail.com",
+        password: "654321",
+      };
+
+      await loginUser(user);
+
+      expect(dispatchSpy).toHaveBeenCalled();
+    });
+  });
 });
