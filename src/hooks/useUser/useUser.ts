@@ -56,15 +56,6 @@ const useUser = () => {
         userData
       );
 
-      if (responseData.status === 401) {
-        openModalActionCreator({
-          isError: true,
-          modalText: "La informacion es incorrecta!",
-          modalTitle: "¡Ups!",
-          buttonText: "Volver",
-        });
-      }
-
       const { token } = responseData.data;
       const userLogged = decodeToken(token);
 
