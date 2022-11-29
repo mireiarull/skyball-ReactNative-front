@@ -65,4 +65,21 @@ describe("Given a GameCard component", () => {
       expect(expectedCardLevel).toBeDefined();
     });
   });
+
+  describe("When it's rendered with one game without an image", () => {
+    test("Then it should show the game card with the default image", () => {
+      const game: GameStructure = {
+        ...getRandomGame,
+        level: 4,
+        gender: "X",
+        backupImage: "",
+      };
+      const defaultImageId = "defaultImage";
+      render(<GameCard game={game} />);
+
+      const expectedCardDefaultImage = screen.queryByTestId(defaultImageId);
+
+      expect(expectedCardDefaultImage).toBeDefined();
+    });
+  });
 });

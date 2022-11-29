@@ -29,6 +29,7 @@ const GameCard = ({
       ></Image>
     ) : (
       <Image
+        testID="defaultImage"
         source={beachImage}
         style={gameCardStyles.image}
         resizeMode="cover"
