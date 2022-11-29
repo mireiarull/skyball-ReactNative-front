@@ -11,9 +11,11 @@ import {
 } from "../../mocks/uiMocks";
 
 const mockCreateGame = jest.fn();
+const mockLoadAllGames = jest.fn();
 
 jest.mock("../../hooks/useGames/useGames", () => () => ({
   addOneGame: mockCreateGame,
+  loadAllGames: mockLoadAllGames,
 }));
 
 describe("Given a CreateForm component", () => {
