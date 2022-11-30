@@ -29,3 +29,7 @@ export interface GamesState {
   games: GameStructure[];
   currentGame: GameStructure;
 }
+
+export interface GameStructureWithId extends GameStructure {
+  id: string;
+}

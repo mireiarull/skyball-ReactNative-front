@@ -2,6 +2,7 @@ import { getRandomGame, getRandomGameList } from "../factories/gamesFactory";
 import {
   type GameStructure,
   type GamesState,
+  type GameStructureWithId,
 } from "../redux/features/gamesSlice/types";
 
 export const mockLoadGamesResponse = {
@@ -15,7 +16,7 @@ export const emptyGamesState: GamesState = {
 
 export const emptyCurrentGameState: GameStructure = {
   beachName: "",
-  dateTime: new Date(),
+  dateTime: new Date("December 17, 1995 03:24:00"),
   description: "",
   format: 0,
   gender: "X",
@@ -37,4 +38,9 @@ export const emptyCurrentGameState: GameStructure = {
       },
     },
   ],
+};
+
+export const mockloadOneGameResponse: GameStructureWithId = {
+  ...getRandomGame,
+  id: "123456",
 };

@@ -96,13 +96,18 @@ const useGames = () => {
       dispatch(showLoadingActionCreator());
 
       const response = await axios.get<GameStructure>(
-        `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}/${gameId}`
+        `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}/${gameId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       const game = response.data;
 
-      dispatch(loadOneGameActionCreator(game));
       dispatch(hideLoadingActionCreator());
+      dispatch(loadOneGameActionCreator(game));
     } catch {
       dispatch(hideLoadingActionCreator());
 
