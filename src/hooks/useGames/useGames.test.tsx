@@ -7,8 +7,14 @@ import {
 import ProviderWrapper from "../../test-utils/providerWrapper";
 import useGames from "./useGames";
 import { store } from "../../redux/store";
-import { getRandomGame } from "../../factories/gamesFactory";
-import { type GameStructure } from "../../redux/features/gamesSlice/types";
+import { getRandomGameFormData } from "../../factories/gamesFactory";
+import { type GameFormData } from "../../types/types";
+import makeWrapper from "../../mocks/makeWrapper";
+import { mockloadOneGameResponse } from "../../mocks/gamesMocks";
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 const dispatchSpy = jest.spyOn(store, "dispatch");
 
@@ -57,7 +63,7 @@ describe("Given the useGames custom hook", () => {
 
       await loadAllGames();
 
-      expect(dispatchSpy).toHaveBeenCalledTimes(6);
+      expect(dispatchSpy).toHaveBeenCalled();
     });
   });
 
@@ -71,15 +77,15 @@ describe("Given the useGames custom hook", () => {
         wrapper: ProviderWrapper,
       });
 
-      const newRandomGame = getRandomGame;
+      const newRandomGame = getRandomGameFormData;
 
-      const newGame: GameStructure = {
+      const newGame: GameFormData = {
         ...newRandomGame,
       };
 
       await addOneGame(newGame);
 
-      expect(dispatchSpy).toHaveBeenCalledTimes(7);
+      expect(dispatchSpy).toHaveBeenCalled();
     });
   });
 
@@ -93,15 +99,63 @@ describe("Given the useGames custom hook", () => {
         wrapper: ProviderWrapper,
       });
 
-      const newRandomGame = getRandomGame;
+      const newRandomGame = getRandomGameFormData;
 
-      const newGame: GameStructure = {
+      const newGame: GameFormData = {
         ...newRandomGame,
       };
 
       await addOneGame(newGame);
 
-      expect(dispatchSpy).toHaveBeenCalledTimes(8);
+      expect(dispatchSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("When its method getOneGame is invoked and axios rejects", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal with the error message", async () => {
+      const {
+        result: {
+          current: { loadOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: makeWrapper,
+      });
+
+      await loadOneGame("123456");
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        hideLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        openModalActionCreator({
+          isError: true,
+          modalTitle: "Ha habido un error!",
+          modalText: "Parece que ha habido un problema creando el partido",
+          buttonText: "Volver",
+        })
+      );
+    });
+  });
+
+  describe("When its method getOneGame is invoked with id '123456'", () => {
+    test("Then it should return the prediction with Id '123456'", async () => {
+      const {
+        result: {
+          current: { loadOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: makeWrapper,
+      });
+
+      await loadOneGame(mockloadOneGameResponse.id);
+
+      expect(dispatchSpy).toHaveBeenCalledTimes(3);
     });
   });
 });

@@ -9,7 +9,7 @@ export interface PlayerStructure {
 }
 
 export interface GameStructure {
-  dateTime: Date;
+  dateTime: string;
   location: {
     type: string;
     coordinates: number[];
@@ -27,4 +27,9 @@ export interface GameStructure {
 
 export interface GamesState {
   games: GameStructure[];
+  currentGame: GameStructure;
+}
+
+export interface GameStructureWithId extends GameStructure {
+  id: string;
 }

@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { REACT_APP_API_SKYBALL } from "@env";
 import { type UserRegisterCredentials } from "../types/types";
-import { mockLoadGamesResponse } from "./gamesMocks";
+import { mockLoadGamesResponse, mockloadOneGameResponse } from "./gamesMocks";
 import { getRandomGame } from "../factories/gamesFactory";
 
 const handlers = [
@@ -51,6 +51,17 @@ const handlers = [
 
   rest.post(`${REACT_APP_API_SKYBALL}/games/add`, (req, res, ctx) =>
     res(ctx.status(201), ctx.json({ getRandomGame }))
+  ),
+
+  rest.get(`${REACT_APP_API_SKYBALL}/games/:gameId`, (req, res, ctx) =>
+    res.once(
+      ctx.status(400),
+      ctx.json({ error: "There was an error on the server" })
+    )
+  ),
+
+  rest.get(`${REACT_APP_API_SKYBALL}/games/:gameId`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(mockloadOneGameResponse))
   ),
 ];
 

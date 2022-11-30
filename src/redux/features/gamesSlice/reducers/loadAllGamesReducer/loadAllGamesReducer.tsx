@@ -1,5 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { type GamesState, type GameStructure } from "../types";
+import { type GamesState, type GameStructure } from "../../types";
 
 const loadAllGamesReducer = (
   currentGamesState: GamesState,

@@ -19,7 +19,6 @@ import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import useGames from "../../hooks/useGames/useGames";
-import { type GameFormData } from "../../types/types";
 import { useAppSelector } from "../../redux/hooks";
 
 const CreateForm = (): JSX.Element => {
