@@ -27,4 +27,5 @@ export interface GameStructure {
 
 export interface GamesState {
   games: GameStructure[];
+  currentGame: GameStructure;
 }

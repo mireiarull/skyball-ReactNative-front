@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import loadAllGamesReducer from "./reducers/loadAllGamesReducer";
+import { emptyCurrentGameState } from "../../../mocks/gamesMocks";
+import loadAllGamesReducer from "./reducers/loadAllGamesReducer/loadAllGamesReducer";
 import { type GamesState } from "./types";
 
 const gamesInitialState: GamesState = {
   games: [],
+  currentGame: emptyCurrentGameState,
 };
 
 const gamesSlice = createSlice({
