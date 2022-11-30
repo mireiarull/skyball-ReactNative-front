@@ -136,7 +136,8 @@ describe("Given the useGames custom hook", () => {
         openModalActionCreator({
           isError: true,
           modalTitle: "Ha habido un error!",
-          modalText: "Parece que ha habido un problema creando el partido",
+          modalText:
+            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
           buttonText: "Volver",
         })
       );

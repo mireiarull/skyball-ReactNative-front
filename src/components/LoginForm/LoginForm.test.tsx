@@ -1,17 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react-native";
-import { Provider } from "react-redux";
-import { store } from "../../redux/store";
+import { screen, fireEvent } from "@testing-library/react-native";
+
 import LoginForm from "./LoginForm";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
+import RoutesEnum from "../../navigation/routes";
 
 const mockLoginUser = jest.fn();
 
 jest.mock("../../hooks/useUser/useUser", () => () => ({
   loginUser: mockLoginUser,
 }));
+
+const mockedNavigate = jest.fn();
+
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 
 describe("Given a LoginForm component", () => {
   describe("When it's rendererd", () => {
@@ -32,11 +44,7 @@ describe("Given a LoginForm component", () => {
       const passwordId = "password";
       const submitButtonText = "Iniciar sesión";
 
-      render(
-        <Provider store={store}>
-          <LoginForm />
-        </Provider>
-      );
+      renderWithProviders(<LoginForm />);
 
       const emailField = await screen.getByTestId(emailId);
       const passwordField = await screen.getByTestId(passwordId);
@@ -51,6 +59,19 @@ describe("Given a LoginForm component", () => {
         email: "mireia@gmail.com",
         password: "security",
       });
+    });
+  });
+
+  describe("And the user clicks on the 'Ir al registro' button", () => {
+    test("Then the useNavigation should be called with the register page reference", async () => {
+      const registerButtonText = "Ir al registro";
+
+      renderWithProviders(<LoginForm />);
+
+      const registerButton = await screen.getByText(registerButtonText);
+      fireEvent(registerButton, "press");
+
+      expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.register);
     });
   });
 });
