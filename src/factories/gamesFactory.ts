@@ -4,7 +4,7 @@ import { type GameStructure } from "../redux/features/gamesSlice/types";
 import { type GameFormData } from "../types/types";
 
 const gamesFactory = Factory.define<GameStructure>(() => ({
-  dateTime: faker.date.future(),
+  dateTime: faker.random.alphaNumeric(),
   format: faker.datatype.number({ min: 2, max: 6 }),
   gender: "M",
   level: faker.datatype.number(),
@@ -31,7 +31,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
 }));
 
 const gamesFormDataFactory = Factory.define<GameFormData>(() => ({
-  dateTime: faker.date.future(),
+  dateTime: faker.random.alphaNumeric(),
   format: faker.datatype.number({ min: 2, max: 6 }),
   gender: "M",
   level: faker.datatype.number(),

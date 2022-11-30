@@ -19,7 +19,7 @@ export interface LoginResponse {
 }
 
 export interface GameFormData {
-  dateTime: Date;
+  dateTime: string;
   location: {
     type: string;
     coordinates: number[];

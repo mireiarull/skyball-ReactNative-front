@@ -90,7 +90,7 @@ describe("Given the custom hook useUser", () => {
       const actionPayload = {
         isError: true,
         modalTitle: "¡Ups!",
-        modalText: "Este usuario ya está registrado",
+        modalText: "Ha habido un problema con el registro",
         buttonText: "Volver",
       };
 
