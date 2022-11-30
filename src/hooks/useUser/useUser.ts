@@ -41,7 +41,7 @@ const useUser = () => {
       dispatch(
         openModalActionCreator({
           isError: true,
-          modalText: "Este usuario ya está registrado",
+          modalText: "Ha habido un problema con el registro",
           modalTitle: "¡Ups!",
           buttonText: "Volver",
         })
