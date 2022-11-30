@@ -8,7 +8,10 @@ import {
 } from "../../redux/features/uiSlice/uiSlice";
 import { useNavigation } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { loadAllGamesActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
+import {
+  loadAllGamesActionCreator,
+  loadOneGameActionCreator,
+} from "../../redux/features/gamesSlice/gamesSlice";
 import { type LoadGamesResponse } from "./types";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { type GameFormData } from "../../types/types";
@@ -88,9 +91,36 @@ const useGames = () => {
     }
   };
 
+  const loadOneGame = async (gameId: string) => {
+    try {
+      dispatch(showLoadingActionCreator());
+
+      const response = await axios.get<GameStructure>(
+        `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}/${gameId}`
+      );
+
+      const game = response.data;
+
+      dispatch(loadOneGameActionCreator(game));
+      dispatch(hideLoadingActionCreator());
+    } catch {
+      dispatch(hideLoadingActionCreator());
+
+      dispatch(
+        openModalActionCreator({
+          isError: true,
+          modalTitle: "Ha habido un error!",
+          modalText: "Parece que ha habido un problema creando el partido",
+          buttonText: "Volver",
+        })
+      );
+    }
+  };
+
   return {
     loadAllGames,
     addOneGame,
+    loadOneGame,
   };
 };
 

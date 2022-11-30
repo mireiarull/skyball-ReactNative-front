@@ -7,8 +7,8 @@ import {
 import ProviderWrapper from "../../test-utils/providerWrapper";
 import useGames from "./useGames";
 import { store } from "../../redux/store";
-import { getRandomGame } from "../../factories/gamesFactory";
-import { type GameStructure } from "../../redux/features/gamesSlice/types";
+import { getRandomGameFormData } from "../../factories/gamesFactory";
+import { type GameFormData } from "../../types/types";
 
 const dispatchSpy = jest.spyOn(store, "dispatch");
 
@@ -71,9 +71,9 @@ describe("Given the useGames custom hook", () => {
         wrapper: ProviderWrapper,
       });
 
-      const newRandomGame = getRandomGame;
+      const newRandomGame = getRandomGameFormData;
 
-      const newGame: GameStructure = {
+      const newGame: GameFormData = {
         ...newRandomGame,
       };
 
@@ -93,9 +93,9 @@ describe("Given the useGames custom hook", () => {
         wrapper: ProviderWrapper,
       });
 
-      const newRandomGame = getRandomGame;
+      const newRandomGame = getRandomGameFormData;
 
-      const newGame: GameStructure = {
+      const newGame: GameFormData = {
         ...newRandomGame,
       };
 
