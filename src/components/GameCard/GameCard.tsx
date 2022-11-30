@@ -55,7 +55,7 @@ const GameCard = ({
       )}
 
       <View style={gameCardStyles.information}>
-        <TouchableOpacity onPress={handlePress} testID="toDetail">
+        <TouchableOpacity onPress={handlePress} testID="linkToDetail">
           <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
         </TouchableOpacity>
         <Text style={gameCardStyles.informationFormat}>

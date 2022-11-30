@@ -1,10 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
-import { screen } from "@testing-library/react-native";
+import { screen, fireEvent } from "@testing-library/react-native";
 import { getRandomGameWithId } from "../../factories/gamesFactory";
 import GameCard from "./GameCard";
 import { type GameStructureWithId } from "../../redux/features/gamesSlice/types";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
+import RoutesEnum from "../../navigation/routes";
+
+const mockedNavigate = jest.fn();
+
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+const mockLoadOneGames = jest.fn();
+
+jest.mock("../../hooks/useGames/useGames", () => () => ({
+  loadOneGame: mockLoadOneGames,
+}));
 
 describe("Given a GameCard component", () => {
   describe("When it is rendered with one game", () => {
@@ -97,6 +117,24 @@ describe("Given a GameCard component", () => {
       const expectedCardDefaultImage = screen.queryByTestId(defaultImageId);
 
       expect(expectedCardDefaultImage).toBeDefined();
+    });
+  });
+
+  describe("And the user clicks on one game title", () => {
+    test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", async () => {
+      const gameTitleLinkId = "linkToDetail";
+      const game: GameStructureWithId = {
+        ...getRandomGameWithId,
+        id: "1234",
+      };
+
+      renderWithProviders(<GameCard game={game} />);
+
+      const linkToDetail = await screen.getByTestId(gameTitleLinkId);
+      fireEvent(linkToDetail, "press");
+
+      expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.gameDetail);
+      expect(mockLoadOneGames).toHaveBeenCalledWith(game.id);
     });
   });
 });

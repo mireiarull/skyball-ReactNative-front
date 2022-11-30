@@ -25,24 +25,6 @@ const CreateForm = (): JSX.Element => {
   const { addOneGame, loadAllGames } = useGames();
   const { id } = useAppSelector((state) => state.user);
 
-  // Const intialFormData: GameFormData = {
-  //   beachName: "",
-  //   dateTime: new Date(),
-  //   description: "",
-  //   format: 0,
-  //   gender: "X",
-  //   image: "",
-  //   level: 0,
-  //   location: {
-  //     coordinates: [0, 0],
-  //     type: "Point",
-  //   },
-  //   spots: 0,
-  //   ball: false,
-  //   net: false,
-  //   rods: false,
-  // };
-
   const intialFormData = {
     beachName: "",
     dateTime: new Date(),
@@ -128,17 +110,6 @@ const CreateForm = (): JSX.Element => {
       [item]: !formData[item],
     });
   };
-
-  // Const toggleMaterial = (item: "net" | "ball" | "rods") => {
-  //   const newMaterial = {
-  //     ...formData.players[0].material,
-  //     [item]: !formData.players[0].material[item],
-  //   };
-  //   setFormData({
-  //     ...formData,
-  //     players: [{ ...formData.players[0], material: newMaterial }],
-  //   });
-  // };
 
   const [imageSelected, setImageSelected] = useState("");
   const [imageType, setImageType] = useState("");
