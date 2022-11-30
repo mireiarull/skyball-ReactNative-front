@@ -38,46 +38,50 @@ const GameCard = ({
   };
 
   return (
-    <View style={gameCardStyles.container} testID="gameCard">
-      {backupImage ? (
-        <Image
-          source={{ uri: backupImage }}
-          style={gameCardStyles.image}
-          resizeMode="cover"
-        ></Image>
-      ) : (
-        <Image
-          testID="defaultImage"
-          source={beachImage}
-          style={gameCardStyles.image}
-          resizeMode="cover"
-        ></Image>
-      )}
-
-      <View style={gameCardStyles.information}>
-        <TouchableOpacity onPress={handlePress} testID="linkToDetail">
+    <TouchableOpacity
+      onPress={handlePress}
+      testID="linkToDetail"
+      activeOpacity={1}
+    >
+      <View style={gameCardStyles.container} testID="gameCard">
+        {backupImage ? (
+          <Image
+            source={{ uri: backupImage }}
+            style={gameCardStyles.image}
+            resizeMode="cover"
+          ></Image>
+        ) : (
+          <Image
+            testID="defaultImage"
+            source={beachImage}
+            style={gameCardStyles.image}
+            resizeMode="cover"
+          ></Image>
+        )}
+        <View style={gameCardStyles.information}>
           <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
-        </TouchableOpacity>
-        <Text style={gameCardStyles.informationFormat}>
-          {format} vs {format}
-        </Text>
-        <Text style={gameCardStyles.informationText}>
-          Nivel{" "}
-          {(level === 1 && "principiante") ||
-            (level === 2 && "intermedio") ||
-            (level === 3 && "intermedio alto") ||
-            (level === 4 && "avanzado")}
-        </Text>
-        <Text style={gameCardStyles.informationText}>
-          {(gender === "F" && "Femenino") ||
-            (gender === "M" && "Masculino") ||
-            (gender === "X" && "Mixto")}
-        </Text>
-        <Text style={gameCardStyles.informationSpots}>
-          {spots - players.length} plazas libres
-        </Text>
+
+          <Text style={gameCardStyles.informationFormat}>
+            {format} vs {format}
+          </Text>
+          <Text style={gameCardStyles.informationText}>
+            Nivel{" "}
+            {(level === 1 && "principiante") ||
+              (level === 2 && "intermedio") ||
+              (level === 3 && "intermedio alto") ||
+              (level === 4 && "avanzado")}
+          </Text>
+          <Text style={gameCardStyles.informationText}>
+            {(gender === "F" && "Femenino") ||
+              (gender === "M" && "Masculino") ||
+              (gender === "X" && "Mixto")}
+          </Text>
+          <Text style={gameCardStyles.informationSpots}>
+            {spots - players.length} plazas libres
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
