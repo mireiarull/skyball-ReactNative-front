@@ -32,4 +32,5 @@ export interface GamesState {
 
 export interface GameStructureWithId extends GameStructure {
   id: string;
+  owner: string;
 }

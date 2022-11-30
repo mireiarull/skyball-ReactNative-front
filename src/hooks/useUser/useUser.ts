@@ -37,6 +37,7 @@ const useUser = () => {
           buttonText: "Continuar",
         })
       );
+      navigation.navigate(RoutesEnum.login);
     } catch {
       dispatch(
         openModalActionCreator({

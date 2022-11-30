@@ -4,7 +4,8 @@ enum RoutesEnum {
   welcome = "Welcome",
   explore = "Explorar",
   create = "Crear",
-  home = "Home"
+  home = "Home",
+  gameDetail = "Partido",
 }
 
 export default RoutesEnum;
