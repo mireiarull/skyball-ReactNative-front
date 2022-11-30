@@ -1,11 +1,11 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import { type GameStructure } from "../../redux/features/gamesSlice/types";
+import { type GameStructureWithId } from "../../redux/features/gamesSlice/types";
 import GameCard from "../GameCard/GameCard";
 import styles from "./GameListStyles";
 
 interface GamesListProps {
-  games: GameStructure[];
+  games: GameStructureWithId[];
 }
 
 const GameList = ({ games }: GamesListProps) => (

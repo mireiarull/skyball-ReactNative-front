@@ -18,6 +18,21 @@ const loginFormStyles = StyleSheet.create({
     borderColor: colorStyles.white,
     color: colorStyles.white,
   },
+  infoContainer: {
+    marginTop: 30,
+    display: "flex",
+    flexDirection: "row",
+  },
+  info: {
+    color: colorStyles.white,
+    fontSize: 18,
+  },
+  link: {
+    color: colorStyles.main,
+    fontSize: 18,
+    fontWeight: "600",
+    marginLeft: 10,
+  },
 });
 
 export default loginFormStyles;

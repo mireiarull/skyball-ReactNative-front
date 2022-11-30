@@ -12,6 +12,7 @@ import {
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ExploreScreen from "../screens/ExploreScreen/ExploreScreen";
 import CreateScreen from "../screens/CreateScreen/CreateScreen";
+import DetailScreen from "../screens/DetailScreen/DetailScreen";
 
 const TabNavigator = (): JSX.Element => {
   const Tab = createBottomTabNavigator();
@@ -65,6 +66,13 @@ const TabNavigator = (): JSX.Element => {
           }}
         />
       )}
+      <Tab.Screen
+        name={RoutesEnum.gameDetail}
+        component={DetailScreen}
+        options={{
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
     </Tab.Navigator>
   );
 };

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    alignItems: "flex-end",
+    alignItems: "flex-start",
   },
   checkboxContainer: {
     display: "flex",

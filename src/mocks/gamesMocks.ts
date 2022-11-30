@@ -43,4 +43,5 @@ export const emptyCurrentGameState: GameStructure = {
 export const mockloadOneGameResponse: GameStructureWithId = {
   ...getRandomGame,
   id: "123456",
+  owner: "",
 };

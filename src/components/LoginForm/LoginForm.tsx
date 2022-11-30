@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -7,7 +8,9 @@ import {
   View,
 } from "react-native";
 import useUser from "../../hooks/useUser/useUser";
+import RoutesEnum from "../../navigation/routes";
 import buttonStyles from "../../styles/buttonStyles";
+import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import { type UserCredentials } from "../../types/types";
 import CustomModal from "../Modal/CustomModal";
 import styles from "../RegisterForm/RegisterFormStyles";
@@ -15,6 +18,7 @@ import loginFormStyles from "./LoginFormStyles";
 
 const LoginForm = (): JSX.Element => {
   const { loginUser } = useUser();
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const intialFormData: UserCredentials = {
     password: "",
@@ -91,6 +95,16 @@ const LoginForm = (): JSX.Element => {
           >
             <Text style={buttonStyles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>
+          <View style={loginFormStyles.infoContainer}>
+            <Text style={loginFormStyles.info}>¿Aún no estás registrado?</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(RoutesEnum.register);
+              }}
+            >
+              <Text style={loginFormStyles.link}>Ir al registro</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </KeyboardAvoidingView>
