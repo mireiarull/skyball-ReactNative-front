@@ -154,7 +154,7 @@ describe("Given the useGames custom hook", () => {
         wrapper: makeWrapper,
       });
 
-      await loadOneGame(mockloadOneGameResponse.id);
+      await loadOneGame(mockloadOneGameResponse.id!);
 
       expect(dispatchSpy).toHaveBeenCalledTimes(3);
     });

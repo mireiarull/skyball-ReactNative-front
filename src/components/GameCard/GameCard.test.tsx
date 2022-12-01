@@ -8,6 +8,13 @@ import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
 import RoutesEnum from "../../navigation/routes";
 import { getRandomGame } from "../../factories/gamesFactory";
+import {
+  mockInitialGamesState,
+  mockInitialUiState,
+  mockInitialUserState,
+} from "../../mocks/uiMocks";
+import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
+import { store } from "../../redux/store";
 
 const mockedNavigate = jest.fn();
 
@@ -26,6 +33,8 @@ const mockLoadOneGames = jest.fn();
 jest.mock("../../hooks/useGames/useGames", () => () => ({
   loadOneGame: mockLoadOneGames,
 }));
+
+const dispatchSpy = jest.spyOn(store, "dispatch");
 
 describe("Given a GameCard component", () => {
   describe("When it is rendered with one game", () => {
@@ -121,7 +130,7 @@ describe("Given a GameCard component", () => {
     });
   });
 
-  describe("And the user clicks on one game title", () => {
+  describe("And a logged user clicks on one game title", () => {
     test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", async () => {
       const gameTitleLinkId = "linkToDetail";
       const game: GameStructure = {
@@ -129,7 +138,13 @@ describe("Given a GameCard component", () => {
         id: "1234",
       };
 
-      renderWithProviders(<GameCard game={game} />);
+      renderWithProviders(<GameCard game={game} />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: { ...mockInitialUserState, isLogged: true },
+          games: mockInitialGamesState,
+        },
+      });
 
       const linkToDetail = await screen.getByTestId(gameTitleLinkId);
       fireEvent(linkToDetail, "press");
@@ -138,4 +153,35 @@ describe("Given a GameCard component", () => {
       expect(mockLoadOneGames).toHaveBeenCalledWith(game.id);
     });
   });
+
+  // Describe("And an unlogged user clicks on one game title", () => {
+  //   test("Then the dispatch should be called with an error modal", async () => {
+  //     const gameTitleLinkId = "linkToDetail";
+  //     const game: GameStructure = {
+  //       ...getRandomGame,
+  //       id: "1234",
+  //     };
+
+  //     renderWithProviders(<GameCard game={game} />, {
+  //       preloadedState: {
+  //         ui: mockInitialUiState,
+  //         user: { ...mockInitialUserState, isLogged: false },
+  //         games: mockInitialGamesState,
+  //       },
+  //     });
+
+  //     const linkToDetail = await screen.getByTestId(gameTitleLinkId);
+  //     fireEvent(linkToDetail, "press");
+
+  //     expect(dispatchSpy).toHaveBeenCalledWith(
+  //       openModalActionCreator({
+  //         isError: true,
+  //         modalTitle: "Ha habido un error!",
+  //         modalText:
+  //           "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
+  //         buttonText: "Volver",
+  //       })
+  //     );
+  //   });
+  // });
 });
