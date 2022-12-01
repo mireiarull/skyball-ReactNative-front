@@ -86,7 +86,6 @@ const CreateForm = (): JSX.Element => {
     newGame.append("net", formData.net);
     newGame.append("ball", formData.ball);
     newGame.append("rods", formData.rods);
-    // NewGame.append("players", JSON.stringify(formData.players));
     newGame.append("image", {
       type: imageType,
       uri: imageSelected,

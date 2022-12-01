@@ -1,9 +1,6 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import {
-  type GameStructureWithId,
-  type GameStructure,
-} from "../../redux/features/gamesSlice/types";
+import { type GameStructureWithId } from "../../redux/features/gamesSlice/types";
 import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
