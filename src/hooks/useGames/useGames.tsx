@@ -9,6 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
+  deleteOneGameActionCreator,
   loadAllGamesActionCreator,
   loadOneGameActionCreator,
 } from "../../redux/features/gamesSlice/gamesSlice";
@@ -55,7 +56,7 @@ const useGames = () => {
     }
   }, [dispatch]);
 
-  const addOneGame = async (gameFormData: GameFormData) => {
+  const addOneGame = async (gameFormData: FormData) => {
     try {
       await axios.post<GameStructure>(
         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.addOneGame}`,
@@ -125,10 +126,15 @@ const useGames = () => {
     }
   };
 
+  const deleteOneGame = (gameId: string) => {
+    dispatch(deleteOneGameActionCreator(gameId));
+  };
+
   return {
     loadAllGames,
     addOneGame,
     loadOneGame,
+    deleteOneGame,
   };
 };
 

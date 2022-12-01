@@ -23,7 +23,7 @@ const GameCard = ({
     id,
   },
 }: GameCardProps) => {
-  const { loadOneGame } = useGames();
+  const { loadOneGame, deleteOneGame } = useGames();
 
   return (
     <TouchableOpacity
@@ -51,6 +51,13 @@ const GameCard = ({
             {DateTime.fromISO(dateTime).toFormat("dd/MM h:mm")}
           </Text>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            deleteOneGame(id!);
+          }}
+        >
+          <Text>Delete</Text>
+        </TouchableOpacity>
         <View style={gameCardStyles.informationContainer}>
           <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
 

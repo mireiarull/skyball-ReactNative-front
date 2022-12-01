@@ -42,17 +42,9 @@ const CreateForm = (): JSX.Element => {
       type: "Point",
     },
     spots: 0,
-    players: [
-      {
-        id,
-        material: {
-          ball: false,
-          net: false,
-          rods: false,
-        },
-        role: "owner",
-      },
-    ],
+    ball: false,
+    net: false,
+    rods: false,
   };
 
   const [formData, setFormData] = useState(intialFormData);
@@ -79,13 +71,13 @@ const CreateForm = (): JSX.Element => {
     newGame.append("beachName", formData.beachName);
     newGame.append("dateTime", formData.dateTime.toISOString());
     newGame.append("description", formData.description);
-    newGame.append("format", formData.format);
+    newGame.append("format", formData.format.toString());
     newGame.append("gender", formData.gender);
-    newGame.append("level", formData.level);
-    newGame.append("spots", formData.spots);
-    newGame.append("net", formData.net);
-    newGame.append("ball", formData.ball);
-    newGame.append("rods", formData.rods);
+    newGame.append("level", formData.level.toString());
+    newGame.append("spots", formData.spots.toString());
+    newGame.append("net", formData.net.toString());
+    newGame.append("ball", formData.ball.toString());
+    newGame.append("rods", formData.rods.toString());
     newGame.append("image", {
       type: imageType,
       uri: imageSelected,
@@ -282,7 +274,7 @@ const CreateForm = (): JSX.Element => {
                 testID="spots"
                 maxLength={20}
                 placeholder="6 (tu incluido)"
-                value={formData.spots}
+                value={formData.spots.toString()}
                 accessibilityLabel="spots"
                 keyboardType={"numeric"}
                 onChangeText={(data) => {
