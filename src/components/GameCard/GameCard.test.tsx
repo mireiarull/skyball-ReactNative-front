@@ -1,32 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react-native";
-
 import GameCard from "./GameCard";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
-import RoutesEnum from "../../navigation/routes";
 import { getRandomGame } from "../../factories/gamesFactory";
-import {
-  mockInitialGamesState,
-  mockInitialUiState,
-  mockInitialUserState,
-} from "../../mocks/uiMocks";
-import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
-import { store } from "../../redux/store";
-
-const mockedNavigate = jest.fn();
-
-jest.mock("@react-navigation/native", () => {
-  const actualNav = jest.requireActual("@react-navigation/native");
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      navigate: mockedNavigate,
-    }),
-  };
-});
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -37,8 +15,6 @@ const mockLoadOneGames = jest.fn();
 jest.mock("../../hooks/useGames/useGames", () => () => ({
   loadOneGame: mockLoadOneGames,
 }));
-
-const dispatchSpy = jest.spyOn(store, "dispatch");
 
 describe("Given a GameCard component", () => {
   describe("When it is rendered with one game", () => {
@@ -131,6 +107,23 @@ describe("Given a GameCard component", () => {
       const expectedCardDefaultImage = screen.queryByTestId(defaultImageId);
 
       expect(expectedCardDefaultImage).toBeDefined();
+    });
+  });
+
+  describe("And a the user clicks on one game title", () => {
+    test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", () => {
+      const gameTitleLinkId = "linkToDetail";
+      const game: GameStructure = {
+        ...getRandomGame,
+        id: "1234",
+      };
+
+      renderWithProviders(<GameCard game={game} />);
+
+      const linkToDetail = screen.getByTestId(gameTitleLinkId);
+      fireEvent(linkToDetail, "press");
+
+      expect(mockLoadOneGames).toHaveBeenCalledWith(game.id);
     });
   });
 });
