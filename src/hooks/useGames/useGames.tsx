@@ -109,6 +109,7 @@ const useGames = () => {
 
       dispatch(hideLoadingActionCreator());
       dispatch(loadOneGameActionCreator(game));
+      navigation.navigate(RoutesEnum.gameDetail);
     } catch {
       dispatch(hideLoadingActionCreator());
 

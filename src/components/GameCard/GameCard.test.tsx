@@ -28,6 +28,10 @@ jest.mock("@react-navigation/native", () => {
   };
 });
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 const mockLoadOneGames = jest.fn();
 
 jest.mock("../../hooks/useGames/useGames", () => () => ({
@@ -129,59 +133,4 @@ describe("Given a GameCard component", () => {
       expect(expectedCardDefaultImage).toBeDefined();
     });
   });
-
-  describe("And a logged user clicks on one game title", () => {
-    test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", async () => {
-      const gameTitleLinkId = "linkToDetail";
-      const game: GameStructure = {
-        ...getRandomGame,
-        id: "1234",
-      };
-
-      renderWithProviders(<GameCard game={game} />, {
-        preloadedState: {
-          ui: mockInitialUiState,
-          user: { ...mockInitialUserState, isLogged: true },
-          games: mockInitialGamesState,
-        },
-      });
-
-      const linkToDetail = await screen.getByTestId(gameTitleLinkId);
-      fireEvent(linkToDetail, "press");
-
-      expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.gameDetail);
-      expect(mockLoadOneGames).toHaveBeenCalledWith(game.id);
-    });
-  });
-
-  // Describe("And an unlogged user clicks on one game title", () => {
-  //   test("Then the dispatch should be called with an error modal", async () => {
-  //     const gameTitleLinkId = "linkToDetail";
-  //     const game: GameStructure = {
-  //       ...getRandomGame,
-  //       id: "1234",
-  //     };
-
-  //     renderWithProviders(<GameCard game={game} />, {
-  //       preloadedState: {
-  //         ui: mockInitialUiState,
-  //         user: { ...mockInitialUserState, isLogged: false },
-  //         games: mockInitialGamesState,
-  //       },
-  //     });
-
-  //     const linkToDetail = await screen.getByTestId(gameTitleLinkId);
-  //     fireEvent(linkToDetail, "press");
-
-  //     expect(dispatchSpy).toHaveBeenCalledWith(
-  //       openModalActionCreator({
-  //         isError: true,
-  //         modalTitle: "Ha habido un error!",
-  //         modalText:
-  //           "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
-  //         buttonText: "Volver",
-  //       })
-  //     );
-  //   });
-  // });
 });

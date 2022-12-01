@@ -4,11 +4,6 @@ import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
-import { useNavigation } from "@react-navigation/native";
-import { type LoginScreenNavigationProp } from "../../types/navigation.types";
-import RoutesEnum from "../../navigation/routes";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
 
 interface GameCardProps {
   game: GameStructure;
@@ -25,35 +20,13 @@ const GameCard = ({
     beachName,
     backupImage,
     id,
-    owner,
   },
 }: GameCardProps) => {
   const { loadOneGame } = useGames();
-  const navigation = useNavigation<LoginScreenNavigationProp>();
-  const { isLogged } = useAppSelector(({ user }) => user);
-  const dispatch = useAppDispatch();
-
-  const handlePress = () => {
-    if (!isLogged) {
-      dispatch(
-        openModalActionCreator({
-          isError: true,
-          modalTitle: "Ha habido un error!",
-          modalText:
-            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
-          buttonText: "Volver",
-        })
-      );
-      return;
-    }
-
-    loadOneGame(id);
-    navigation.navigate(RoutesEnum.gameDetail);
-  };
 
   return (
     <TouchableOpacity
-      onPress={handlePress}
+      onPress={async () => loadOneGame(id!)}
       testID="linkToDetail"
       activeOpacity={1}
     >
