@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
+import { DateTime } from "luxon";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
@@ -45,7 +46,12 @@ const GameCard = ({
             resizeMode="cover"
           ></Image>
         )}
-        <View style={gameCardStyles.information}>
+        <View style={gameCardStyles.dateTimeContainer}>
+          <Text style={gameCardStyles.dateTime}>
+            {DateTime.fromISO(dateTime).toFormat("MM/dd h:mm")}
+          </Text>
+        </View>
+        <View style={gameCardStyles.informationContainer}>
           <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
 
           <Text style={gameCardStyles.informationFormat}>

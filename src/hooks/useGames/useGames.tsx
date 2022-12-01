@@ -116,9 +116,9 @@ const useGames = () => {
       dispatch(
         openModalActionCreator({
           isError: true,
-          modalTitle: "Ha habido un error!",
+          modalTitle: "Ups!",
           modalText:
-            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
+            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles.",
           buttonText: "Volver",
         })
       );
