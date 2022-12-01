@@ -73,6 +73,7 @@ const LoginForm = (): JSX.Element => {
           <View>
             <Text style={loginFormStyles.label}>Contraseña</Text>
             <TextInput
+              secureTextEntry={true}
               style={loginFormStyles.input}
               testID="password"
               maxLength={32}
