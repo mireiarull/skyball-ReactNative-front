@@ -2,11 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react-native";
-import { getRandomGameWithId } from "../../factories/gamesFactory";
+
 import GameCard from "./GameCard";
-import { type GameStructureWithId } from "../../redux/features/gamesSlice/types";
+import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
 import RoutesEnum from "../../navigation/routes";
+import { getRandomGame } from "../../factories/gamesFactory";
 
 const mockedNavigate = jest.fn();
 
@@ -29,8 +30,8 @@ jest.mock("../../hooks/useGames/useGames", () => () => ({
 describe("Given a GameCard component", () => {
   describe("When it is rendered with one game", () => {
     test("Then it should show the game's format, gender 'Masculino', level 'principiante', players, spots and beach name on the screen", () => {
-      const game: GameStructureWithId = {
-        ...getRandomGameWithId,
+      const game: GameStructure = {
+        ...getRandomGame,
         level: 1,
         gender: "M",
       };
@@ -52,8 +53,8 @@ describe("Given a GameCard component", () => {
     });
 
     test("Then it should show the game's format, gender 'Femenino', level 'intermedio', players, spots and beach name on the screen", () => {
-      const game: GameStructureWithId = {
-        ...getRandomGameWithId,
+      const game: GameStructure = {
+        ...getRandomGame,
         level: 2,
         gender: "F",
       };
@@ -70,8 +71,8 @@ describe("Given a GameCard component", () => {
     });
 
     test("Then it should show the game's format, gender 'Mixto', level 'intermedio alto', players, spots and beach name on the screen", () => {
-      const game: GameStructureWithId = {
-        ...getRandomGameWithId,
+      const game: GameStructure = {
+        ...getRandomGame,
         level: 3,
         gender: "X",
       };
@@ -88,8 +89,8 @@ describe("Given a GameCard component", () => {
     });
 
     test("Then it should show the game's format, gender, level 'avanzado', players, spots and beach name on the screen", () => {
-      const game: GameStructureWithId = {
-        ...getRandomGameWithId,
+      const game: GameStructure = {
+        ...getRandomGame,
         level: 4,
         gender: "X",
       };
@@ -105,8 +106,8 @@ describe("Given a GameCard component", () => {
 
   describe("When it's rendered with one game without an image", () => {
     test("Then it should show the game card with the default image", () => {
-      const game: GameStructureWithId = {
-        ...getRandomGameWithId,
+      const game: GameStructure = {
+        ...getRandomGame,
         level: 4,
         gender: "X",
         backupImage: "",
@@ -123,8 +124,8 @@ describe("Given a GameCard component", () => {
   describe("And the user clicks on one game title", () => {
     test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", async () => {
       const gameTitleLinkId = "linkToDetail";
-      const game: GameStructureWithId = {
-        ...getRandomGameWithId,
+      const game: GameStructure = {
+        ...getRandomGame,
         id: "1234",
       };
 

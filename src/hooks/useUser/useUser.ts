@@ -6,7 +6,11 @@ import {
   type UserCredentials,
   type UserRegisterCredentials,
 } from "../../types/types";
-import { openModalActionCreator } from "../../redux/features/uiSlice/uiSlice";
+import {
+  hideLoadingActionCreator,
+  openModalActionCreator,
+  showLoadingActionCreator,
+} from "../../redux/features/uiSlice/uiSlice";
 import decodeToken from "../../test-utils/decodeToken";
 import { loginUserActionCreator } from "../../redux/features/userSlice/userSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,10 +29,13 @@ const useUser = () => {
 
   const registerUser = async (userData: UserRegisterCredentials) => {
     try {
+      dispatch(showLoadingActionCreator());
       await axios.post(
         `${REACT_APP_API_SKYBALL}${userRoutes.usersRoute}${userRoutes.registerRoute}`,
         userData
       );
+
+      dispatch(hideLoadingActionCreator());
       dispatch(
         openModalActionCreator({
           isError: false,
@@ -52,6 +59,7 @@ const useUser = () => {
 
   const loginUser = async (userData: UserCredentials) => {
     try {
+      dispatch(showLoadingActionCreator());
       const responseData = await axios.post<LoginResponse>(
         `${REACT_APP_API_SKYBALL}/users/login`,
         userData
@@ -60,6 +68,7 @@ const useUser = () => {
       const { token } = responseData.data;
       const userLogged = decodeToken(token);
 
+      dispatch(hideLoadingActionCreator());
       dispatch(
         loginUserActionCreator({
           ...userLogged,

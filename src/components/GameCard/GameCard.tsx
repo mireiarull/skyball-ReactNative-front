@@ -1,9 +1,6 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import {
-  type GameStructureWithId,
-  type GameStructure,
-} from "../../redux/features/gamesSlice/types";
+import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
@@ -12,7 +9,7 @@ import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import RoutesEnum from "../../navigation/routes";
 
 interface GameCardProps {
-  game: GameStructureWithId;
+  game: GameStructure;
 }
 
 const GameCard = ({

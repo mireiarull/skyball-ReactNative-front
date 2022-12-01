@@ -1,31 +1,13 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { SafeAreaView, Text, View, TouchableOpacity } from "react-native";
-import { useAppSelector } from "../../redux/hooks";
-import { type LoginScreenNavigationProp } from "../../types/navigation.types";
-import styles from "../LoginScreen/LoginScreenStyles";
+import { View } from "react-native";
 
-const DetailScreen = (): JSX.Element => {
-  const { currentGame } = useAppSelector((state) => state.games);
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+import GameDetail from "../../components/GameDetail/GameDetail";
+import styles from "./DetailScreenStyles";
 
-  return (
-    <View>
-      <SafeAreaView>
-        <TouchableOpacity
-          testID="backArrow"
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} size={50} style={styles.arrow} />
-        </TouchableOpacity>
-        <Text>{currentGame.beachName}</Text>
-      </SafeAreaView>
-    </View>
-  );
-};
+const DetailScreen = (): JSX.Element => (
+  <View style={styles.container}>
+    <GameDetail />
+  </View>
+);
 
 export default DetailScreen;

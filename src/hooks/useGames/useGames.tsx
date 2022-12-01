@@ -80,6 +80,7 @@ const useGames = () => {
 
       navigation.navigate(RoutesEnum.explore);
     } catch {
+      dispatch(hideLoadingActionCreator());
       dispatch(
         openModalActionCreator({
           isError: true,

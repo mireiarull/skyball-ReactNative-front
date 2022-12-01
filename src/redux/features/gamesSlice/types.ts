@@ -23,14 +23,11 @@ export interface GameStructure {
   players: PlayerStructure[];
   image: string;
   backupImage?: string;
+  id?: string;
+  owner?: string;
 }
 
 export interface GamesState {
   games: GameStructure[];
   currentGame: GameStructure;
-}
-
-export interface GameStructureWithId extends GameStructure {
-  id: string;
-  owner: string;
 }
