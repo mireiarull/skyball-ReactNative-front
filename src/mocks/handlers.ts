@@ -63,6 +63,20 @@ const handlers = [
   rest.get(`${REACT_APP_API_SKYBALL}/games/:gameId`, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(mockloadOneGameResponse))
   ),
+
+  rest.delete(
+    `${REACT_APP_API_SKYBALL}/games/delete/:gameId`,
+    (req, res, ctx) =>
+      res.once(
+        ctx.status(404),
+        ctx.json({ error: "There was an error on the server" })
+      )
+  ),
+
+  rest.delete(
+    `${REACT_APP_API_SKYBALL}/games/delete/:gameId`,
+    (req, res, ctx) => res(ctx.status(200), ctx.json(mockloadOneGameResponse))
+  ),
 ];
 
 export default handlers;

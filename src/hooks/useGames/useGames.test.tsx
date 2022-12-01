@@ -11,6 +11,7 @@ import { getRandomGameFormData } from "../../factories/gamesFactory";
 import { type GameFormData } from "../../types/types";
 import makeWrapper from "../../mocks/makeWrapper";
 import { mockloadOneGameResponse } from "../../mocks/gamesMocks";
+import { deleteOneGameActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -157,6 +158,54 @@ describe("Given the useGames custom hook", () => {
       await loadOneGame(mockloadOneGameResponse.id!);
 
       expect(dispatchSpy).toHaveBeenCalledTimes(3);
+    });
+  });
+
+  describe("When its method deleteOneGame is invoked with gameId '123456' and the server responds with 404 status", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal with an error", async () => {
+      const {
+        result: {
+          current: { deleteOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: makeWrapper,
+      });
+
+      await deleteOneGame("123");
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        hideLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        openModalActionCreator({
+          buttonText: "Volver",
+          modalTitle: "Ups!",
+          isError: false,
+          modalText: "Ha habido un problema borrando tu partido",
+        })
+      );
+    });
+  });
+
+  describe("When its method deletePrediction is invoked with predictionId '123456' and the server responds with 200", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
+      const {
+        result: {
+          current: { deleteOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: makeWrapper,
+      });
+
+      await deleteOneGame("123456");
+
+      expect(dispatchSpy).toHaveBeenCalledTimes(4);
     });
   });
 });

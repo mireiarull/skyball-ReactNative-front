@@ -19,11 +19,9 @@ import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import useGames from "../../hooks/useGames/useGames";
-import { useAppSelector } from "../../redux/hooks";
 
 const CreateForm = (): JSX.Element => {
   const { addOneGame, loadAllGames } = useGames();
-  const { id } = useAppSelector((state) => state.user);
 
   const intialFormData = {
     beachName: "",
@@ -42,17 +40,9 @@ const CreateForm = (): JSX.Element => {
       type: "Point",
     },
     spots: 0,
-    players: [
-      {
-        id,
-        material: {
-          ball: false,
-          net: false,
-          rods: false,
-        },
-        role: "owner",
-      },
-    ],
+    ball: false,
+    net: false,
+    rods: false,
   };
 
   const [formData, setFormData] = useState(intialFormData);
@@ -79,13 +69,13 @@ const CreateForm = (): JSX.Element => {
     newGame.append("beachName", formData.beachName);
     newGame.append("dateTime", formData.dateTime.toISOString());
     newGame.append("description", formData.description);
-    newGame.append("format", formData.format);
+    newGame.append("format", formData.format.toString());
     newGame.append("gender", formData.gender);
-    newGame.append("level", formData.level);
-    newGame.append("spots", formData.spots);
-    newGame.append("net", formData.net);
-    newGame.append("ball", formData.ball);
-    newGame.append("rods", formData.rods);
+    newGame.append("level", formData.level.toString());
+    newGame.append("spots", formData.spots.toString());
+    newGame.append("net", formData.net.toString());
+    newGame.append("ball", formData.ball.toString());
+    newGame.append("rods", formData.rods.toString());
     newGame.append("image", {
       type: imageType,
       uri: imageSelected,
@@ -282,7 +272,7 @@ const CreateForm = (): JSX.Element => {
                 testID="spots"
                 maxLength={20}
                 placeholder="6 (tu incluido)"
-                value={formData.spots}
+                value={formData.spots.toString()}
                 accessibilityLabel="spots"
                 keyboardType={"numeric"}
                 onChangeText={(data) => {
@@ -356,33 +346,6 @@ const CreateForm = (): JSX.Element => {
                     toggleMaterial("rods");
                   }}
                 />
-                {/* <Checkbox
-                  text="RED"
-                  type="button"
-                  testID="checkboxNet"
-                  selected={formData.players[0].material.net}
-                  onPress={() => {
-                    toggleMaterial("net");
-                  }}
-                />
-                <Checkbox
-                  text="PELOTA"
-                  type="button"
-                  testID="checkboxBall"
-                  selected={formData.players[0].material.ball}
-                  onPress={() => {
-                    toggleMaterial("ball");
-                  }}
-                />
-                <Checkbox
-                  text="BARILLAS"
-                  type="button"
-                  testID="checkboxRods"
-                  selected={formData.players[0].material.rods}
-                  onPress={() => {
-                    toggleMaterial("rods");
-                  }}
-                /> */}
               </View>
               <View>
                 <Text style={inputStyles.label}>Comentarios</Text>
@@ -430,7 +393,7 @@ const CreateForm = (): JSX.Element => {
                 }
                 testID={"submitButton"}
               >
-                <Text style={buttonStyles.buttonText}>Continuar</Text>
+                <Text style={buttonStyles.buttonText}>Enviar</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -27,11 +27,12 @@ const gameCardStyles = StyleSheet.create({
     marginBottom: 10,
   },
   informationFormat: {
-    fontSize: 15,
+    fontSize: 17,
+    padding: 2,
     color: colorStyles.main,
     borderWidth: 2,
     textAlign: "center",
-    width: 54,
+    width: 60,
     borderRadius: 10,
     borderColor: colorStyles.main,
     fontWeight: "600",
@@ -46,9 +47,10 @@ const gameCardStyles = StyleSheet.create({
     color: colorStyles.main,
     fontWeight: "600",
     position: "absolute",
+    marginLeft: 50,
     bottom: 12,
     textAlign: "right",
-    right: -12,
+    width: 150,
   },
   dateTimeContainer: {
     backgroundColor: colorStyles.white,
@@ -60,6 +62,14 @@ const gameCardStyles = StyleSheet.create({
   dateTime: {
     fontSize: 17,
     padding: 4,
+  },
+  deleteIconButton: {
+    position: "absolute",
+    right: 215,
+    bottom: 10,
+  },
+  deleteIcon: {
+    color: colorStyles.main,
   },
 });
 

@@ -1,10 +1,13 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { DateTime } from "luxon";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
+import { useAppSelector } from "../../redux/hooks";
 
 interface GameCardProps {
   game: GameStructure;
@@ -21,9 +24,11 @@ const GameCard = ({
     beachName,
     backupImage,
     id,
+    owner,
   },
 }: GameCardProps) => {
-  const { loadOneGame } = useGames();
+  const { loadOneGame, deleteOneGame } = useGames();
+  const { id: userId } = useAppSelector(({ user }) => user);
 
   return (
     <TouchableOpacity
@@ -51,6 +56,22 @@ const GameCard = ({
             {DateTime.fromISO(dateTime).toFormat("dd/MM h:mm")}
           </Text>
         </View>
+        {owner === userId && (
+          <TouchableOpacity
+            onPress={async () => {
+              await deleteOneGame(id!);
+            }}
+            style={gameCardStyles.deleteIconButton}
+            testID="deleteButton"
+          >
+            <FontAwesomeIcon
+              icon={faTrash}
+              size={35}
+              style={gameCardStyles.deleteIcon}
+            ></FontAwesomeIcon>
+          </TouchableOpacity>
+        )}
+
         <View style={gameCardStyles.informationContainer}>
           <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
 

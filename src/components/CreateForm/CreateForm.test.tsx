@@ -78,7 +78,7 @@ describe("Given a CreateForm component", () => {
       fireEvent.changeText(descriptionField, "test description");
 
       expect(beachNameField.props.value).toBe("test beach");
-      expect(spotsField.props.value).toBe(5);
+      expect(spotsField.props.value).toBe("5");
       expect(descriptionField.props.value).toBe("test description");
     });
   });
@@ -97,7 +97,7 @@ describe("Given a CreateForm component", () => {
 
   describe("And the user clicks on the submit button", () => {
     test("Then it should call addOne with the form information", async () => {
-      const submitButtonText = "Continuar";
+      const submitButtonText = "Enviar";
 
       renderWithProviders(<CreateForm />, {
         preloadedState: {
