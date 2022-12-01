@@ -1,12 +1,10 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
+import { DateTime } from "luxon";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
-import { useNavigation } from "@react-navigation/native";
-import { type LoginScreenNavigationProp } from "../../types/navigation.types";
-import RoutesEnum from "../../navigation/routes";
 
 interface GameCardProps {
   game: GameStructure;
@@ -23,20 +21,13 @@ const GameCard = ({
     beachName,
     backupImage,
     id,
-    owner,
   },
 }: GameCardProps) => {
   const { loadOneGame } = useGames();
-  const navigation = useNavigation<LoginScreenNavigationProp>();
-
-  const handlePress = () => {
-    loadOneGame(id);
-    navigation.navigate(RoutesEnum.gameDetail);
-  };
 
   return (
     <TouchableOpacity
-      onPress={handlePress}
+      onPress={async () => loadOneGame(id!)}
       testID="linkToDetail"
       activeOpacity={1}
     >
@@ -55,7 +46,12 @@ const GameCard = ({
             resizeMode="cover"
           ></Image>
         )}
-        <View style={gameCardStyles.information}>
+        <View style={gameCardStyles.dateTimeContainer}>
+          <Text style={gameCardStyles.dateTime}>
+            {DateTime.fromISO(dateTime).toFormat("dd/MM h:mm")}
+          </Text>
+        </View>
+        <View style={gameCardStyles.informationContainer}>
           <Text style={gameCardStyles.informationTitle}>{beachName}</Text>
 
           <Text style={gameCardStyles.informationFormat}>

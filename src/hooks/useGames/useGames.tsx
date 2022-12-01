@@ -109,15 +109,16 @@ const useGames = () => {
 
       dispatch(hideLoadingActionCreator());
       dispatch(loadOneGameActionCreator(game));
+      navigation.navigate(RoutesEnum.gameDetail);
     } catch {
       dispatch(hideLoadingActionCreator());
 
       dispatch(
         openModalActionCreator({
           isError: true,
-          modalTitle: "Ha habido un error!",
+          modalTitle: "Ups!",
           modalText:
-            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
+            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles.",
           buttonText: "Volver",
         })
       );

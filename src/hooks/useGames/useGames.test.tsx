@@ -135,9 +135,9 @@ describe("Given the useGames custom hook", () => {
         3,
         openModalActionCreator({
           isError: true,
-          modalTitle: "Ha habido un error!",
+          modalTitle: "Ups!",
           modalText:
-            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles",
+            "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles.",
           buttonText: "Volver",
         })
       );
@@ -154,7 +154,7 @@ describe("Given the useGames custom hook", () => {
         wrapper: makeWrapper,
       });
 
-      await loadOneGame(mockloadOneGameResponse.id);
+      await loadOneGame(mockloadOneGameResponse.id!);
 
       expect(dispatchSpy).toHaveBeenCalledTimes(3);
     });

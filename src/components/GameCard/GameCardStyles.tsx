@@ -17,7 +17,7 @@ const gameCardStyles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
   },
-  information: {
+  informationContainer: {
     display: "flex",
     padding: 15,
   },
@@ -49,6 +49,17 @@ const gameCardStyles = StyleSheet.create({
     bottom: 12,
     textAlign: "right",
     right: -12,
+  },
+  dateTimeContainer: {
+    backgroundColor: colorStyles.white,
+    borderRadius: 10,
+    position: "absolute",
+    top: 5,
+    right: 220,
+  },
+  dateTime: {
+    fontSize: 17,
+    padding: 4,
   },
 });
 
