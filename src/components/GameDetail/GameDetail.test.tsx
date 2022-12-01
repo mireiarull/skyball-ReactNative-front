@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { screen } from "@testing-library/react-native";
-import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
-import { getRandomGame } from "../../factories/gamesFactory";
 import GameDetail from "./GameDetail";
+import { mockInitialUiState, mockInitialUserState } from "../../mocks/uiMocks";
 import {
-  mockInitialGamesState,
-  mockInitialUiState,
-  mockInitialUserState,
-} from "../../mocks/uiMocks";
+  mockInitialGamesStateFemaleLevel1,
+  mockInitialGamesStateLevel4,
+  mockInitialGamesStateMaleLevel3,
+  mockInitialGamesStateMixtLevel2,
+} from "../../mocks/gamesMocks";
 
 describe("Given a DetailGame component", () => {
   describe("When it is rendered with one game", () => {
-    test("Then it should show the game's format, gender 'Masculino', level 'principiante', players, spots and beach name on the screen", () => {
-      const gameLevel = "Nivel:";
-      const gameGender = "Categoría:";
+    test("Then it should show the game's format, gender 'Masculino', level 'intermedio alto', players, spots and beach name on the screen", () => {
+      const gameLevel = "intermedio alto";
+      const gameGender = "Masculino";
 
       renderWithProviders(<GameDetail />, {
         preloadedState: {
           ui: mockInitialUiState,
           user: mockInitialUserState,
-          games: mockInitialGamesState,
+          games: mockInitialGamesStateFemaleLevel1,
         },
       });
 
@@ -30,6 +30,60 @@ describe("Given a DetailGame component", () => {
 
       expect(expectedCardLevel).toBeDefined();
       expect(expectedCardGender).toBeDefined();
+    });
+
+    test("Then it should show the game's format, gender 'Femenino', level 'principiante' on the screen", () => {
+      const gameLevel = "principiante";
+      const gameGender = "Femenino";
+
+      renderWithProviders(<GameDetail />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: mockInitialUserState,
+          games: mockInitialGamesStateMaleLevel3,
+        },
+      });
+
+      const expectedCardLevel = screen.queryByText(gameLevel);
+      const expectedCardGender = screen.queryByText(gameGender);
+
+      expect(expectedCardLevel).toBeDefined();
+      expect(expectedCardGender).toBeDefined();
+    });
+
+    test("Then it should show the game's format, gender 'Mixto', level 'intermedio' on the screen", () => {
+      const gameLevel = "intermedio";
+      const gameGender = "Mixto";
+
+      renderWithProviders(<GameDetail />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: mockInitialUserState,
+          games: mockInitialGamesStateMixtLevel2,
+        },
+      });
+
+      const expectedCardLevel = screen.queryByText(gameLevel);
+      const expectedCardGender = screen.queryByText(gameGender);
+
+      expect(expectedCardLevel).toBeDefined();
+      expect(expectedCardGender).toBeDefined();
+    });
+
+    test("Then it should show the game's format with level 'avanzado' on the screen", () => {
+      const gameLevel = "avanzado";
+
+      renderWithProviders(<GameDetail />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: mockInitialUserState,
+          games: mockInitialGamesStateLevel4,
+        },
+      });
+
+      const expectedCardLevel = screen.queryByText(gameLevel);
+
+      expect(expectedCardLevel).toBeDefined();
     });
   });
 });

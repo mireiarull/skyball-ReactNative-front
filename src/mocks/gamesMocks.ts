@@ -44,3 +44,22 @@ export const mockloadOneGameResponse: GameStructure = {
   id: "123456",
   owner: "",
 };
+
+export const mockInitialGamesStateFemaleLevel1: GamesState = {
+  games: getRandomGameList(3),
+  currentGame: { ...getRandomGame, gender: "F", level: 1 },
+};
+
+export const mockInitialGamesStateMixtLevel2: GamesState = {
+  games: getRandomGameList(3),
+  currentGame: { ...getRandomGame, gender: "X", level: 2 },
+};
+
+export const mockInitialGamesStateMaleLevel3: GamesState = {
+  games: getRandomGameList(3),
+  currentGame: { ...getRandomGame, gender: "M", level: 3 },
+};
+export const mockInitialGamesStateLevel4: GamesState = {
+  games: getRandomGameList(3),
+  currentGame: { ...getRandomGame, level: 4 },
+};

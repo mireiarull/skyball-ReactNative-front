@@ -51,7 +51,7 @@ const gamesFormDataFactory = Factory.define<GameFormData>(() => ({
   rods: false,
 }));
 
-export const getRandomGame = gamesFactory.build();
+export const getRandomGame: GameStructure = gamesFactory.build();
 
 export const getRandomGameList = (number: number) =>
   gamesFactory.buildList(number);
