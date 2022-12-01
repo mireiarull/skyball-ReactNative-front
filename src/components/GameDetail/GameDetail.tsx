@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { DateTime } from "luxon";
 import {
   faArrowLeft,
   faCalendarMinus,
@@ -65,8 +66,12 @@ const GameDetail = () => {
             />
           </View>
           <View>
-            <Text style={GameDetailStyles.informationTitle}>{dateTime}</Text>
-            <Text style={GameDetailStyles.informationText}>{dateTime}</Text>
+            <Text style={GameDetailStyles.informationTitle}>
+              {DateTime.fromISO(dateTime).toLocaleString(DateTime.DATE_MED)}
+            </Text>
+            <Text style={GameDetailStyles.informationText}>
+              {DateTime.fromISO(dateTime).toLocaleString(DateTime.TIME_SIMPLE)}
+            </Text>
           </View>
         </View>
         <View style={GameDetailStyles.timeContainer}>
