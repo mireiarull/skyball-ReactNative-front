@@ -2,7 +2,6 @@ import { getRandomGame, getRandomGameList } from "../factories/gamesFactory";
 import {
   type GameStructure,
   type GamesState,
-  type GameStructureWithId,
 } from "../redux/features/gamesSlice/types";
 
 export const mockLoadGamesResponse = {
@@ -40,7 +39,7 @@ export const emptyCurrentGameState: GameStructure = {
   ],
 };
 
-export const mockloadOneGameResponse: GameStructureWithId = {
+export const mockloadOneGameResponse: GameStructure = {
   ...getRandomGame,
   id: "123456",
   owner: "",

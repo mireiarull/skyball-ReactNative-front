@@ -34,7 +34,10 @@ const StackNavigatorExplorer = () => {
         <Stack.Screen
           name={RoutesEnum.home}
           component={TabNavigator}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
         />
       </Stack.Navigator>
       {showModal && <CustomModal />}
