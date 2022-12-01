@@ -346,33 +346,6 @@ const CreateForm = (): JSX.Element => {
                     toggleMaterial("rods");
                   }}
                 />
-                {/* <Checkbox
-                  text="RED"
-                  type="button"
-                  testID="checkboxNet"
-                  selected={formData.players[0].material.net}
-                  onPress={() => {
-                    toggleMaterial("net");
-                  }}
-                />
-                <Checkbox
-                  text="PELOTA"
-                  type="button"
-                  testID="checkboxBall"
-                  selected={formData.players[0].material.ball}
-                  onPress={() => {
-                    toggleMaterial("ball");
-                  }}
-                />
-                <Checkbox
-                  text="BARILLAS"
-                  type="button"
-                  testID="checkboxRods"
-                  selected={formData.players[0].material.rods}
-                  onPress={() => {
-                    toggleMaterial("rods");
-                  }}
-                /> */}
               </View>
               <View>
                 <Text style={inputStyles.label}>Comentarios</Text>
@@ -420,7 +393,7 @@ const CreateForm = (): JSX.Element => {
                 }
                 testID={"submitButton"}
               >
-                <Text style={buttonStyles.buttonText}>Continuar</Text>
+                <Text style={buttonStyles.buttonText}>Enviar</Text>
               </TouchableOpacity>
             </View>
           </View>

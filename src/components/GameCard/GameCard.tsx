@@ -62,6 +62,7 @@ const GameCard = ({
               await deleteOneGame(id!);
             }}
             style={gameCardStyles.deleteIconButton}
+            testID="deleteButton"
           >
             <FontAwesomeIcon
               icon={faTrash}

@@ -5,15 +5,22 @@ import GameCard from "./GameCard";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
 import { getRandomGame } from "../../factories/gamesFactory";
+import {
+  mockInitialGamesState,
+  mockInitialUiState,
+  mockInitialUserState,
+} from "../../mocks/uiMocks";
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 const mockLoadOneGames = jest.fn();
+const mockDeleteOneGame = jest.fn();
 
 jest.mock("../../hooks/useGames/useGames", () => () => ({
   loadOneGame: mockLoadOneGames,
+  deleteOneGame: mockDeleteOneGame,
 }));
 
 describe("Given a GameCard component", () => {
@@ -124,6 +131,30 @@ describe("Given a GameCard component", () => {
       fireEvent(linkToDetail, "press");
 
       expect(mockLoadOneGames).toHaveBeenCalledWith(game.id);
+    });
+  });
+
+  describe("And a the user who owns the game clicks on the delete game button", () => {
+    test("Then the deleteOneGame should be called with the game id ", () => {
+      const deleteButtonId = "deleteButton";
+      const game: GameStructure = {
+        ...getRandomGame,
+        id: "1234",
+        owner: "654321",
+      };
+
+      renderWithProviders(<GameCard game={game} />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: { ...mockInitialUserState, id: "654321" },
+          games: mockInitialGamesState,
+        },
+      });
+
+      const deleteButton = screen.getByTestId(deleteButtonId);
+      fireEvent(deleteButton, "press");
+
+      expect(mockDeleteOneGame).toHaveBeenCalledWith(game.id);
     });
   });
 });
