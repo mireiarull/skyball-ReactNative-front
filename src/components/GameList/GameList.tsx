@@ -1,9 +1,6 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import {
-  type GameStructure,
-  type GameStructureWithId,
-} from "../../redux/features/gamesSlice/types";
+import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import GameCard from "../GameCard/GameCard";
 import styles from "./GameListStyles";
 

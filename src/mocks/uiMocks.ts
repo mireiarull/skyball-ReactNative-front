@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { getRandomGameList } from "../factories/gamesFactory";
+import { getRandomGame, getRandomGameList } from "../factories/gamesFactory";
 import { gamesReducer } from "../redux/features/gamesSlice/gamesSlice";
 import { type GamesState } from "../redux/features/gamesSlice/types";
 import { type UiState } from "../redux/features/uiSlice/types";
@@ -35,6 +35,7 @@ export const mockInitialUserState: UserState = {
 
 export const mockInitialGamesState: GamesState = {
   games: getRandomGameList(3),
+  currentGame: getRandomGame,
 };
 
 export const mockInitialStore: typeof store = configureStore({
