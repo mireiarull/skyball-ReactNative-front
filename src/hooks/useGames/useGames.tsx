@@ -15,14 +15,15 @@ import {
 } from "../../redux/features/gamesSlice/gamesSlice";
 import { type LoadGamesResponse } from "./types";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
-import { type GameFormData } from "../../types/types";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import RoutesEnum from "../../navigation/routes";
+import { type GameFormData } from "../../types/types";
 
 const gamesRoutes = {
   gamesRoute: "/games",
   getAllGames: "/list",
   addOneGame: "/add",
+  deleteOneGame: "/delete",
 };
 
 const useGames = () => {
@@ -56,7 +57,7 @@ const useGames = () => {
     }
   }, [dispatch]);
 
-  const addOneGame = async (gameFormData: FormData) => {
+  const addOneGame = async (gameFormData: GameFormData) => {
     try {
       await axios.post<GameStructure>(
         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.addOneGame}`,
@@ -126,8 +127,42 @@ const useGames = () => {
     }
   };
 
-  const deleteOneGame = (gameId: string) => {
-    dispatch(deleteOneGameActionCreator(gameId));
+  const deleteOneGame = async (gameId: string) => {
+    try {
+      dispatch(showLoadingActionCreator());
+
+      await axios.delete<GameStructure>(
+        `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.deleteOneGame}/${gameId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch(deleteOneGameActionCreator(gameId));
+      dispatch(hideLoadingActionCreator());
+
+      dispatch(
+        openModalActionCreator({
+          buttonText: "Volver",
+          modalTitle: "Partido eliminado!",
+          isError: false,
+          modalText: "Tu partido ha sido eliminado",
+        })
+      );
+    } catch {
+      dispatch(hideLoadingActionCreator());
+
+      dispatch(
+        openModalActionCreator({
+          buttonText: "Volver",
+          modalTitle: "Ups!",
+          isError: false,
+          modalText: "Ha habido un problema borrando tu partido",
+        })
+      );
+    }
   };
 
   return {
