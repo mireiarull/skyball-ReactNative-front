@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faArrowLeft,
@@ -11,6 +11,7 @@ import GameDetailStyles from "./GameDetailStyles";
 import { useNavigation } from "@react-navigation/native";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import buttonStyles from "../../styles/buttonStyles";
+import userDefaultImage from "../../../assets/images/marta.jpg";
 
 const GameDetail = () => {
   const {
@@ -25,9 +26,10 @@ const GameDetail = () => {
     spots,
   } = useAppSelector(({ games }) => games.currentGame);
   const navigation = useNavigation<LoginScreenNavigationProp>();
+  const { email } = useAppSelector(({ user }) => user);
 
   return (
-    <View style={GameDetailStyles.container} testID="gameCard">
+    <ScrollView style={GameDetailStyles.container} testID="gameCard">
       <View style={GameDetailStyles.imageContainer}>
         <Image
           source={{ uri: backupImage }}
@@ -106,7 +108,25 @@ const GameDetail = () => {
           <Text style={buttonStyles.buttonText}>Participar!</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      <View style={GameDetailStyles.userInformationContainer}>
+        <View style={GameDetailStyles.userInformation}>
+          <Image
+            source={userDefaultImage}
+            resizeMode="cover"
+            style={GameDetailStyles.userImage}
+          ></Image>
+          <Text style={GameDetailStyles.informationText}>{email}</Text>
+        </View>
+        <View style={GameDetailStyles.informationDetailsContainer}>
+          <Text style={GameDetailStyles.informationTitle}>Descripción</Text>
+          <Text style={GameDetailStyles.informationText}>{description}</Text>
+        </View>
+        <View style={GameDetailStyles.informationDetailsContainer}>
+          <Text style={GameDetailStyles.informationTitle}>Material</Text>
+          <Text style={GameDetailStyles.informationText}>{}</Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

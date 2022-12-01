@@ -90,6 +90,25 @@ const GameDetailStyles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: -15,
   },
+  userInformationContainer: {
+    marginLeft: 25,
+    marginRight: 25,
+    marginBottom: 100,
+  },
+  userInformation: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  userImage: {
+    height: 80,
+    width: 80,
+    borderRadius: 50,
+    marginRight: 20,
+  },
+  informationDetailsContainer: {
+    marginTop: 20,
+  },
 });
 
 export default GameDetailStyles;
