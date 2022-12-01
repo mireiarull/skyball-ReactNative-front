@@ -19,11 +19,9 @@ import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import useGames from "../../hooks/useGames/useGames";
-import { useAppSelector } from "../../redux/hooks";
 
 const CreateForm = (): JSX.Element => {
   const { addOneGame, loadAllGames } = useGames();
-  const { id } = useAppSelector((state) => state.user);
 
   const intialFormData = {
     beachName: "",
