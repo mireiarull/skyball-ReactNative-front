@@ -48,7 +48,7 @@ const GameCard = ({
         )}
         <View style={gameCardStyles.dateTimeContainer}>
           <Text style={gameCardStyles.dateTime}>
-            {DateTime.fromISO(dateTime).toFormat("MM/dd h:mm")}
+            {DateTime.fromISO(dateTime).toFormat("dd/MM h:mm")}
           </Text>
         </View>
         <View style={gameCardStyles.informationContainer}>
