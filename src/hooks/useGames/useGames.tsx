@@ -58,6 +58,7 @@ const useGames = () => {
   }, [dispatch]);
 
   const addOneGame = async (gameFormData: GameFormData) => {
+    dispatch(showLoadingActionCreator());
     try {
       await axios.post<GameStructure>(
         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.addOneGame}`,
@@ -70,6 +71,7 @@ const useGames = () => {
         }
       );
 
+      dispatch(hideLoadingActionCreator());
       dispatch(
         openModalActionCreator({
           buttonText: "Continuar",

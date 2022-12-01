@@ -84,6 +84,7 @@ const CreateForm = (): JSX.Element => {
 
     await addOneGame(newGame);
     await loadAllGames();
+    resetForm();
   };
 
   const onChangeDateTime = (event, selectedDate?: Date) => {
@@ -131,6 +132,13 @@ const CreateForm = (): JSX.Element => {
     } catch (catchError: unknown) {
       return catchError;
     }
+  };
+
+  const resetForm = () => {
+    setFormData(intialFormData);
+    setImageSelected("");
+    setImageType("");
+    setImageName("");
   };
 
   return (
