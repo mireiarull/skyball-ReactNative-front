@@ -19,11 +19,16 @@ import createFormStyles from "./CreateFormStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import useGames from "../../hooks/useGames/useGames";
+import { type GameStructure } from "../../redux/features/gamesSlice/types";
 
-const CreateForm = (): JSX.Element => {
-  const { addOneGame, loadAllGames } = useGames();
+interface CreateFormProps {
+  currentGame?: GameStructure;
+}
 
-  const intialFormData = {
+const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
+  const { addOneGame, loadAllGames, updateOneGame } = useGames();
+
+  const emptyFormData = {
     beachName: "",
     dateTime: new Date(),
     description: "",
@@ -45,7 +50,27 @@ const CreateForm = (): JSX.Element => {
     rods: false,
   };
 
-  const [formData, setFormData] = useState(intialFormData);
+  let initialFormData = {
+    ...emptyFormData,
+  };
+
+  if (currentGame) {
+    initialFormData = {
+      beachName: currentGame.beachName,
+      dateTime: new Date(),
+      description: currentGame.description,
+      format: currentGame.format,
+      gender: currentGame.gender,
+      image: currentGame.backupImage,
+      level: currentGame.level,
+      spots: currentGame.spots,
+      ball: currentGame.players[0].material.ball,
+      net: currentGame.players[0].material.ball,
+      rods: currentGame.players[0].material.ball,
+    };
+  }
+
+  const [formData, setFormData] = useState(initialFormData);
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
@@ -81,6 +106,13 @@ const CreateForm = (): JSX.Element => {
       uri: imageSelected,
       name: imageName,
     });
+
+    if (currentGame) {
+      await updateOneGame(currentGame.id!, newGame);
+      await loadAllGames();
+      resetForm();
+      return;
+    }
 
     await addOneGame(newGame);
     await loadAllGames();
@@ -135,7 +167,7 @@ const CreateForm = (): JSX.Element => {
   };
 
   const resetForm = () => {
-    setFormData(intialFormData);
+    setFormData(emptyFormData);
     setImageSelected("");
     setImageType("");
     setImageName("");

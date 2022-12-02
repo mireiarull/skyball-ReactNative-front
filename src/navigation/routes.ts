@@ -6,6 +6,7 @@ enum RoutesEnum {
   create = "Crear",
   home = "Home",
   gameDetail = "Partido",
+  update = "Editar",
 }
 
 export default RoutesEnum;
