@@ -193,7 +193,7 @@ describe("Given the useGames custom hook", () => {
     });
   });
 
-  describe("When its method deletePrediction is invoked with predictionId '123456' and the server responds with 200", () => {
+  describe("When its method deleteOneGame is invoked with predictionId '123456' and the server responds with 200", () => {
     test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
       const {
         result: {
@@ -206,6 +206,82 @@ describe("Given the useGames custom hook", () => {
       await deleteOneGame("123456");
 
       expect(dispatchSpy).toHaveBeenCalledTimes(4);
+    });
+  });
+
+  describe("When its method updateOneGame is invoked with predictionId '123456' and the server responds with 404 status", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
+      const {
+        result: {
+          current: { updateOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: makeWrapper,
+      });
+
+      const newRandomGame = getRandomGameFormData;
+
+      const newGame: GameFormData = {
+        ...newRandomGame,
+      };
+
+      await updateOneGame(mockloadOneGameResponse.id!, newGame);
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        hideLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        openModalActionCreator({
+          isError: true,
+          modalTitle: "Ha habido un error!",
+          modalText: "Parece que ha habido un problema actualizando el partido",
+          buttonText: "Volver",
+        })
+      );
+    });
+  });
+
+  describe("When its method updateOneGame is invoked with predictionId '123456' and the server responds with 200 status", () => {
+    test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
+      const {
+        result: {
+          current: { updateOneGame },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: makeWrapper,
+      });
+
+      const newRandomGame = getRandomGameFormData;
+
+      const newGame: GameFormData = {
+        ...newRandomGame,
+      };
+
+      await updateOneGame(mockloadOneGameResponse.id!, newGame);
+
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        1,
+        showLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        2,
+        hideLoadingActionCreator()
+      );
+      expect(dispatchSpy).toHaveBeenNthCalledWith(
+        3,
+        openModalActionCreator({
+          buttonText: "Continuar",
+          modalTitle: "Todo listo para jugar",
+          isError: false,
+          modalText: "Tu partido ha sido actualizado!",
+        })
+      );
     });
   });
 });

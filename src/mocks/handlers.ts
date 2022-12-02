@@ -77,6 +77,14 @@ const handlers = [
     `${REACT_APP_API_SKYBALL}/games/delete/:gameId`,
     (req, res, ctx) => res(ctx.status(200), ctx.json(mockloadOneGameResponse))
   ),
+
+  rest.patch(`${REACT_APP_API_SKYBALL}/games/update/:gameId`, (req, res, ctx) =>
+    res.once(ctx.status(404), ctx.json({ error: "Error on server" }))
+  ),
+
+  rest.patch(`${REACT_APP_API_SKYBALL}/games/update/:gameId`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(mockloadOneGameResponse))
+  ),
 ];
 
 export default handlers;
