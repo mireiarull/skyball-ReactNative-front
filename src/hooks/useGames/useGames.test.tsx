@@ -11,7 +11,6 @@ import { getRandomGameFormData } from "../../factories/gamesFactory";
 import { type GameFormData } from "../../types/types";
 import makeWrapper from "../../mocks/makeWrapper";
 import { mockloadOneGameResponse } from "../../mocks/gamesMocks";
-import { deleteOneGameActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 
 beforeEach(() => {
   jest.clearAllMocks();
