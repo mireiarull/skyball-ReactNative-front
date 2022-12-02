@@ -61,16 +61,16 @@ const GameDetailStyles = StyleSheet.create({
     marginBottom: 10,
   },
   informationFormat: {
-    fontSize: 18,
+    fontSize: 20,
     color: colorStyles.main,
     borderWidth: 2,
     textAlign: "center",
-    width: 65,
+    width: 75,
     padding: 4,
     borderRadius: 15,
     borderColor: colorStyles.main,
     fontWeight: "600",
-    marginBottom: 10,
+    marginBottom: -10,
   },
   informationInputContainer: {
     marginLeft: 75,
@@ -108,6 +108,24 @@ const GameDetailStyles = StyleSheet.create({
   },
   informationDetailsContainer: {
     marginTop: 20,
+  },
+  informationMaterialContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  materialContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colorStyles.lightMain,
+    width: 110,
+    height: 50,
+    borderRadius: 10,
+    marginRight: 15,
+  },
+  materialText: {
+    textAlign: "center",
+    fontSize: 18,
   },
 });
 

@@ -22,7 +22,7 @@ const gamesFactory = Factory.define<GameStructure>(() => ({
       material: {
         ball: true,
         net: true,
-        rods: false,
+        rods: true,
       },
     },
   ],

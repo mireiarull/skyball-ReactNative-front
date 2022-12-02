@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { DateTime } from "luxon";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faArrowLeft,
   faCalendarMinus,
@@ -24,10 +24,17 @@ const GameDetail = () => {
     backupImage,
     level,
     players,
+    players: [
+      {
+        material: { ball, net, rods },
+      },
+    ],
     spots,
+    owner,
   } = useAppSelector(({ games }) => games.currentGame);
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { email } = useAppSelector(({ user }) => user);
+  const { id } = useAppSelector(({ user }) => user);
 
   return (
     <ScrollView style={GameDetailStyles.container} testID="gameCard">
@@ -109,9 +116,15 @@ const GameDetail = () => {
         <Text style={GameDetailStyles.informationSpots}>
           Quedan {spots - players.length} plazas libres de {spots}
         </Text>
-        <TouchableOpacity style={buttonStyles.button}>
-          <Text style={buttonStyles.buttonText}>Participar!</Text>
-        </TouchableOpacity>
+        {owner === id ? (
+          <TouchableOpacity style={buttonStyles.button}>
+            <Text style={buttonStyles.buttonText}>Editar mi partido</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={buttonStyles.button}>
+            <Text style={buttonStyles.buttonText}>Participar!</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={GameDetailStyles.userInformationContainer}>
         <View style={GameDetailStyles.userInformation}>
@@ -120,7 +133,10 @@ const GameDetail = () => {
             resizeMode="cover"
             style={GameDetailStyles.userImage}
           ></Image>
-          <Text style={GameDetailStyles.informationText}>{email}</Text>
+          <View>
+            <Text style={GameDetailStyles.informationText}>{email}</Text>
+            <Text style={GameDetailStyles.informationText}>Organizador/a</Text>
+          </View>
         </View>
         <View style={GameDetailStyles.informationDetailsContainer}>
           <Text style={GameDetailStyles.informationTitle}>Descripción</Text>
@@ -128,7 +144,23 @@ const GameDetail = () => {
         </View>
         <View style={GameDetailStyles.informationDetailsContainer}>
           <Text style={GameDetailStyles.informationTitle}>Material</Text>
-          <Text style={GameDetailStyles.informationText}>{}</Text>
+          <View style={GameDetailStyles.informationMaterialContainer}>
+            {net && (
+              <View style={GameDetailStyles.materialContainer}>
+                <Text style={GameDetailStyles.materialText}>RED</Text>
+              </View>
+            )}
+            {ball && (
+              <View style={GameDetailStyles.materialContainer}>
+                <Text style={GameDetailStyles.materialText}>PELOTA</Text>
+              </View>
+            )}
+            {rods && (
+              <View style={GameDetailStyles.materialContainer}>
+                <Text style={GameDetailStyles.materialText}>BARILLAS</Text>
+              </View>
+            )}
+          </View>
         </View>
       </View>
     </ScrollView>

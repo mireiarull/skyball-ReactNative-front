@@ -42,12 +42,12 @@ export const emptyCurrentGameState: GameStructure = {
 export const mockloadOneGameResponse: GameStructure = {
   ...getRandomGame,
   id: "123456",
-  owner: "",
+  owner: "5",
 };
 
 export const mockInitialGamesStateFemaleLevel1: GamesState = {
   games: getRandomGameList(3),
-  currentGame: { ...getRandomGame, gender: "F", level: 1 },
+  currentGame: { ...getRandomGame, gender: "F", level: 1, owner: "5" },
 };
 
 export const mockInitialGamesStateMixtLevel2: GamesState = {

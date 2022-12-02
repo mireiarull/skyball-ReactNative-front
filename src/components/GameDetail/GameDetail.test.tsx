@@ -86,4 +86,40 @@ describe("Given a DetailGame component", () => {
       expect(expectedCardLevel).toBeDefined();
     });
   });
+
+  describe("And the game's owner number is '5'and the user id is '5'", () => {
+    test("Then it should show a button with the text 'Editar mi partido'", () => {
+      const buttonText = "Editar mi partido";
+
+      renderWithProviders(<GameDetail />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: { ...mockInitialUserState, id: "5" },
+          games: mockInitialGamesStateFemaleLevel1,
+        },
+      });
+
+      const editButton = screen.queryByText(buttonText);
+
+      expect(editButton).toBeDefined();
+    });
+  });
+
+  describe("And the game's owner number is '5'and the user id is '1'", () => {
+    test("Then it should show a button with the text 'Editar mi partido'", () => {
+      const buttonText = "Participar!";
+
+      renderWithProviders(<GameDetail />, {
+        preloadedState: {
+          ui: mockInitialUiState,
+          user: { ...mockInitialUserState, id: "1" },
+          games: mockInitialGamesStateFemaleLevel1,
+        },
+      });
+
+      const editButton = screen.queryByText(buttonText);
+
+      expect(editButton).toBeDefined();
+    });
+  });
 });
