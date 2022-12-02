@@ -56,7 +56,7 @@ const gameCardStyles = StyleSheet.create({
     backgroundColor: colorStyles.white,
     borderRadius: 10,
     position: "absolute",
-    top: 5,
+    top: 8,
     right: 220,
   },
   dateTime: {
