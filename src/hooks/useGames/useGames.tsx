@@ -24,6 +24,7 @@ const gamesRoutes = {
   getAllGames: "/list",
   addOneGame: "/add",
   deleteOneGame: "/delete",
+  updateOneGame: "/update",
 };
 
 const useGames = () => {
@@ -59,8 +60,9 @@ const useGames = () => {
 
   const addOneGame = async (gameFormData: GameFormData) => {
     dispatch(showLoadingActionCreator());
+
     try {
-      await axios.post<GameStructure>(
+      const newGame = await axios.post<GameStructure>(
         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.addOneGame}`,
         gameFormData,
         {
@@ -82,6 +84,7 @@ const useGames = () => {
         })
       );
 
+      dispatch(loadOneGameActionCreator(newGame.data));
       navigation.navigate(RoutesEnum.explore);
     } catch {
       dispatch(hideLoadingActionCreator());
@@ -123,6 +126,45 @@ const useGames = () => {
           modalTitle: "Ups!",
           modalText:
             "Parece que ha habido un problema buscando el partido. Solo los usuarios registrados pueden ver los detalles.",
+          buttonText: "Volver",
+        })
+      );
+    }
+  };
+
+  const updateOneGame = async (gameId: string, gameFormData: GameFormData) => {
+    dispatch(showLoadingActionCreator());
+    try {
+      const updatedGame = await axios.patch<GameStructure>(
+        `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.updateOneGame}/${gameId}`,
+        gameFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch(hideLoadingActionCreator());
+      dispatch(
+        openModalActionCreator({
+          buttonText: "Continuar",
+          modalTitle: "Todo listo para jugar",
+          isError: false,
+          modalText: "Tu partido ha sido actualizado!",
+        })
+      );
+
+      dispatch(loadOneGameActionCreator(updatedGame.data));
+      navigation.navigate(RoutesEnum.gameDetail);
+    } catch {
+      dispatch(hideLoadingActionCreator());
+      dispatch(
+        openModalActionCreator({
+          isError: true,
+          modalTitle: "Ha habido un error!",
+          modalText: "Parece que ha habido un problema actualizando el partido",
           buttonText: "Volver",
         })
       );
@@ -172,6 +214,7 @@ const useGames = () => {
     addOneGame,
     loadOneGame,
     deleteOneGame,
+    updateOneGame,
   };
 };
 
