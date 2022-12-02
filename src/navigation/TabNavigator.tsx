@@ -44,7 +44,7 @@ const TabNavigator = (): JSX.Element => {
             name={RoutesEnum.create}
             component={CreateScreen}
             options={{
-              title: "Create",
+              title: "Crear partido",
               tabBarIcon: ({ color, size }) => (
                 <FontAwesomeIcon
                   icon={faCirclePlus}

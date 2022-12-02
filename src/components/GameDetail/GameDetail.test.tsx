@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
 import GameDetail from "./GameDetail";
 import { mockInitialUiState, mockInitialUserState } from "../../mocks/uiMocks";
@@ -10,7 +11,19 @@ import {
   mockInitialGamesStateMaleLevel3,
   mockInitialGamesStateMixtLevel2,
 } from "../../mocks/gamesMocks";
+import RoutesEnum from "../../navigation/routes";
 
+const mockedNavigate = jest.fn();
+
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 describe("Given a DetailGame component", () => {
   describe("When it is rendered with one game", () => {
     test("Then it should show the game's format, gender 'Masculino', level 'intermedio alto', players, spots and beach name on the screen", () => {
@@ -100,13 +113,15 @@ describe("Given a DetailGame component", () => {
       });
 
       const editButton = screen.queryByText(buttonText);
+      fireEvent(editButton, "press");
 
       expect(editButton).toBeDefined();
+      expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.update);
     });
   });
 
   describe("And the game's owner number is '5'and the user id is '1'", () => {
-    test("Then it should show a button with the text 'Editar mi partido'", () => {
+    test("Then it should show a button with the text 'Editar mi partido' the navigates to the edit form", () => {
       const buttonText = "Participar!";
 
       renderWithProviders(<GameDetail />, {
