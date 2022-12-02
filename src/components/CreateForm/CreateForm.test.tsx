@@ -9,13 +9,16 @@ import {
   mockInitialUiState,
   mockInitialUserState,
 } from "../../mocks/uiMocks";
+import { getRandomGame } from "../../factories/gamesFactory";
 
 const mockCreateGame = jest.fn();
 const mockLoadAllGames = jest.fn();
+const mockUpdateOneGame = jest.fn();
 
 jest.mock("../../hooks/useGames/useGames", () => () => ({
   addOneGame: mockCreateGame,
   loadAllGames: mockLoadAllGames,
+  updateOneGame: mockUpdateOneGame,
 }));
 
 // Const mocklaunchImageLibraryAsync = jest.fn().mockResolvedValue({
@@ -121,6 +124,36 @@ describe("Given a CreateForm component", () => {
       fireEvent.press(submitButton);
 
       expect(mockCreateGame).toHaveBeenCalled();
+    });
+  });
+
+  describe("When it's rendered to update one game and the user click on the 'Enviar' button", () => {
+    test("Then it should call updateOneGame with the form information", async () => {
+      const submitButtonText = "Enviar";
+      const game = getRandomGame;
+
+      renderWithProviders(<CreateForm currentGame={game} />, {
+        preloadedState: {
+          ui: { ...mockInitialUiState, showModal: false, isLoading: false },
+          user: mockInitialUserState,
+          games: mockInitialGamesState,
+        },
+      });
+
+      const beachNameField = await screen.getByTestId(beachNameId);
+      const spotsField = await screen.getByTestId(spotsId);
+      fireEvent.changeText(beachNameField, "test beach");
+      fireEvent.changeText(spotsField, 5);
+
+      checkboxIds.forEach((id) => {
+        const checkbox = screen.getByTestId(id);
+        fireEvent.press(checkbox);
+      });
+
+      const submitButton = await screen.getByText(submitButtonText);
+      fireEvent.press(submitButton);
+
+      expect(mockUpdateOneGame).toHaveBeenCalled();
     });
   });
 

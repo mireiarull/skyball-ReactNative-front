@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import buttonStyles from "../../styles/buttonStyles";
 import userDefaultImage from "../../../assets/images/marta.jpg";
+import RoutesEnum from "../../navigation/routes";
 
 const GameDetail = () => {
   const {
@@ -117,7 +118,12 @@ const GameDetail = () => {
           Quedan {spots - players.length} plazas libres de {spots}
         </Text>
         {owner === id ? (
-          <TouchableOpacity style={buttonStyles.button}>
+          <TouchableOpacity
+            style={buttonStyles.button}
+            onPress={() => {
+              navigation.navigate(RoutesEnum.update);
+            }}
+          >
             <Text style={buttonStyles.buttonText}>Editar mi partido</Text>
           </TouchableOpacity>
         ) : (

@@ -13,6 +13,7 @@ import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import ExploreScreen from "../screens/ExploreScreen/ExploreScreen";
 import CreateScreen from "../screens/CreateScreen/CreateScreen";
 import DetailScreen from "../screens/DetailScreen/DetailScreen";
+import UpdateScreen from "../screens/UpdateScreen/UpdateScreen";
 
 const TabNavigator = (): JSX.Element => {
   const Tab = createBottomTabNavigator();
@@ -43,7 +44,7 @@ const TabNavigator = (): JSX.Element => {
             name={RoutesEnum.create}
             component={CreateScreen}
             options={{
-              title: "Create",
+              title: "Crear partido",
               tabBarIcon: ({ color, size }) => (
                 <FontAwesomeIcon
                   icon={faCirclePlus}
@@ -69,6 +70,13 @@ const TabNavigator = (): JSX.Element => {
       <Tab.Screen
         name={RoutesEnum.gameDetail}
         component={DetailScreen}
+        options={{
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name={RoutesEnum.update}
+        component={UpdateScreen}
         options={{
           tabBarItemStyle: { display: "none" },
         }}
