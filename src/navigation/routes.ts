@@ -7,6 +7,7 @@ enum RoutesEnum {
   home = "Home",
   gameDetail = "Partido",
   update = "Editar",
+  logout = "Log out",
 }
 
 export default RoutesEnum;

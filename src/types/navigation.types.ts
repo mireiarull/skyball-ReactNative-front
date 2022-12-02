@@ -10,6 +10,7 @@ export interface LogRootStackParamList {
   [RoutesEnum.home]: undefined;
   [RoutesEnum.gameDetail]: undefined;
   [RoutesEnum.update]: undefined;
+  [RoutesEnum.logout]: undefined;
 }
 
 export type LoginScreenNavigationProp = NativeStackNavigationProp<
