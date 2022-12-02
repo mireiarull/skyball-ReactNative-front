@@ -178,9 +178,16 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       <ScrollView>
         <CustomModal />
         <View style={styles.container}>
-          <Text style={styles.title} testID={"title"}>
-            Crear nuevo partido
-          </Text>
+          {currentGame ? (
+            <Text style={styles.title} testID={"title"}>
+              Editar mi partido
+            </Text>
+          ) : (
+            <Text style={styles.title} testID={"title"}>
+              Crear nuevo partido
+            </Text>
+          )}
+
           <View>
             <View>
               <Text style={inputStyles.label}>Nombre de la playa</Text>
