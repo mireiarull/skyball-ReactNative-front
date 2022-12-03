@@ -40,9 +40,9 @@ const useGames = () => {
         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`
       );
 
-      const { games } = response.data;
+      const gamesList = response.data.games.games;
 
-      dispatch(loadAllGamesActionCreator(games));
+      dispatch(loadAllGamesActionCreator(gamesList));
       dispatch(hideLoadingActionCreator());
     } catch {
       dispatch(hideLoadingActionCreator());

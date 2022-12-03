@@ -1,5 +1,10 @@
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 
 export interface LoadGamesResponse {
-  games: GameStructure[];
+  games: {
+    isPreviousPage: boolean;
+    isNextPage: boolean;
+    totalPages: number;
+    games: GameStructure[];
+  };
 }

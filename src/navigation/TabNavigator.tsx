@@ -18,9 +18,9 @@ import DetailScreen from "../screens/DetailScreen/DetailScreen";
 import UpdateScreen from "../screens/UpdateScreen/UpdateScreen";
 import CustomModal from "../components/Modal/CustomModal";
 import useToken from "../hooks/useToken/useToken";
-import { logoutUserActionCreator } from "../redux/features/userSlice/userSlice";
 import { useNavigation } from "@react-navigation/native";
 import { type LoginScreenNavigationProp } from "../types/navigation.types";
+import { logoutUserActionCreator } from "../redux/features/userSlice/userSlice";
 
 const TabNavigator = (): JSX.Element => {
   const Tab = createBottomTabNavigator();
