@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     backgroundColor: colorStyles.white,
     padding: 25,
+    flex: 1,
   },
   title: {
     marginTop: 20,
