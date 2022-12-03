@@ -11,7 +11,7 @@ const ExploreScreen = (): JSX.Element => {
 
   useEffect(() => {
     loadAllGames(currentPage);
-  }, [loadAllGames]);
+  }, [loadAllGames, currentPage]);
 
   const games = useAppSelector(({ games }) => games.games);
 

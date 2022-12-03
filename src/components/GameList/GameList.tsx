@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, FlatList } from "react-native";
-import useGames from "../../hooks/useGames/useGames";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { useAppSelector } from "../../redux/hooks";
 import GameCard from "../GameCard/GameCard";

@@ -52,7 +52,10 @@ describe("Given a TabNavigator component", () => {
 
         renderWithProviders(<TabNavigator />, {
           preloadedState: {
-            ui: mockInitialUiState,
+            ui: {
+              ...mockInitialUiState,
+              pagination: { currentPage: 0, totalPages: 2 },
+            },
             user: { ...mockInitialUserState, isLogged: true },
             games: mockInitialGamesState,
           },
@@ -72,7 +75,10 @@ describe("Given a TabNavigator component", () => {
 
       renderWithProviders(<TabNavigator />, {
         preloadedState: {
-          ui: mockInitialUiState,
+          ui: {
+            ...mockInitialUiState,
+            pagination: { currentPage: 0, totalPages: 2 },
+          },
           user: { ...mockInitialUserState, isLogged: true },
           games: mockInitialGamesState,
         },

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import {
+  mockInitialGamesState,
   mockInitialStore,
   mockInitialUiState,
   mockInitialUserState,
@@ -22,7 +23,7 @@ describe("Given a CustomModal component", () => {
         preloadedState: {
           ui: mockInitialUiState,
           user: mockInitialUserState,
-          games: mockInitialUserState,
+          games: mockInitialGamesState,
         },
       });
 
