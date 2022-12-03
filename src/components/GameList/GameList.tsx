@@ -22,7 +22,7 @@ const GameList = ({ games }: GamesListProps) => {
         renderItem={({ item }) => <GameCard game={item} />}
         ListFooterComponent={
           <View style={styles.footer}>
-            <LoadMore pagination={{ currentPage, totalPages }} />
+            {currentPage !== totalPages - 1 && <LoadMore />}
           </View>
         }
         showsVerticalScrollIndicator={false}
