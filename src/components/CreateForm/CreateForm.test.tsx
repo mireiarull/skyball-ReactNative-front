@@ -42,19 +42,8 @@ beforeEach(() => {
 });
 
 jest.mock("@react-native-community/datetimepicker", () => {
-  const React = require("React");
-  const RealComponent = jest.requireActual(
-    "@react-native-community/datetimepicker"
-  );
-
-  class Picker extends React.Component {
-    render() {
-      return React.createElement("Picker", this.props, this.props.children);
-    }
-  }
-
-  Picker.propTypes = RealComponent.propTypes;
-  return Picker;
+  const mockComponent = require("react-native/jest/mockComponent");
+  return mockComponent("@react-native-community/datetimepicker");
 });
 
 describe("Given a CreateForm component", () => {
