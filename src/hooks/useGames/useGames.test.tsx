@@ -51,7 +51,7 @@ describe("Given the useGames custom hook", () => {
     });
   });
 
-  describe("When its method loadAllGames is invoked", () => {
+  describe("When its method loadAllGames is invoked with current page 0", () => {
     test("Then dispatch should be called three times to show and hide loading and to load the received games", async () => {
       const {
         result: {
@@ -62,6 +62,22 @@ describe("Given the useGames custom hook", () => {
       });
 
       await loadAllGames();
+
+      expect(dispatchSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("When its method loadAllGames is invoked with current page 1", () => {
+    test("Then dispatch should be called three times to show and hide loading and to load the received games", async () => {
+      const {
+        result: {
+          current: { loadAllGames },
+        },
+      } = renderHook(() => useGames(), {
+        wrapper: ProviderWrapper,
+      });
+
+      await loadAllGames(1);
 
       expect(dispatchSpy).toHaveBeenCalled();
     });

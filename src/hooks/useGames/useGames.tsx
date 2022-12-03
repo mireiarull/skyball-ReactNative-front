@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteOneGameActionCreator,
   loadAllGamesActionCreator,
+  loadMoreGamesActionCreator,
   loadOneGameActionCreator,
 } from "../../redux/features/gamesSlice/gamesSlice";
 import { type LoadGamesResponse } from "./types";
@@ -49,9 +50,14 @@ const useGames = () => {
         const currentPage = page;
         const gamesList = response.data.games.games;
 
-        dispatch(loadAllGamesActionCreator(gamesList));
-        dispatch(loadPagesActionCreator({ totalPages, currentPage }));
         dispatch(hideLoadingActionCreator());
+        if (currentPage === 0) {
+          dispatch(loadAllGamesActionCreator(gamesList));
+        } else {
+          dispatch(loadMoreGamesActionCreator(gamesList));
+        }
+
+        dispatch(loadPagesActionCreator({ totalPages, currentPage }));
       } catch {
         dispatch(hideLoadingActionCreator());
 
@@ -67,6 +73,41 @@ const useGames = () => {
     },
     [dispatch]
   );
+
+  // Const loadMoreGames = useCallback(
+  //   async (page = 0) => {
+  //     try {
+  //       dispatch(showLoadingActionCreator());
+  //       const limit = 5;
+  //       const response = await axios.get<LoadGamesResponse>(
+  //         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`,
+  //         {
+  //           params: { page, limit },
+  //         }
+  //       );
+
+  //       const { totalPages } = response.data.games;
+  //       const currentPage = page;
+  //       const gamesList = response.data.games.games;
+
+  //       dispatch(hideLoadingActionCreator());
+  //       dispatch(loadMoreGamesActionCreator(gamesList));
+  //       dispatch(loadPagesActionCreator({ totalPages, currentPage }));
+  //     } catch {
+  //       dispatch(hideLoadingActionCreator());
+
+  //       dispatch(
+  //         openModalActionCreator({
+  //           isError: true,
+  //           modalTitle: "Ha habido un error!",
+  //           modalText: "Parece que ha habido un problema cargando los partidos",
+  //           buttonText: "Volver",
+  //         })
+  //       );
+  //     }
+  //   },
+  //   [dispatch]
+  // );
 
   const addOneGame = async (gameFormData: GameFormData) => {
     dispatch(showLoadingActionCreator());
@@ -84,6 +125,7 @@ const useGames = () => {
       );
 
       dispatch(hideLoadingActionCreator());
+
       dispatch(
         openModalActionCreator({
           buttonText: "Continuar",
@@ -95,6 +137,7 @@ const useGames = () => {
       );
 
       dispatch(loadOneGameActionCreator(newGame.data));
+      dispatch(hideLoadingActionCreator());
       navigation.navigate(RoutesEnum.explore);
     } catch {
       dispatch(hideLoadingActionCreator());
