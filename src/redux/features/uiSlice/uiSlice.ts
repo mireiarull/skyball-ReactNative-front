@@ -41,6 +41,6 @@ export const {
   closeModalReducer: closeModalActionCreator,
   showLoadingReducer: showLoadingActionCreator,
   hideLoadingReducer: hideLoadingActionCreator,
-  loadPagesReducer: loadPagesReducerActionCreator,
-  goToNextPageReducer: goToNextPageReducerActionCreator,
+  loadPagesReducer: loadPagesActionCreator,
+  goToNextPageReducer: goToNextPageActionCreator,
 } = uiSlice.actions;

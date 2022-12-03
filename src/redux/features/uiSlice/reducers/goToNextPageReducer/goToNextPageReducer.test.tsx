@@ -1,5 +1,5 @@
 import { type Pagination, type UiState } from "../../types";
-import { goToNextPageReducerActionCreator, uiReducer } from "../../uiSlice";
+import { goToNextPageActionCreator, uiReducer } from "../../uiSlice";
 
 describe("Given a goToNextPages reducer", () => {
   describe("When it receives an action to go to next page", () => {
@@ -16,7 +16,7 @@ describe("Given a goToNextPages reducer", () => {
         },
       };
 
-      const action = goToNextPageReducerActionCreator();
+      const action = goToNextPageActionCreator();
 
       const newState = uiReducer(initialState as UiState, action);
 

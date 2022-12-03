@@ -1,5 +1,5 @@
 import { type Pagination, type UiState } from "../../types";
-import { loadPagesReducerActionCreator, uiReducer } from "../../uiSlice";
+import { loadPagesActionCreator, uiReducer } from "../../uiSlice";
 
 describe("Given loadPages reducer", () => {
   describe("When it receives an action to load pages", () => {
@@ -16,7 +16,7 @@ describe("Given loadPages reducer", () => {
         },
       };
 
-      const action = loadPagesReducerActionCreator(expectedPagination);
+      const action = loadPagesActionCreator(expectedPagination);
 
       const newState = uiReducer(initialState as UiState, action);
 
