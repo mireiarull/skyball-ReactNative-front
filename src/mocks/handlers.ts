@@ -75,7 +75,7 @@ const handlers = [
 
   rest.delete(
     `${REACT_APP_API_SKYBALL}/games/delete/:gameId`,
-    (req, res, ctx) => res(ctx.status(200), ctx.json(mockloadOneGameResponse))
+    (req, res, ctx) => res(ctx.status(200))
   ),
 
   rest.patch(`${REACT_APP_API_SKYBALL}/games/update/:gameId`, (req, res, ctx) =>

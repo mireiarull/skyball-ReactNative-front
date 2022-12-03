@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
+import * as ImagePicker from "expo-image-picker";
 import { screen, fireEvent } from "@testing-library/react-native";
 import CreateForm from "./CreateForm";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
@@ -10,6 +12,7 @@ import {
   mockInitialUserState,
 } from "../../mocks/uiMocks";
 import { getRandomGame } from "../../factories/gamesFactory";
+import { type ImagePickerResult } from "expo-image-picker";
 
 const mockCreateGame = jest.fn();
 const mockLoadAllGames = jest.fn();
@@ -21,20 +24,38 @@ jest.mock("../../hooks/useGames/useGames", () => () => ({
   updateOneGame: mockUpdateOneGame,
 }));
 
-// Const mocklaunchImageLibraryAsync = jest.fn().mockResolvedValue({
-//   cancelled: false,
-//   type: "image",
-//   uri: "abc.jpeg",
-//   width: "200",
-//   height: "200",
-// });
+jest.mock("expo-image-picker", () => ({
+  launchImageLibraryAsync: jest.fn().mockResolvedValue({
+    canceled: false,
+    assets: [{ uri: "abc.jpeg" }],
+    type: "image",
+    width: "200",
+    height: "200",
+  }),
+  MediaTypeOptions: jest.fn(),
+}));
 
-// const mockMediaTypeOptions = { All: undefined };
+const mockedImagePicker = jest.mocked(ImagePicker);
 
-// jest.mock("expo-image-picker", () => () => ({
-//   launchImageLibraryAsync: mocklaunchImageLibraryAsync,
-//   MediaTypeOptions: mockMediaTypeOptions,
-// }));
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+jest.mock("@react-native-community/datetimepicker", () => {
+  const React = require("React");
+  const RealComponent = jest.requireActual(
+    "@react-native-community/datetimepicker"
+  );
+
+  class Picker extends React.Component {
+    render() {
+      return React.createElement("Picker", this.props, this.props.children);
+    }
+  }
+
+  Picker.propTypes = RealComponent.propTypes;
+  return Picker;
+});
 
 describe("Given a CreateForm component", () => {
   const checkboxIds = [
@@ -157,15 +178,66 @@ describe("Given a CreateForm component", () => {
     });
   });
 
-  // Describe("And the user clicks on the load image icon", () => {
-  //   test("Then it should set the image form state", async () => {
-  //     renderWithProviders(<CreateForm />);
+  describe("And the user clicks on the load image icon", () => {
+    test("Then it should set the image form state", async () => {
+      renderWithProviders(<CreateForm />);
 
-  //     const pickImageButton = screen.getByTestId("image-picker");
+      const pickImageButton = screen.getByTestId("image-picker");
 
-  //     fireEvent.press(pickImageButton);
+      fireEvent.press(pickImageButton);
 
-  //     expect(mocklaunchImageLibraryAsync).toBeCalledTimes(1);
-  //   });
-  // });
+      expect(mockedImagePicker.launchImageLibraryAsync).toBeCalledTimes(1);
+    });
+  });
+
+  describe("And the user clicks on the load image icon and the image doesn't have an extension", () => {
+    test("Then it should set the image form state", async () => {
+      mockedImagePicker.launchImageLibraryAsync.mockResolvedValueOnce({
+        anceled: false,
+        assets: [{ uri: "abc" }],
+        type: "image",
+      });
+
+      renderWithProviders(<CreateForm />);
+
+      const pickImageButton = screen.getByTestId("image-picker");
+
+      fireEvent.press(pickImageButton);
+
+      expect(mockedImagePicker.launchImageLibraryAsync).toBeCalledTimes(1);
+    });
+  });
+
+  describe("And the user clicks on the load image icon and the image picker is cancelled", () => {
+    test("Then it should set the image form state", async () => {
+      mockedImagePicker.launchImageLibraryAsync.mockResolvedValueOnce({
+        canceled: true,
+      } as ImagePickerResult);
+
+      renderWithProviders(<CreateForm />);
+
+      const pickImageButton = screen.getByTestId("image-picker");
+
+      fireEvent.press(pickImageButton);
+
+      expect(mockedImagePicker.launchImageLibraryAsync).toBeCalledTimes(1);
+    });
+  });
+
+  describe("And the user clicks on the date button", () => {
+    test("Then it should set the dateTime form state", () => {
+      renderWithProviders(<CreateForm />);
+
+      const datePickerButton = screen.getByTestId("datePicker");
+
+      fireEvent(datePickerButton, "onChange", {
+        nativeEvent: { timestamp: "01/01/1976" },
+      });
+
+      fireEvent(datePickerButton, "onChange", null, {
+        timestamp: "01/01/1976",
+      });
+      expect(datePickerButton.props.value).toEqual({ timestamp: "01/01/1976" });
+    });
+  });
 });

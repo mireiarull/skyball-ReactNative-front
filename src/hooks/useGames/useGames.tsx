@@ -4,7 +4,6 @@ import { REACT_APP_API_SKYBALL } from "@env";
 import {
   hideLoadingActionCreator,
   loadPagesActionCreator,
-  loadPagesReducerActionCreator,
   openModalActionCreator,
   showLoadingActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";

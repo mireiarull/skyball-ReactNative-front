@@ -28,7 +28,7 @@ interface CreateFormProps {
 const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
   const { addOneGame, loadAllGames, updateOneGame } = useGames();
 
-  const emptyFormData = {
+  let initialFormData = {
     beachName: "",
     dateTime: new Date(),
     description: "",
@@ -50,10 +50,6 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     rods: false,
   };
 
-  let initialFormData = {
-    ...emptyFormData,
-  };
-
   if (currentGame) {
     initialFormData = {
       beachName: currentGame.beachName,
@@ -65,8 +61,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       level: currentGame.level,
       spots: currentGame.spots,
       ball: currentGame.players[0].material.ball,
-      net: currentGame.players[0].material.ball,
-      rods: currentGame.players[0].material.ball,
+      net: currentGame.players[0].material.net,
+      rods: currentGame.players[0].material.rods,
     };
   }
 
@@ -110,13 +106,11 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     if (currentGame) {
       await updateOneGame(currentGame.id!, newGame);
       await loadAllGames();
-      resetForm();
       return;
     }
 
     await addOneGame(newGame);
     await loadAllGames();
-    resetForm();
   };
 
   const onChangeDateTime = (event, selectedDate?: Date) => {
@@ -160,13 +154,6 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       const type = match ? `image/${match[1]}` : `image`;
       setImageType(type);
     }
-  };
-
-  const resetForm = () => {
-    setFormData(emptyFormData);
-    setImageSelected("");
-    setImageType("");
-    setImageName("");
   };
 
   return (

@@ -205,6 +205,24 @@ describe("Given the useGames custom hook", () => {
       await deleteOneGame("123456");
 
       expect(dispatchSpy).toHaveBeenCalledTimes(4);
+
+      // Expect(dispatchSpy).toHaveBeenNthCalledWith(
+      //   1,
+      //   showLoadingActionCreator()
+      // );
+      // expect(dispatchSpy).toHaveBeenNthCalledWith(
+      //   2,
+      //   hideLoadingActionCreator()
+      // );
+      // expect(dispatchSpy).toHaveBeenNthCalledWith(
+      //   3,
+      //   openModalActionCreator({
+      //     buttonText: "Volver",
+      //     modalTitle: "Partido eliminado!",
+      //     isError: false,
+      //     modalText: "Tu partido ha sido eliminado",
+      //   })
+      // );
     });
   });
 
