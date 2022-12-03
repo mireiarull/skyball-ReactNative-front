@@ -42,7 +42,6 @@ const TabNavigator = (): JSX.Element => {
         tabBarActiveTintColor: colorStyles.main,
         tabBarInactiveTintColor: colorStyles.black,
         headerShown: false,
-        unmountOnBlur: true,
       }}
     >
       <Tab.Screen
@@ -62,6 +61,7 @@ const TabNavigator = (): JSX.Element => {
             component={CreateScreen}
             options={{
               title: "Crear partido",
+              unmountOnBlur: true,
               tabBarIcon: ({ color, size }) => (
                 <FontAwesomeIcon
                   icon={faCirclePlus}
@@ -95,6 +95,7 @@ const TabNavigator = (): JSX.Element => {
         name={RoutesEnum.update}
         component={UpdateScreen}
         options={{
+          unmountOnBlur: true,
           tabBarItemStyle: { display: "none" },
         }}
       />

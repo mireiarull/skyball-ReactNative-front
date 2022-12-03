@@ -3,8 +3,8 @@ import React from "react";
 import { screen } from "@testing-library/react-native";
 import ExploreScreen from "./ExploreScreen";
 import {
-  emptyMocalMock as emptyModalMock,
   mockInitialGamesState,
+  mockInitialUiState,
   mockInitialUserState,
 } from "../../mocks/uiMocks";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
@@ -16,7 +16,10 @@ describe("Given an ExploreScreen page", () => {
 
       renderWithProviders(<ExploreScreen />, {
         preloadedState: {
-          ui: emptyModalMock,
+          ui: {
+            ...mockInitialUiState,
+            pagination: { currentPage: 0, totalPages: 2 },
+          },
           user: mockInitialUserState,
           games: mockInitialGamesState,
         },
@@ -32,7 +35,10 @@ describe("Given an ExploreScreen page", () => {
 
       renderWithProviders(<ExploreScreen />, {
         preloadedState: {
-          ui: emptyModalMock,
+          ui: {
+            ...mockInitialUiState,
+            pagination: { currentPage: 0, totalPages: 2 },
+          },
           user: mockInitialUserState,
           games: mockInitialGamesState,
         },
