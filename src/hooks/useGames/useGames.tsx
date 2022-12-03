@@ -34,10 +34,10 @@ const useGames = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const loadAllGames = useCallback(
-    async (page = 0, limit = 5) => {
+    async (page = 0) => {
       try {
         dispatch(showLoadingActionCreator());
-
+        const limit = 5;
         const response = await axios.get<LoadGamesResponse>(
           `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`,
           {
