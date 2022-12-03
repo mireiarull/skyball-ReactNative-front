@@ -150,7 +150,7 @@ describe("Given the useGames custom hook", () => {
         result: {
           current: { loadOneGame },
         },
-      } = renderHook(() => useGames(), {
+      } = renderHook(useGames, {
         wrapper: makeWrapper,
       });
 
@@ -166,7 +166,7 @@ describe("Given the useGames custom hook", () => {
         result: {
           current: { deleteOneGame },
         },
-      } = renderHook(() => useGames(), {
+      } = renderHook(useGames, {
         wrapper: makeWrapper,
       });
 
@@ -192,13 +192,13 @@ describe("Given the useGames custom hook", () => {
     });
   });
 
-  describe("When its method deleteOneGame is invoked with predictionId '123456' and the server responds with 200", () => {
+  describe("When its method deleteOneGame is invoked with gameId '123456' and the server responds with 200", () => {
     test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
       const {
         result: {
           current: { deleteOneGame },
         },
-      } = renderHook(() => useGames(), {
+      } = renderHook(useGames, {
         wrapper: makeWrapper,
       });
 
