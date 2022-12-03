@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import loginUserReducer from "./reducers/loginUserReducer/loginUserReducer";
 import logoutUserReducer from "./reducers/logoutUserReducer/logoutUserReducer";
+
 import { type UserState } from "./types";
 
 const userInitialState: UserState = {

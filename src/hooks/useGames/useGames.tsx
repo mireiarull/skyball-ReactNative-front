@@ -3,13 +3,13 @@ import { useCallback } from "react";
 import { REACT_APP_API_SKYBALL } from "@env";
 import {
   hideLoadingActionCreator,
+  loadPagesActionCreator,
   openModalActionCreator,
   showLoadingActionCreator,
 } from "../../redux/features/uiSlice/uiSlice";
 import { useNavigation } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
-  deleteOneGameActionCreator,
   loadAllGamesActionCreator,
   loadOneGameActionCreator,
 } from "../../redux/features/gamesSlice/gamesSlice";
@@ -18,6 +18,7 @@ import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import RoutesEnum from "../../navigation/routes";
 import { type GameFormData } from "../../types/types";
+import { deleteOneGameActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 
 const gamesRoutes = {
   gamesRoute: "/games",
@@ -32,31 +33,40 @@ const useGames = () => {
   const { token } = useAppSelector((state) => state.user);
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
-  const loadAllGames = useCallback(async () => {
-    try {
-      dispatch(showLoadingActionCreator());
+  const loadAllGames = useCallback(
+    async (page = 0, limit = 5) => {
+      try {
+        dispatch(showLoadingActionCreator());
 
-      const response = await axios.get<LoadGamesResponse>(
-        `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`
-      );
+        const response = await axios.get<LoadGamesResponse>(
+          `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`,
+          {
+            params: { page, limit },
+          }
+        );
 
-      const { games } = response.data;
+        const { totalPages } = response.data.games;
+        const currentPage = page;
+        const gamesList = response.data.games.games;
 
-      dispatch(loadAllGamesActionCreator(games));
-      dispatch(hideLoadingActionCreator());
-    } catch {
-      dispatch(hideLoadingActionCreator());
+        dispatch(loadAllGamesActionCreator(gamesList));
+        dispatch(loadPagesActionCreator({ totalPages, currentPage }));
+        dispatch(hideLoadingActionCreator());
+      } catch {
+        dispatch(hideLoadingActionCreator());
 
-      dispatch(
-        openModalActionCreator({
-          isError: true,
-          modalTitle: "Ha habido un error!",
-          modalText: "Parece que ha habido un problema cargando los partidos",
-          buttonText: "Volver",
-        })
-      );
-    }
-  }, [dispatch]);
+        dispatch(
+          openModalActionCreator({
+            isError: true,
+            modalTitle: "Ha habido un error!",
+            modalText: "Parece que ha habido un problema cargando los partidos",
+            buttonText: "Volver",
+          })
+        );
+      }
+    },
+    [dispatch]
+  );
 
   const addOneGame = async (gameFormData: GameFormData) => {
     dispatch(showLoadingActionCreator());
@@ -184,7 +194,6 @@ const useGames = () => {
         }
       );
 
-      dispatch(deleteOneGameActionCreator(gameId));
       dispatch(hideLoadingActionCreator());
 
       dispatch(
@@ -195,6 +204,7 @@ const useGames = () => {
           modalText: "Tu partido ha sido eliminado",
         })
       );
+      dispatch(deleteOneGameActionCreator(gameId));
     } catch {
       dispatch(hideLoadingActionCreator());
 

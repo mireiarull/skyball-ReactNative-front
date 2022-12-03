@@ -5,6 +5,10 @@ export interface UiState {
   modalTitle: string;
   modalText: string;
   buttonText: string;
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+  };
 }
 
 export interface ShowModalActionPayload {
@@ -12,4 +16,9 @@ export interface ShowModalActionPayload {
   modalTitle: string;
   modalText: string;
   buttonText: string;
+}
+
+export interface Pagination {
+  currentPage: number;
+  totalPages: number;
 }
