@@ -10,7 +10,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
-  deleteOneGameActionCreator,
   loadAllGamesActionCreator,
   loadOneGameActionCreator,
 } from "../../redux/features/gamesSlice/gamesSlice";
@@ -19,6 +18,7 @@ import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import RoutesEnum from "../../navigation/routes";
 import { type GameFormData } from "../../types/types";
+import { deleteOneGameActionCreator } from "../../redux/features/gamesSlice/gamesSlice";
 
 const gamesRoutes = {
   gamesRoute: "/games",
@@ -194,7 +194,6 @@ const useGames = () => {
         }
       );
 
-      dispatch(deleteOneGameActionCreator(gameId));
       dispatch(hideLoadingActionCreator());
 
       dispatch(
@@ -205,6 +204,7 @@ const useGames = () => {
           modalText: "Tu partido ha sido eliminado",
         })
       );
+      dispatch(deleteOneGameActionCreator(gameId));
     } catch {
       dispatch(hideLoadingActionCreator());
 
