@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import GameList from "../../components/GameList/GameList";
 import useGames from "../../hooks/useGames/useGames";
-import { useAppSelector } from "../../redux/hooks";
+import { addFilterActionCreator } from "../../redux/features/uiSlice/uiSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "./ExploreScreenStyles";
 
 const ExploreScreen = (): JSX.Element => {
   const { loadAllGames } = useGames();
   const { currentPage } = useAppSelector((state) => state.ui.pagination);
-
-  const [filter, setFilter] = useState("");
+  const { filter } = useAppSelector((state) => state.ui);
 
   useEffect(() => {
     loadAllGames(filter, currentPage);
   }, [loadAllGames, currentPage, filter]);
+  const dispatch = useAppDispatch();
 
   const games = useAppSelector(({ games }) => games.games);
 
   const handleFilterClick = () => {
-    setFilter("2022-12-20");
+    dispatch(addFilterActionCreator("2022-12-20"));
   };
 
   const handleAllClick = () => {
-    loadAllGames("", currentPage);
-    setFilter("");
+    dispatch(addFilterActionCreator(""));
   };
 
   return (
