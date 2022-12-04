@@ -22,7 +22,7 @@ const DateFilter = (): JSX.Element => {
   const [filter, setFilter] = useState(initialFilterState);
   const [datePicker, setDatePicker] = useState(new Date());
 
-  const onChangeDateTime = (event, selectedDate?: Date) => {
+  const onChangeDateTime = (event: any, selectedDate?: Date) => {
     setDatePicker(selectedDate ?? datePicker);
 
     const filterDate = selectedDate?.toISOString().slice(0, 10);
@@ -33,6 +33,7 @@ const DateFilter = (): JSX.Element => {
 
   const handleFilterClick = (date: string) => {
     let filterDate: string;
+    setDatePicker(new Date());
 
     if (date === "today") {
       setFilter({ ...filter, today: true, tomorrow: false });

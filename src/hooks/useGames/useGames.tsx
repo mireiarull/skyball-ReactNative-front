@@ -63,9 +63,10 @@ const useGames = () => {
 
         dispatch(
           openModalActionCreator({
-            isError: true,
-            modalTitle: "Ha habido un error!",
-            modalText: "Parece que ha habido un problema cargando los partidos",
+            isError: false,
+            modalTitle: "Ups!",
+            modalText:
+              "Lo sentimos, ningún partido coincide con tus preferencias",
             buttonText: "Volver",
           })
         );

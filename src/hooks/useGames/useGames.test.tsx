@@ -42,9 +42,10 @@ describe("Given the useGames custom hook", () => {
       expect(dispatchSpy).toHaveBeenNthCalledWith(
         3,
         openModalActionCreator({
-          isError: true,
-          modalTitle: "Ha habido un error!",
-          modalText: "Parece que ha habido un problema cargando los partidos",
+          isError: false,
+          modalTitle: "Ups!",
+          modalText:
+            "Lo sentimos, ningún partido coincide con tus preferencias",
           buttonText: "Volver",
         })
       );
