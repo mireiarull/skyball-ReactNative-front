@@ -15,7 +15,10 @@ import {
   loadMoreGamesActionCreator,
   loadOneGameActionCreator,
 } from "../../redux/features/gamesSlice/gamesSlice";
-import { type LoadGamesResponse } from "./types";
+import {
+  type LoadFilteredGamesResponse,
+  type LoadGamesResponse,
+} from "./types";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import RoutesEnum from "../../navigation/routes";
@@ -27,6 +30,7 @@ const gamesRoutes = {
   addOneGame: "/add",
   deleteOneGame: "/delete",
   updateOneGame: "/update",
+  getFilteredGames: "/filter",
 };
 
 const useGames = () => {
@@ -73,41 +77,6 @@ const useGames = () => {
     },
     [dispatch]
   );
-
-  // Const loadMoreGames = useCallback(
-  //   async (page = 0) => {
-  //     try {
-  //       dispatch(showLoadingActionCreator());
-  //       const limit = 5;
-  //       const response = await axios.get<LoadGamesResponse>(
-  //         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`,
-  //         {
-  //           params: { page, limit },
-  //         }
-  //       );
-
-  //       const { totalPages } = response.data.games;
-  //       const currentPage = page;
-  //       const gamesList = response.data.games.games;
-
-  //       dispatch(hideLoadingActionCreator());
-  //       dispatch(loadMoreGamesActionCreator(gamesList));
-  //       dispatch(loadPagesActionCreator({ totalPages, currentPage }));
-  //     } catch {
-  //       dispatch(hideLoadingActionCreator());
-
-  //       dispatch(
-  //         openModalActionCreator({
-  //           isError: true,
-  //           modalTitle: "Ha habido un error!",
-  //           modalText: "Parece que ha habido un problema cargando los partidos",
-  //           buttonText: "Volver",
-  //         })
-  //       );
-  //     }
-  //   },
-  //   [dispatch]
-  // );
 
   const addOneGame = async (gameFormData: GameFormData) => {
     dispatch(showLoadingActionCreator());
@@ -262,12 +231,44 @@ const useGames = () => {
     }
   };
 
+  const loadFilteredGames = useCallback(
+    async (date: string) => {
+      try {
+        dispatch(showLoadingActionCreator());
+        const response = await axios.get<LoadFilteredGamesResponse>(
+          `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getFilteredGames}`,
+          {
+            params: { date },
+          }
+        );
+
+        const gamesList = response.data.filteredGames;
+
+        dispatch(loadAllGamesActionCreator(gamesList));
+      } catch {
+        dispatch(hideLoadingActionCreator());
+
+        dispatch(
+          openModalActionCreator({
+            isError: true,
+            modalTitle: "Ha habido un error!",
+            modalText:
+              "Parece que ha habido un problema cargando los partidos filtrados",
+            buttonText: "Volver",
+          })
+        );
+      }
+    },
+    [dispatch]
+  );
+
   return {
     loadAllGames,
     addOneGame,
     loadOneGame,
     deleteOneGame,
     updateOneGame,
+    loadFilteredGames,
   };
 };
 
