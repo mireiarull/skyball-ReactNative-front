@@ -77,7 +77,7 @@ describe("Given the useGames custom hook", () => {
         wrapper: ProviderWrapper,
       });
 
-      await loadAllGames(1);
+      await loadAllGames("", 1);
 
       expect(dispatchSpy).toHaveBeenCalled();
     });
@@ -300,3 +300,52 @@ describe("Given the useGames custom hook", () => {
     });
   });
 });
+
+// Describe("When its method loadFilteredGames is invoked and axios rejects", () => {
+//   test("Then dispatch should be called three times to show and hide loading and to show the modal", async () => {
+//     const {
+//       result: {
+//         current: { loadFilteredGames },
+//       },
+//     } = renderHook(() => useGames(), {
+//       wrapper: ProviderWrapper,
+//     });
+
+//     const filterDate = "2022-12-20";
+
+//     await loadFilteredGames(filterDate);
+
+//     expect(dispatchSpy).toHaveBeenCalledTimes(3);
+// );
+// expect(dispatchSpy).toHaveBeenNthCalledWith(
+//   2,
+//   hideLoadingActionCreator()
+// );
+// expect(dispatchSpy).toHaveBeenNthCalledWith(
+//   3,
+//   openModalActionCreator({
+//     isError: true,
+//     modalTitle: "Ha habido un error!",
+//     modalText:
+//       "Parece que ha habido un problema cargando los partidos filtrados",
+//     buttonText: "Volver",
+//   })
+// );
+//   });
+// });
+
+// Describe("When its method loadFilteredGames is invoked with a date filter", () => {
+//   test("Then dispatch should be called three times to show and hide loading and to load the received games", async () => {
+//     const {
+//       result: {
+//         current: { loadFilteredGames },
+//       },
+//     } = renderHook(() => useGames(), {
+//       wrapper: ProviderWrapper,
+//     });
+//     const filterDate = "2022-12-20";
+//     await loadFilteredGames(filterDate);
+
+//     expect(dispatchSpy).toBeCalledTimes(3);
+//   });
+// });
