@@ -31,14 +31,14 @@ const DateFilter = (): JSX.Element => {
     dispatch(addFilterActionCreator(filterDate!));
   };
 
-  const handleFilterClick = (date: string) => {
+  const handleFilterClick = (date: "today" | "tomorrow") => {
     let filterDate: string;
     setDatePicker(new Date());
 
     if (date === "today") {
       setFilter({ ...filter, today: true, tomorrow: false });
       filterDate = DateTime.now().toFormat("yyyy-MM-dd");
-    } else if (date === "tomorrow") {
+    } else {
       setFilter({ ...filter, tomorrow: true, today: false });
       filterDate = DateTime.now().plus({ days: 1 }).toFormat("yyyy-MM-dd");
     }

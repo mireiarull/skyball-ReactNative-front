@@ -100,23 +100,6 @@ describe("Given a GameCard component", () => {
     });
   });
 
-  describe("When it's rendered with one game without an image", () => {
-    test("Then it should show the game card with the default image", () => {
-      const game: GameStructure = {
-        ...getRandomGame,
-        level: 4,
-        gender: "X",
-        backupImage: "",
-      };
-      const defaultImageId = "defaultImage";
-      renderWithProviders(<GameCard game={game} />);
-
-      const expectedCardDefaultImage = screen.queryByTestId(defaultImageId);
-
-      expect(expectedCardDefaultImage).toBeDefined();
-    });
-  });
-
   describe("And a the user clicks on one game title", () => {
     test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", () => {
       const gameTitleLinkId = "linkToDetail";
