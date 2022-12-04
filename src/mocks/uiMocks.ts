@@ -15,6 +15,11 @@ export const mockInitialUiState: UiState = {
   buttonText: "Continue",
   isLoading: true,
   modalTitle: "",
+  filter: "",
+  pagination: {
+    currentPage: 0,
+    totalPages: 0,
+  },
 };
 
 export const emptyMocalMock: UiState = {
@@ -24,6 +29,11 @@ export const emptyMocalMock: UiState = {
   buttonText: "",
   isLoading: false,
   modalTitle: "",
+  filter: "",
+  pagination: {
+    currentPage: 0,
+    totalPages: 0,
+  },
 };
 
 export const mockInitialUserState: UserState = {
