@@ -7,6 +7,8 @@ import { useAppDispatch } from "../../redux/hooks";
 import inputStyles from "../../styles/inputStyles";
 import { Checkbox } from "../Checkbox/Checkbox";
 import createFormStyles from "../CreateForm/CreateFormStyles";
+import colorStyles from "../../styles/colorStyles";
+import dateFilterStyles from "./DateFilterStyles";
 
 const DateFilter = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -24,7 +26,7 @@ const DateFilter = (): JSX.Element => {
     setDatePicker(selectedDate ?? datePicker);
 
     const filterDate = selectedDate?.toISOString().slice(0, 10);
-    setFilter({ ...filter, other: true });
+    setFilter({ ...filter, today: false, tomorrow: false });
 
     dispatch(addFilterActionCreator(filterDate!));
   };
@@ -49,10 +51,10 @@ const DateFilter = (): JSX.Element => {
   };
 
   return (
-    <>
+    <View style={dateFilterStyles.container}>
       <Text style={inputStyles.label}>¿Cuándo quieres jugar?</Text>
       <TouchableOpacity onPress={handleRemoveFilterClick}>
-        <Text>Eliminar filtros</Text>
+        <Text style={dateFilterStyles.text}>Eliminar filtros</Text>
       </TouchableOpacity>
       <View style={createFormStyles.materialCheckboxContainer}>
         <Checkbox
@@ -80,9 +82,11 @@ const DateFilter = (): JSX.Element => {
           onChange={onChangeDateTime}
           minimumDate={new Date()}
           locale="es-ES"
+          accentColor={colorStyles.main}
+          style={dateFilterStyles.dateTimePicker}
         />
       </View>
-    </>
+    </View>
   );
 };
 

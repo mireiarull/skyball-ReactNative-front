@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     marginTop: -30,
-    marginBottom: 200,
+    marginBottom: 325,
   },
 });
 
