@@ -8,3 +8,7 @@ export interface LoadGamesResponse {
     games: GameStructure[];
   };
 }
+
+export interface LoadFilteredGamesResponse {
+  filteredGames: GameStructure[];
+}

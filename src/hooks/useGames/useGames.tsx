@@ -35,14 +35,14 @@ const useGames = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const loadAllGames = useCallback(
-    async (page = 0) => {
+    async (date?: string, page = 0) => {
       try {
         dispatch(showLoadingActionCreator());
         const limit = 5;
         const response = await axios.get<LoadGamesResponse>(
           `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`,
           {
-            params: { page, limit },
+            params: { page, limit, date },
           }
         );
 
@@ -63,9 +63,10 @@ const useGames = () => {
 
         dispatch(
           openModalActionCreator({
-            isError: true,
-            modalTitle: "Ha habido un error!",
-            modalText: "Parece que ha habido un problema cargando los partidos",
+            isError: false,
+            modalTitle: "Ups!",
+            modalText:
+              "Lo sentimos, ningún partido coincide con tus preferencias",
             buttonText: "Volver",
           })
         );
@@ -73,41 +74,6 @@ const useGames = () => {
     },
     [dispatch]
   );
-
-  // Const loadMoreGames = useCallback(
-  //   async (page = 0) => {
-  //     try {
-  //       dispatch(showLoadingActionCreator());
-  //       const limit = 5;
-  //       const response = await axios.get<LoadGamesResponse>(
-  //         `${REACT_APP_API_SKYBALL}${gamesRoutes.gamesRoute}${gamesRoutes.getAllGames}`,
-  //         {
-  //           params: { page, limit },
-  //         }
-  //       );
-
-  //       const { totalPages } = response.data.games;
-  //       const currentPage = page;
-  //       const gamesList = response.data.games.games;
-
-  //       dispatch(hideLoadingActionCreator());
-  //       dispatch(loadMoreGamesActionCreator(gamesList));
-  //       dispatch(loadPagesActionCreator({ totalPages, currentPage }));
-  //     } catch {
-  //       dispatch(hideLoadingActionCreator());
-
-  //       dispatch(
-  //         openModalActionCreator({
-  //           isError: true,
-  //           modalTitle: "Ha habido un error!",
-  //           modalText: "Parece que ha habido un problema cargando los partidos",
-  //           buttonText: "Volver",
-  //         })
-  //       );
-  //     }
-  //   },
-  //   [dispatch]
-  // );
 
   const addOneGame = async (gameFormData: GameFormData) => {
     dispatch(showLoadingActionCreator());

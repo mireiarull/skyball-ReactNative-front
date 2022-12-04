@@ -4,7 +4,6 @@ import { DateTime } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
-import beachImage from "../../../assets/images/barceloneta.jpg";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
 import { useAppSelector } from "../../redux/hooks";
@@ -37,20 +36,12 @@ const GameCard = ({
       activeOpacity={1}
     >
       <View style={gameCardStyles.container} testID="gameCard">
-        {backupImage ? (
-          <Image
-            source={{ uri: backupImage }}
-            style={gameCardStyles.image}
-            resizeMode="cover"
-          ></Image>
-        ) : (
-          <Image
-            testID="defaultImage"
-            source={beachImage}
-            style={gameCardStyles.image}
-            resizeMode="cover"
-          ></Image>
-        )}
+        <Image
+          source={{ uri: backupImage }}
+          style={gameCardStyles.image}
+          resizeMode="cover"
+        ></Image>
+
         <View style={gameCardStyles.dateTimeContainer}>
           <Text style={gameCardStyles.dateTime}>
             {DateTime.fromISO(dateTime).toFormat("dd/MM h:mm")}
