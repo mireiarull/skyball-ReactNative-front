@@ -25,6 +25,8 @@ export interface GameStructure {
   backupImage?: string;
   id?: string;
   owner?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface GamesState {
