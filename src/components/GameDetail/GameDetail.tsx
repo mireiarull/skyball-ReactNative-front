@@ -14,6 +14,8 @@ import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import buttonStyles from "../../styles/buttonStyles";
 import userDefaultImage from "../../../assets/images/marta.jpg";
 import RoutesEnum from "../../navigation/routes";
+import MapView from "react-native-maps";
+import Map from "../Map/Map";
 
 const GameDetail = () => {
   const {
@@ -169,6 +171,7 @@ const GameDetail = () => {
           </View>
         </View>
       </View>
+      <Map />
     </ScrollView>
   );
 };

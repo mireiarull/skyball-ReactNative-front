@@ -18,7 +18,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mireiarull.skyball",
+      "config": {
+        "googleMapsApiKey": "GOOGLE_MAPS_API"
+      }
     },
     "android": {
       "adaptiveIcon": {
