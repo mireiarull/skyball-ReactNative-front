@@ -14,7 +14,6 @@ import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import buttonStyles from "../../styles/buttonStyles";
 import userDefaultImage from "../../../assets/images/marta.jpg";
 import RoutesEnum from "../../navigation/routes";
-import MapView from "react-native-maps";
 import Map from "../Map/Map";
 
 const GameDetail = () => {
@@ -170,8 +169,16 @@ const GameDetail = () => {
             )}
           </View>
         </View>
+        <View style={GameDetailStyles.mapContainer}>
+          <Text style={GameDetailStyles.informationTitle}>Ubicación</Text>
+          <Map
+            // Longitude={Number(coordinates[0])}
+            // latitude={Number(coordinates[1])}
+            latitude={41.393019}
+            longitude={2.205894}
+          />
+        </View>
       </View>
-      <Map />
     </ScrollView>
   );
 };

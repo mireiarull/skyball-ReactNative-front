@@ -93,7 +93,6 @@ const GameDetailStyles = StyleSheet.create({
   userInformationContainer: {
     marginLeft: 25,
     marginRight: 25,
-    marginBottom: 100,
   },
   userInformation: {
     display: "flex",
@@ -128,11 +127,8 @@ const GameDetailStyles = StyleSheet.create({
     fontSize: 18,
   },
   mapContainer: {
-    flex: 1,
-  },
-  map: {
-    width: "100%",
-    height: "100%",
+    marginTop: 30,
+    marginBottom: 10,
   },
 });
 

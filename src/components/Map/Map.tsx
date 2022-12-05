@@ -1,33 +1,36 @@
 import React from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { mapStyle, styles } from "./MapStyles";
 
-const Map = (): JSX.Element => (
+interface MapProps {
+  longitude: number;
+  latitude: number;
+}
+
+const Map = ({ longitude, latitude }: MapProps): JSX.Element => (
   <View style={styles.container}>
     <MapView
       provider={PROVIDER_GOOGLE}
       style={styles.map}
+      customMapStyle={mapStyle}
       region={{
-        latitude: 41.393019,
-        longitude: 2.205894,
+        latitude,
+        longitude,
         latitudeDelta: 0.015,
         longitudeDelta: 0.0121,
       }}
-    ></MapView>
+    >
+      <Marker
+        accessibilityRole="button"
+        coordinate={{
+          latitude,
+          longitude,
+        }}
+        pinColor="blue"
+      ></Marker>
+    </MapView>
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    height: 400,
-    width: "100%",
-    marginBottom: 120,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-});
 
 export default Map;
