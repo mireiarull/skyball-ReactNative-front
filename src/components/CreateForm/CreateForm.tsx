@@ -68,6 +68,9 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
 
   const [formData, setFormData] = useState(initialFormData);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [imageSelected, setImageSelected] = useState("");
+  const [imageType, setImageType] = useState("");
+  const [imageName, setImageName] = useState("");
 
   useEffect(() => {
     setButtonDisabled(
@@ -75,7 +78,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
         formData.format < 0 ||
         formData.gender.length < 1 ||
         formData.level < 0 ||
-        formData.spots < 0
+        formData.spots < 0 ||
+        imageSelected.length < 0
     );
   }, [
     formData.beachName,
@@ -83,6 +87,7 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     formData.gender,
     formData.level,
     formData.spots,
+    formData.image.name,
   ]);
 
   const handleSubmit = async () => {
@@ -126,10 +131,6 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       [item]: !formData[item],
     });
   };
-
-  const [imageSelected, setImageSelected] = useState("");
-  const [imageType, setImageType] = useState("");
-  const [imageName, setImageName] = useState("");
 
   const handleFormChange = (text: string, identify: string) => {
     setFormData({

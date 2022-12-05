@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
@@ -43,6 +42,7 @@ beforeEach(() => {
 });
 
 jest.mock("@react-native-community/datetimepicker", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mockComponent = require("react-native/jest/mockComponent");
   return mockComponent("@react-native-community/datetimepicker");
 });
@@ -183,7 +183,7 @@ describe("Given a CreateForm component", () => {
   describe("And the user clicks on the load image icon and the image doesn't have an extension", () => {
     test("Then it should set the image form state", async () => {
       mockedImagePicker.launchImageLibraryAsync.mockResolvedValueOnce({
-        anceled: false,
+        canceled: false,
         assets: [{ uri: "abc" }],
         type: "image",
       });
