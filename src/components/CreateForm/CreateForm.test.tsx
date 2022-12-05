@@ -47,6 +47,19 @@ jest.mock("@react-native-community/datetimepicker", () => {
   return mockComponent("@react-native-community/datetimepicker");
 });
 
+jest.mock("react-native-maps", () => {
+  const { View } = require("react-native");
+  const MockMapView = (props: any) => <View>{props.children}</View>;
+
+  const MockMarker = (props: any) => <View>{props.children}</View>;
+
+  return {
+    __esModule: true,
+    default: MockMapView,
+    Marker: MockMarker,
+  };
+});
+
 describe("Given a CreateForm component", () => {
   const checkboxIds = [
     "checkboxFemale",

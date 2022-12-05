@@ -33,6 +33,7 @@ const GameDetail = () => {
     ],
     spots,
     owner,
+    location: { coordinates },
   } = useAppSelector(({ games }) => games.currentGame);
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { email } = useAppSelector(({ user }) => user);
@@ -171,12 +172,9 @@ const GameDetail = () => {
         </View>
         <View style={GameDetailStyles.mapContainer}>
           <Text style={GameDetailStyles.informationTitle}>Ubicación</Text>
-          <Map
-            // Longitude={Number(coordinates[0])}
-            // latitude={Number(coordinates[1])}
-            latitude={41.393019}
-            longitude={2.205894}
-          />
+          {coordinates && (
+            <Map latitude={coordinates[1]} longitude={coordinates[0]} />
+          )}
         </View>
       </View>
     </ScrollView>
