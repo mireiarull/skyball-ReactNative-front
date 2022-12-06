@@ -25,6 +25,7 @@ export interface GameStructure {
   backupImage?: string;
   id?: string;
   owner?: string;
+  ownerName?: string;
 }
 
 export interface GamesState {
