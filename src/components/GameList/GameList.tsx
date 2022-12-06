@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, FlatList, TouchableOpacity, Text } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import useGames from "../../hooks/useGames/useGames";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import { useAppSelector } from "../../redux/hooks";
 import GameCard from "../GameCard/GameCard";
@@ -16,6 +17,8 @@ const GameList = ({ games }: GamesListProps) => {
   const { currentPage, totalPages } = useAppSelector(
     (state) => state.ui.pagination
   );
+  const { loadOneGame } = useGames();
+
   const [showMap, setShowMap] = useState(false);
 
   return (
@@ -54,6 +57,7 @@ const GameList = ({ games }: GamesListProps) => {
                 }}
                 description={game.beachName}
                 pinColor="blue"
+                onPress={async () => loadOneGame(game.id!)}
               ></Marker>
             ))}
           </MapView>
