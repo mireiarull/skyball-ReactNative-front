@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import colorStyles from "../../styles/colorStyles";
 
 const LoadingStyles = StyleSheet.create({
   activityIndicatorWrapper: {
@@ -9,8 +8,7 @@ const LoadingStyles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colorStyles.white,
-    opacity: 0.5,
+    backgroundColor: "#ffffff7f",
   },
   gif: {
     height: 150,
