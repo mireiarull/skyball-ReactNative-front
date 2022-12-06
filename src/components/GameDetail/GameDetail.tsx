@@ -14,6 +14,7 @@ import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 import buttonStyles from "../../styles/buttonStyles";
 import userDefaultImage from "../../../assets/images/marta.jpg";
 import RoutesEnum from "../../navigation/routes";
+import Map from "../Map/Map";
 
 const GameDetail = () => {
   const {
@@ -32,6 +33,7 @@ const GameDetail = () => {
     ],
     spots,
     owner,
+    location: { coordinates },
   } = useAppSelector(({ games }) => games.currentGame);
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { email } = useAppSelector(({ user }) => user);
@@ -167,6 +169,12 @@ const GameDetail = () => {
               </View>
             )}
           </View>
+        </View>
+        <View style={GameDetailStyles.mapContainer}>
+          <Text style={GameDetailStyles.informationTitle}>Ubicación</Text>
+          {coordinates && (
+            <Map latitude={coordinates[1]} longitude={coordinates[0]} />
+          )}
         </View>
       </View>
     </ScrollView>

@@ -12,6 +12,14 @@ const createFormStyles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  mapContainer: {
+    height: 350,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
 });
 
 export default createFormStyles;

@@ -20,6 +20,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import useGames from "../../hooks/useGames/useGames";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  type MapPressEvent,
+} from "react-native-maps";
+import { mapStyle } from "../Map/MapStyles";
 
 interface CreateFormProps {
   currentGame?: GameStructure;
@@ -48,6 +54,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     ball: false,
     net: false,
     rods: false,
+    latitude: 0,
+    longitude: 0,
   };
 
   if (currentGame) {
@@ -63,6 +71,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       ball: currentGame.players[0].material.ball,
       net: currentGame.players[0].material.net,
       rods: currentGame.players[0].material.rods,
+      latitude: currentGame.location.coordinates[1],
+      longitude: currentGame.location.coordinates[0],
     };
   }
 
@@ -102,6 +112,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     newGame.append("net", formData.net.toString());
     newGame.append("ball", formData.ball.toString());
     newGame.append("rods", formData.rods.toString());
+    newGame.append("latitude", formData.latitude.toString());
+    newGame.append("longitude", formData.longitude.toString());
     newGame.append("image", {
       type: imageType,
       uri: imageSelected,
@@ -155,6 +167,17 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       const type = match ? `image/${match[1]}` : `image`;
       setImageType(type);
     }
+  };
+
+  const [marker, setMarker] = useState<unknown>("");
+
+  const getLocation = (event: MapPressEvent) => {
+    setMarker(event.nativeEvent.coordinate);
+    setFormData({
+      ...formData,
+      longitude: event.nativeEvent.coordinate.longitude,
+      latitude: event.nativeEvent.coordinate.latitude,
+    });
   };
 
   return (
@@ -412,6 +435,31 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
                   ""
                 )}
               </View>
+            </View>
+            <Text style={inputStyles.label}>
+              Indica la ubicación sobre el mapa
+            </Text>
+            <View style={createFormStyles.mapContainer}>
+              <MapView
+                testID="map"
+                provider={PROVIDER_GOOGLE}
+                style={createFormStyles.map}
+                pinColor="blue"
+                region={{
+                  latitude: 41.393019,
+                  longitude: 2.205894,
+                  latitudeDelta: 0.015,
+                  longitudeDelta: 0.0121,
+                }}
+                customMapStyle={mapStyle}
+                onPress={(event: MapPressEvent) => {
+                  getLocation(event);
+                }}
+              >
+                {marker && (
+                  <Marker coordinate={marker} pinColor="blue" testID="marker" />
+                )}
+              </MapView>
             </View>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
