@@ -103,5 +103,16 @@ describe("Given a WelcomeScreen page", () => {
         expect(mockedNavigate).toHaveBeenCalledWith(RoutesEnum.home);
       });
     });
+
+    test("Then it should match the snapshot", () => {
+      const screen = render(
+        <Provider store={store}>
+          <NavigationContainer>
+            <WelcomeScreen />
+          </NavigationContainer>
+        </Provider>
+      );
+      expect(screen).toMatchSnapshot();
+    });
   });
 });

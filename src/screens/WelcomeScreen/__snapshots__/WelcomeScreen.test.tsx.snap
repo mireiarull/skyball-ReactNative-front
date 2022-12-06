@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given a WelcomeScreen page When it's rendered Then it should match the snapshot 1`] = `
+Array [
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "height": 1334,
+        "justifyContent": "center",
+        "width": 750,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={1}
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": 1334,
+            "width": 750,
+          },
+          undefined,
+        ]
+      }
+      testID="backgroundImage"
+    />
+  </View>,
+  <RCTSafeAreaView>
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "height": 1334,
+          "justifyContent": "flex-end",
+          "padding": 25,
+          "paddingBottom": 100,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "display": "flex",
+            "flex": 1,
+            "justifyContent": "center",
+            "paddingBottom": 410,
+          }
+        }
+      >
+        <Image
+          source={1}
+        />
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#5265ff",
+            "borderRadius": 90,
+            "height": 50,
+            "justifyContent": "center",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "opacity": 1,
+            "padding": 10,
+            "width": "100%",
+          }
+        }
+        testID="submitButton"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#fff",
+              "fontSize": 20,
+              "fontWeight": "600",
+            }
+          }
+        >
+          Registrarme
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#5265ff",
+            "borderRadius": 90,
+            "height": 50,
+            "justifyContent": "center",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "opacity": 1,
+            "padding": 10,
+            "width": "100%",
+          }
+        }
+        testID="submitButton"
+      >
+        <Text
+          style={
+            Object {
+              "color": "#fff",
+              "fontSize": 20,
+              "fontWeight": "600",
+            }
+          }
+        >
+          Iniciar sesión
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#fff",
+              "fontSize": 20,
+              "fontWeight": "600",
+              "textAlign": "center",
+            }
+          }
+        >
+          Continuar como invitado
+        </Text>
+      </View>
+    </View>
+  </RCTSafeAreaView>,
+]
+`;
