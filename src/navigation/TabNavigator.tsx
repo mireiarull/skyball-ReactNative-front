@@ -21,6 +21,8 @@ import useToken from "../hooks/useToken/useToken";
 import { useNavigation } from "@react-navigation/native";
 import { type LoginScreenNavigationProp } from "../types/navigation.types";
 import { logoutUserActionCreator } from "../redux/features/userSlice/userSlice";
+import { resetUiActionCreator } from "../redux/features/uiSlice/uiSlice";
+import { resetGamesActionCreator } from "../redux/features/gamesSlice/gamesSlice";
 
 const TabNavigator = (): JSX.Element => {
   const Tab = createBottomTabNavigator();
@@ -32,6 +34,8 @@ const TabNavigator = (): JSX.Element => {
   const handleLogout = () => {
     removeToken();
     dispatch(logoutUserActionCreator());
+    dispatch(resetUiActionCreator());
+    dispatch(resetGamesActionCreator());
     navigation.navigate(RoutesEnum.welcome);
   };
 

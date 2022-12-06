@@ -20,6 +20,7 @@ module.exports = {
         ],
         "@typescript-eslint/indent": "off",
         "@typescript-eslint/no-empty-function": "off",
+        "react-native/no-color-literals": ["off"],
         "no-unused-vars": [
           "error",
           {
