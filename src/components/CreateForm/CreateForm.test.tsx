@@ -50,6 +50,7 @@ jest.mock("@react-native-community/datetimepicker", () => {
 });
 
 jest.mock("react-native-maps", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mockComponent = require("react-native/jest/mockComponent");
   return mockComponent("react-native-maps");
 });

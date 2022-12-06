@@ -17,7 +17,6 @@ const createFormStyles = StyleSheet.create({
   },
   mapContainer: {
     height: 350,
-    marginBottom: 120,
     justifyContent: "flex-end",
     alignItems: "center",
   },
