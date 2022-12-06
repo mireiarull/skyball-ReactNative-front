@@ -3,7 +3,7 @@ import colorStyles from "../../styles/colorStyles";
 
 const dateFilterStyles = StyleSheet.create({
   container: {
-    marginTop: -25,
+    marginTop: -30,
     marginBottom: 20,
   },
   dateTimePicker: {
@@ -14,6 +14,7 @@ const dateFilterStyles = StyleSheet.create({
     color: colorStyles.main,
     fontSize: 18,
     textAlign: "right",
+    marginTop: -10,
   },
 });
 
