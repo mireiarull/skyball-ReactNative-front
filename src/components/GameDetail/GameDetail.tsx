@@ -33,10 +33,11 @@ const GameDetail = () => {
     ],
     spots,
     owner,
+    ownerName,
     location: { coordinates },
   } = useAppSelector(({ games }) => games.currentGame);
   const navigation = useNavigation<LoginScreenNavigationProp>();
-  const { email } = useAppSelector(({ user }) => user);
+  // Const { email } = useAppSelector(({ user }) => user);
   const { id } = useAppSelector(({ user }) => user);
 
   return (
@@ -142,7 +143,7 @@ const GameDetail = () => {
             style={GameDetailStyles.userImage}
           ></Image>
           <View>
-            <Text style={GameDetailStyles.informationText}>{email}</Text>
+            <Text style={GameDetailStyles.informationText}>{ownerName}</Text>
             <Text style={GameDetailStyles.informationText}>Organizador/a</Text>
           </View>
         </View>

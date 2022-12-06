@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { DateTime } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 import { type GameStructure } from "../../redux/features/gamesSlice/types";
 import gameCardStyles from "./GameCardStyles";
 import useGames from "../../hooks/useGames/useGames";
@@ -56,7 +56,7 @@ const GameCard = ({
             testID="deleteButton"
           >
             <FontAwesomeIcon
-              icon={faTrash}
+              icon={faSquareXmark}
               size={35}
               style={gameCardStyles.deleteIcon}
             ></FontAwesomeIcon>

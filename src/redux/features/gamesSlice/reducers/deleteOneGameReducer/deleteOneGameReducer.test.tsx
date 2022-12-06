@@ -15,7 +15,7 @@ describe("Given a deleteOneGamesReducer", () => {
       const actionPayload = gamesList[0].id;
 
       const expectedGameState: GamesState = {
-        games: [gamesList[1], gamesList[2]],
+        games: gamesList.filter((game) => game.id !== gamesList[0].id),
         currentGame: emptyCurrentGameState,
       };
 

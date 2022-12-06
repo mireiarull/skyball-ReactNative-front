@@ -67,6 +67,10 @@ const gameCardStyles = StyleSheet.create({
     position: "absolute",
     right: 215,
     bottom: 10,
+    height: 35,
+    width: 35,
+    backgroundColor: colorStyles.white,
+    borderRadius: 5,
   },
   deleteIcon: {
     color: colorStyles.main,
