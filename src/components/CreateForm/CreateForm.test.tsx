@@ -13,8 +13,6 @@ import {
 } from "../../mocks/uiMocks";
 import { getRandomGame } from "../../factories/gamesFactory";
 import { type ImagePickerResult } from "expo-image-picker";
-import { TouchableOpacity } from "react-native";
-import { type MapPressEvent } from "react-native-maps";
 
 const mockCreateGame = jest.fn();
 const mockLoadAllGames = jest.fn();

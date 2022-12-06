@@ -100,8 +100,8 @@ describe("Given a GameCard component", () => {
     });
   });
 
-  describe("And a the user clicks on one game title", () => {
-    test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id ", () => {
+  describe("And a the user clicks on one game", () => {
+    test("Then the useNavigation should be called with the detail page reference and loadOneGame should be called with the game id", () => {
       const gameTitleLinkId = "linkToDetail";
       const game: GameStructure = {
         ...getRandomGame,

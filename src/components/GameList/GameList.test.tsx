@@ -5,6 +5,22 @@ import { getRandomGameList } from "../../factories/gamesFactory";
 import GameList from "./GameList";
 import { renderWithProviders } from "../../test-utils/renderWithProviders";
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+const mockLoadOneGames = jest.fn();
+
+jest.mock("../../hooks/useGames/useGames", () => () => ({
+  loadOneGame: mockLoadOneGames,
+}));
+
+jest.mock("react-native-maps", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+  const mockComponent = require("react-native/jest/mockComponent");
+  return mockComponent("react-native-maps");
+});
+
 describe("Given a GamesList component", () => {
   const games = getRandomGameList(3);
 
@@ -32,5 +48,22 @@ describe("Given a GamesList component", () => {
 
     expect(expectedOpenButton).toBeDefined();
     expect(expectedClosedButton).toBeDefined();
+  });
+
+  describe("When the user clicks on the game marker", () => {
+    test("Then it should call loadOneGame with the game id", () => {
+      const mapOpenButtonText = "Ver mapa";
+
+      renderWithProviders(<GameList games={games} />);
+
+      const expectedOpenButton = screen.queryByText(mapOpenButtonText);
+      fireEvent.press(expectedOpenButton);
+
+      const marker = screen.getAllByTestId("marker");
+
+      fireEvent.press(marker[0]);
+
+      expect(mockLoadOneGames).toHaveBeenCalled();
+    });
   });
 });

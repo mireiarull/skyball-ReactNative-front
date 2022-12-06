@@ -49,6 +49,7 @@ const GameList = ({ games }: GamesListProps) => {
           >
             {games.map((game) => (
               <Marker
+                testID="marker"
                 key={game.id}
                 accessibilityRole="button"
                 coordinate={{
