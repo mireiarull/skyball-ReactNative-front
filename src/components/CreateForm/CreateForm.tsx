@@ -54,8 +54,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     ball: false,
     net: false,
     rods: false,
-    // Latitude: 0,
-    // longitude: 0,
+    latitude: 0,
+    longitude: 0,
   };
 
   if (currentGame) {
@@ -71,8 +71,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
       ball: currentGame.players[0].material.ball,
       net: currentGame.players[0].material.net,
       rods: currentGame.players[0].material.rods,
-      // Latitude: currentGame.location.coordinates[1],
-      // longitude: currentGame.location.coordinates[0],
+      latitude: currentGame.location.coordinates[1],
+      longitude: currentGame.location.coordinates[0],
     };
   }
 
@@ -112,8 +112,8 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
     newGame.append("net", formData.net.toString());
     newGame.append("ball", formData.ball.toString());
     newGame.append("rods", formData.rods.toString());
-    // NewGame.append("latitude", formData.latitude.toString());
-    // newGame.append("longitude", formData.longitude.toString());
+    newGame.append("latitude", formData.latitude.toString());
+    newGame.append("longitude", formData.longitude.toString());
     newGame.append("image", {
       type: imageType,
       uri: imageSelected,
@@ -456,7 +456,9 @@ const CreateForm = ({ currentGame }: CreateFormProps): JSX.Element => {
                   getLocation(event);
                 }}
               >
-                {marker && <Marker tes coordinate={marker} />}
+                {marker && (
+                  <Marker coordinate={marker} pinColor="blue" testID="marker" />
+                )}
               </MapView>
             </View>
             <View style={styles.buttonContainer}>

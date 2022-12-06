@@ -13,6 +13,8 @@ import {
 } from "../../mocks/uiMocks";
 import { getRandomGame } from "../../factories/gamesFactory";
 import { type ImagePickerResult } from "expo-image-picker";
+import { TouchableOpacity } from "react-native";
+import { type MapPressEvent } from "react-native-maps";
 
 const mockCreateGame = jest.fn();
 const mockLoadAllGames = jest.fn();
@@ -48,16 +50,8 @@ jest.mock("@react-native-community/datetimepicker", () => {
 });
 
 jest.mock("react-native-maps", () => {
-  const { View } = require("react-native");
-  const MockMapView = (props: any) => <View>{props.children}</View>;
-
-  const MockMarker = (props: any) => <View>{props.children}</View>;
-
-  return {
-    __esModule: true,
-    default: MockMapView,
-    Marker: MockMarker,
-  };
+  const mockComponent = require("react-native/jest/mockComponent");
+  return mockComponent("react-native-maps");
 });
 
 describe("Given a CreateForm component", () => {
@@ -241,6 +235,27 @@ describe("Given a CreateForm component", () => {
         timestamp: "01/01/1976",
       });
       expect(datePickerButton.props.value).toEqual({ timestamp: "01/01/1976" });
+    });
+  });
+
+  describe("And the user clicks on the map to set a location", () => {
+    test("Then it should set the longitude and latitude from the form state", () => {
+      renderWithProviders(<CreateForm />);
+
+      const map = screen.getByTestId("map");
+
+      fireEvent(map, "onPress", {
+        nativeEvent: {
+          coordinate: {
+            latitude: 41.39276232121168,
+            longitude: 2.203637547791004,
+          },
+        },
+      });
+
+      const marker = screen.getByTestId("marker");
+
+      expect(marker).toBeDefined();
     });
   });
 });
