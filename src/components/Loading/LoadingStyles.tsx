@@ -16,7 +16,6 @@ const LoadingStyles = StyleSheet.create({
     height: 150,
     width: 150,
     zIndex: 1110,
-    opacity: 1,
   },
   loadingContainer: {
     zIndex: 1100,

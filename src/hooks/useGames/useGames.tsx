@@ -176,6 +176,7 @@ const useGames = () => {
       );
 
       dispatch(loadOneGameActionCreator(updatedGame.data));
+      dispatch(hideLoadingActionCreator());
       navigation.navigate(RoutesEnum.gameDetail);
     } catch {
       dispatch(hideLoadingActionCreator());
