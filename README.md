@@ -19,6 +19,8 @@ This is my final project for the ISDI Coders web development bootcamp 2022-09 BC
 With Skyball you can easily search for games happening in your area according to your level and preferences, join other games and even create your own games to invite others to join.
 Whether you're a seasoned pro or new to the game, this app makes it easy to get on the sand and have fun!
 
+Link the project's REST API: https://github.com/isdi-coders-2022/Mireia-Rull_Back-Final-Project-202209-BCN
+
 ## Technologies Used
 
 ### FRONTEND
@@ -55,7 +57,7 @@ Whether you're a seasoned pro or new to the game, this app makes it easy to get 
 
 ## Screenshots
 
-![Screenshots](./assets/screenshots/skyaball-screenshots.jpg?raw=true)
+![Screenshots](assets/screenshots/skyaball-screenshots.jpg?raw=true)
 
 ## Setup
 
