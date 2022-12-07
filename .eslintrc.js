@@ -18,6 +18,10 @@ module.exports = {
           "error",
           "interface",
         ],
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        // "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-require-imports": "off",
         "@typescript-eslint/indent": "off",
         "@typescript-eslint/no-empty-function": "off",
         "react-native/no-color-literals": ["off"],
@@ -48,7 +52,6 @@ module.exports = {
   ],
   rules: {
     "no-multi-spaces": ["error"],
-
     "no-multiple-empty-lines": ["error", { max: 1 }],
     "object-curly-spacing": ["error", "always"],
     "no-use-before-define": ["off"],

@@ -47,7 +47,7 @@ const gameCardStyles = StyleSheet.create({
     color: colorStyles.main,
     fontWeight: "600",
     position: "absolute",
-    marginLeft: 50,
+    marginLeft: 40,
     bottom: 12,
     textAlign: "right",
     width: 150,
@@ -65,8 +65,12 @@ const gameCardStyles = StyleSheet.create({
   },
   deleteIconButton: {
     position: "absolute",
-    right: 215,
+    right: 220,
     bottom: 10,
+    height: 35,
+    width: 35,
+    backgroundColor: colorStyles.white,
+    borderRadius: 5,
   },
   deleteIcon: {
     color: colorStyles.main,

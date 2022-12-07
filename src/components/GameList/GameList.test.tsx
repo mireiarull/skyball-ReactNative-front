@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { fireEvent, screen } from "@testing-library/react-native";
@@ -16,7 +17,6 @@ jest.mock("../../hooks/useGames/useGames", () => () => ({
 }));
 
 jest.mock("react-native-maps", () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
   const mockComponent = require("react-native/jest/mockComponent");
   return mockComponent("react-native-maps");
 });

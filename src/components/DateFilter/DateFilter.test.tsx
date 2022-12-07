@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import { fireEvent, screen } from "@testing-library/react-native";
 import React from "react";
 import { addFilterActionCreator } from "../../redux/features/uiSlice/uiSlice";
