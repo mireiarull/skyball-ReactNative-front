@@ -41,6 +41,7 @@ describe("Given a CustomModal component", () => {
         preloadedState: {
           ui: { ...mockInitialUiState, isError: true },
           user: mockInitialUserState,
+          games: mockInitialGamesState,
         },
       });
 

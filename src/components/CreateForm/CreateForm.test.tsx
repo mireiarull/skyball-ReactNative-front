@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -42,13 +41,11 @@ beforeEach(() => {
 });
 
 jest.mock("@react-native-community/datetimepicker", () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mockComponent = require("react-native/jest/mockComponent");
   return mockComponent("@react-native-community/datetimepicker");
 });
 
 jest.mock("react-native-maps", () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mockComponent = require("react-native/jest/mockComponent");
   return mockComponent("react-native-maps");
 });
