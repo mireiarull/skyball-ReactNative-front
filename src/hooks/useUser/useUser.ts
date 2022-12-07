@@ -39,7 +39,7 @@ const useUser = () => {
       dispatch(
         openModalActionCreator({
           isError: false,
-          modalText: "",
+          modalText: "Bienvenido a skyball",
           modalTitle: "Registrado!",
           buttonText: "Continuar",
         })

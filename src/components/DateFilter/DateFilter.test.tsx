@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { fireEvent, screen } from "@testing-library/react-native";
+import { DateTime } from "luxon";
 import React from "react";
 import { addFilterActionCreator } from "../../redux/features/uiSlice/uiSlice";
 import { store } from "../../redux/store";
@@ -42,6 +43,7 @@ describe("Given a date filter component", () => {
 
   describe("And the user clicks on the today button", () => {
     test("Then the dispatch should be called with addFilterActionCreator", () => {
+      mockedDate = DateTime.now().toFormat("yyyy-MM-dd");
       const todayButton = "HOY";
 
       renderWithProviders(<DateFilter />, { store });
@@ -50,12 +52,15 @@ describe("Given a date filter component", () => {
 
       fireEvent.press(expectedTodayButton);
 
-      expect(dispatchSpy).toHaveBeenCalled();
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        addFilterActionCreator(mockedDate)
+      );
     });
   });
 
   describe("And the user clicks on the tomorrow button", () => {
     test("Then the dispatch should be called with addFilterActionCreator", () => {
+      mockedDate = DateTime.now().plus({ days: 1 }).toFormat("yyyy-MM-dd");
       const tomorrowButton = "MAÑANA";
 
       renderWithProviders(<DateFilter />, { store });
@@ -64,22 +69,26 @@ describe("Given a date filter component", () => {
 
       fireEvent.press(expectedTomorrowButton);
 
-      expect(dispatchSpy).toHaveBeenCalled();
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        addFilterActionCreator(mockedDate)
+      );
     });
   });
 
   describe("And the user clicks on the date picker button", () => {
     test("Then it should update the date and call dispatch", () => {
-      const mockDate = new Date();
+      mockedDate = new Date();
       renderWithProviders(<DateFilter />, { store });
 
       const datePickerButton = screen.getByTestId("datePicker");
 
-      fireEvent(datePickerButton, "onChange", {
-        nativeEvent: { timestamp: mockDate },
-      });
+      fireEvent(datePickerButton, "onChange", {}, mockedDate);
 
-      expect(dispatchSpy).toHaveBeenCalled();
+      const filterDate = mockedDate?.toISOString().slice(0, 10);
+
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        addFilterActionCreator(filterDate)
+      );
     });
   });
 
