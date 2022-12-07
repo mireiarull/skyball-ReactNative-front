@@ -58,7 +58,7 @@ describe("Given the custom hook useUser", () => {
       const actionPayload = {
         isError: false,
         modalTitle: "Registrado!",
-        modalText: "",
+        modalText: "Bienvenido a skyball",
         buttonText: "Continuar",
       };
 
