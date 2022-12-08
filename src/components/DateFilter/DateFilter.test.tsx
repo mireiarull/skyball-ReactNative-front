@@ -76,7 +76,7 @@ describe("Given a date filter component", () => {
   });
 
   describe("And the user clicks on the date picker button", () => {
-    test("Then it should update the date and call dispatch", () => {
+    test("Then it should update the date and call dispatch", async () => {
       mockedDate = new Date();
       renderWithProviders(<DateFilter />, { store });
 
@@ -104,5 +104,18 @@ describe("Given a date filter component", () => {
 
       expect(dispatchSpy).toHaveBeenCalledWith(addFilterActionCreator(""));
     });
+  });
+
+  test("Then it should update the date and call dispatch", () => {
+    mockedDate = DateTime.now().toFormat("yyyy-MM-dd");
+    renderWithProviders(<DateFilter />, { store });
+
+    const datePickerButton = screen.getByTestId("datePicker");
+
+    fireEvent(datePickerButton, "onChange", {
+      NativeEvent: { selectedDate: mockedDate },
+    });
+
+    expect(dispatchSpy).toHaveBeenCalled();
   });
 });
