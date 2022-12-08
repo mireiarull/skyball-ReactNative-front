@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { fireEvent, screen, waitFor } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 import { DateTime } from "luxon";
 import React from "react";
 import { addFilterActionCreator } from "../../redux/features/uiSlice/uiSlice";
@@ -86,11 +86,9 @@ describe("Given a date filter component", () => {
 
       const filterDate = mockedDate?.toISOString().slice(0, 10);
 
-      await waitFor(() => {
-        expect(dispatchSpy).toHaveBeenCalledWith(
-          addFilterActionCreator(filterDate)
-        );
-      });
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        addFilterActionCreator(filterDate)
+      );
     });
   });
 
