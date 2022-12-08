@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { fireEvent, screen } from "@testing-library/react-native";
+import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 import { DateTime } from "luxon";
 import React from "react";
 import { addFilterActionCreator } from "../../redux/features/uiSlice/uiSlice";
@@ -76,7 +76,7 @@ describe("Given a date filter component", () => {
   });
 
   describe("And the user clicks on the date picker button", () => {
-    test("Then it should update the date and call dispatch", () => {
+    test("Then it should update the date and call dispatch", async () => {
       mockedDate = new Date();
       renderWithProviders(<DateFilter />, { store });
 
@@ -86,9 +86,11 @@ describe("Given a date filter component", () => {
 
       const filterDate = mockedDate?.toISOString().slice(0, 10);
 
-      expect(dispatchSpy).toHaveBeenCalledWith(
-        addFilterActionCreator(filterDate)
-      );
+      await waitFor(() => {
+        expect(dispatchSpy).toHaveBeenCalledWith(
+          addFilterActionCreator(filterDate)
+        );
+      });
     });
   });
 
@@ -104,5 +106,18 @@ describe("Given a date filter component", () => {
 
       expect(dispatchSpy).toHaveBeenCalledWith(addFilterActionCreator(""));
     });
+  });
+
+  test("Then it should update the date and call dispatch", () => {
+    mockedDate = DateTime.now().toFormat("yyyy-MM-dd");
+    renderWithProviders(<DateFilter />, { store });
+
+    const datePickerButton = screen.getByTestId("datePicker");
+
+    fireEvent(datePickerButton, "onChange", {
+      NativeEvent: { selectedDate: mockedDate },
+    });
+
+    expect(dispatchSpy).toHaveBeenCalled();
   });
 });
