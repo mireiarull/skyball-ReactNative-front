@@ -97,7 +97,6 @@ const DateFilter = (): JSX.Element => {
             onChange={onChangeDateTime}
             minimumDate={new Date()}
             display="default"
-            locale="es-ES"
           />
         )}
         {Platform.OS === "ios" && (
