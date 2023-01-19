@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, Platform } from "react-native";
 import { addFilterActionCreator } from "../../redux/features/uiSlice/uiSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import inputStyles from "../../styles/inputStyles";
@@ -21,8 +21,10 @@ const DateFilter = (): JSX.Element => {
 
   const [filter, setFilter] = useState(initialFilterState);
   const [datePicker, setDatePicker] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const onChangeDateTime = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(!showDatePicker);
     setDatePicker(selectedDate ?? datePicker);
 
     const filterDate = selectedDate?.toISOString().slice(0, 10);
@@ -76,16 +78,42 @@ const DateFilter = (): JSX.Element => {
             handleFilterClick("tomorrow");
           }}
         />
-        <DateTimePicker
-          testID="datePicker"
-          value={datePicker}
-          mode={"date"}
-          onChange={onChangeDateTime}
-          minimumDate={new Date()}
-          locale="es-ES"
-          accentColor={colorStyles.main}
-          style={dateFilterStyles.dateTimePicker}
-        />
+        {Platform.OS === "android" && (
+          <TouchableOpacity
+            style={dateFilterStyles.dateTimePicker}
+            onPress={() => {
+              setShowDatePicker(!showDatePicker);
+            }}
+          >
+            <Text>{datePicker.toISOString().slice(0, 10)}</Text>
+          </TouchableOpacity>
+        )}
+        {showDatePicker && (
+          <DateTimePicker
+            testID="datePicker"
+            value={datePicker}
+            mode={"date"}
+            onChange={onChangeDateTime}
+            minimumDate={new Date()}
+            display="default"
+            locale="es-ES"
+            accentColor={colorStyles.main}
+            style={dateFilterStyles.dateTimePicker}
+          />
+        )}
+        {Platform.OS === "ios" && (
+          <DateTimePicker
+            testID="datePicker"
+            value={datePicker}
+            mode={"date"}
+            onChange={onChangeDateTime}
+            minimumDate={new Date()}
+            display="default"
+            locale="es-ES"
+            accentColor={colorStyles.main}
+            style={dateFilterStyles.dateTimePicker}
+          />
+        )}
       </View>
     </View>
   );
