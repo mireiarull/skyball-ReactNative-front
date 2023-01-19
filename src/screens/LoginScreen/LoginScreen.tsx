@@ -3,7 +3,6 @@ import React from "react";
 import {
   View,
   SafeAreaView,
-  KeyboardAvoidingView,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
@@ -18,7 +17,7 @@ import { type LoginScreenNavigationProp } from "../../types/navigation.types";
 const LoginScreen = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
   return (
-    <KeyboardAvoidingView behavior="padding" enabled={true}>
+    <>
       <ImageBackground
         source={image}
         resizeMode="cover"
@@ -42,7 +41,7 @@ const LoginScreen = () => {
           <LoginForm />
         </View>
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    </>
   );
 };
 
