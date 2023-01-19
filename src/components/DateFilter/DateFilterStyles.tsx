@@ -8,7 +8,9 @@ const dateFilterStyles = StyleSheet.create({
   },
   dateTimePicker: {
     marginTop: 15,
+    width: 150,
     height: 43,
+    marginLeft: -30,
   },
   text: {
     color: colorStyles.main,

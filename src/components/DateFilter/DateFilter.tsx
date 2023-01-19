@@ -9,6 +9,7 @@ import { Checkbox } from "../Checkbox/Checkbox";
 import createFormStyles from "../CreateForm/CreateFormStyles";
 import colorStyles from "../../styles/colorStyles";
 import dateFilterStyles from "./DateFilterStyles";
+import checkboxStyles from "../Checkbox/CheckboxStyled";
 
 const DateFilter = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -80,15 +81,15 @@ const DateFilter = (): JSX.Element => {
         />
         {Platform.OS === "android" && (
           <TouchableOpacity
-            style={dateFilterStyles.dateTimePicker}
+            style={checkboxStyles.button}
             onPress={() => {
               setShowDatePicker(!showDatePicker);
             }}
           >
-            <Text>{datePicker.toISOString().slice(0, 10)}</Text>
+            <Text style={checkboxStyles.text}>OTRO DIA</Text>
           </TouchableOpacity>
         )}
-        {showDatePicker && (
+        {showDatePicker && Platform.OS === "android" && (
           <DateTimePicker
             testID="datePicker"
             value={datePicker}
@@ -97,8 +98,6 @@ const DateFilter = (): JSX.Element => {
             minimumDate={new Date()}
             display="default"
             locale="es-ES"
-            accentColor={colorStyles.main}
-            style={dateFilterStyles.dateTimePicker}
           />
         )}
         {Platform.OS === "ios" && (
